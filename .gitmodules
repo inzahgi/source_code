@@ -1,3 +1,6 @@
 [submodule "ngrok"]
 	path = ngrok
 	url = https://github.com/inconshreveable/ngrok
+[submodule "mitmproxy"]
+	path = mitmproxy
+	url = https://github.com/mitmproxy/mitmproxy.git
