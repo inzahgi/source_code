@@ -4,3 +4,6 @@
 [submodule "mitmproxy"]
 	path = mitmproxy
 	url = https://github.com/mitmproxy/mitmproxy.git
+[submodule "hyperloglog"]
+	path = hyperloglog
+	url = https://github.com/prasanthj/hyperloglog.git
