@@ -23,7 +23,7 @@ import java.util.stream.Collectors;
 
 /**
  * Cache Channel, the J2Cache methods explored to developers
- *
+ * 对外接口
  * @author Winter Lau(javayou@gmail.com)
  */
 public abstract class CacheChannel implements Closeable , AutoCloseable {
@@ -45,7 +45,7 @@ public abstract class CacheChannel implements Closeable , AutoCloseable {
 	 * <p>Just for Inner Use.</p>
 	 *
 	 * <p>To clear the whole region when received this event .</p>
-	 *
+	 * 清空分区内的所有缓存
 	 * @param region Cache region name
 	 */
 	protected abstract void sendClearCmd(String region);
@@ -54,7 +54,7 @@ public abstract class CacheChannel implements Closeable , AutoCloseable {
 	 * <p>Just for Inner Use.</p>
 	 *
 	 * <p>To remove cached data when received this event .</p>
-	 *
+	 *  删除指定分区中的key
 	 * @param region Cache region name
 	 * @param keys	Cache data key
 	 */
@@ -68,7 +68,7 @@ public abstract class CacheChannel implements Closeable , AutoCloseable {
 	 * @return cache object
 	 */
 	public CacheObject get(String region, String key, boolean...cacheNullObject)  {
-
+		//生成缓存的封装参数类
 		CacheObject obj = new CacheObject(region, key, CacheObject.LEVEL_1);
 		obj.setValue(CacheProviderHolder.getLevel1Cache(region).get(key));
 		if(obj.rawValue() != null)

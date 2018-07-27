@@ -17,6 +17,7 @@ package net.oschina.j2cache;
 
 /**
  * Cached object description
+ * 封装缓存的参数
  * @author Winter Lau(javayou@gmail.com)
  */
 public class CacheObject {
