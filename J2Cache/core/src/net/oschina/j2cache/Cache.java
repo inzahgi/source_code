@@ -20,14 +20,14 @@ import java.util.Map;
 
 /**
  * Cache Data Operation Interface
+ * 缓存操作的公共接口
  *
- * @author Winter Lau(javayou@gmail.com)
  */
 public interface Cache {
 
 	/**
 	 * Get an item from the cache, nontransactionally
-	 * 
+	 * 按单个key获取缓存
 	 * @param key cache key
 	 * @return the cached object or null
 	 */
@@ -52,7 +52,7 @@ public interface Cache {
 	/**
 	 * Add an item to the cache, nontransactionally, with
 	 * failfast semantics
-	 *
+	 * 按key-value保存缓存
 	 * @param key cache key
 	 * @param value cache value
 	 */
@@ -73,13 +73,14 @@ public interface Cache {
 	
 	/**
 	 * Remove items from the cache
-	 *
+	 * 移除指定key缓存
 	 * @param keys Cache key
 	 */
 	void evict(String...keys);
 
 	/**
 	 * Clear the cache
+	 * 批量清空缓存
 	 */
 	void clear();
 
