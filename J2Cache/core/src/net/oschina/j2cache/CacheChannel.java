@@ -28,9 +28,12 @@ import java.util.stream.Collectors;
 public abstract class CacheChannel implements Closeable , AutoCloseable {
 
 	private static final Map<String, Object> _g_keyLocks = new ConcurrentHashMap<>();
+	//缓存配置参数类
 	private J2CacheConfig config;
+	//缓存为空标志位
     private boolean defaultCacheNullObject ;
 
+    // 初始化配置参数
 	public CacheChannel(J2CacheConfig config) {
 		this.config = config;
 		this.defaultCacheNullObject = config.isDefaultCacheNullObject();
@@ -44,7 +47,7 @@ public abstract class CacheChannel implements Closeable , AutoCloseable {
 	 * <p>Just for Inner Use.</p>
 	 *
 	 * <p>To clear the whole region when received this event .</p>
-	 * 清空分区内的所有缓存
+	 * 抽象类方法 清空分区内的所有缓存
 	 * @param region Cache region name
 	 */
 	protected abstract void sendClearCmd(String region);
@@ -53,7 +56,7 @@ public abstract class CacheChannel implements Closeable , AutoCloseable {
 	 * <p>Just for Inner Use.</p>
 	 *
 	 * <p>To remove cached data when received this event .</p>
-	 *  删除指定分区中的key
+	 *  抽象类方法 删除指定分区中的key
 	 * @param region Cache region name
 	 * @param keys	Cache data key
 	 */
@@ -69,27 +72,37 @@ public abstract class CacheChannel implements Closeable , AutoCloseable {
 	public CacheObject get(String region, String key, boolean...cacheNullObject)  {
 		//生成缓存的封装参数类
 		CacheObject obj = new CacheObject(region, key, CacheObject.LEVEL_1);
+		//按照key 从L1缓存提供管理器获取相应的值
 		obj.setValue(CacheProviderHolder.getLevel1Cache(region).get(key));
 		if(obj.rawValue() != null)
 			return obj;
-
+		// 计算该key 全局的锁的key
 		String lock_key = key + '%' + region;
+		// 对该key 加全局锁
 		synchronized (_g_keyLocks.computeIfAbsent(lock_key, v -> new Object())) {
+			//判断是否有其他线程生成   当有一级缓存时直接返回
 			obj.setValue(CacheProviderHolder.getLevel1Cache(region).get(key));
-			if(obj.rawValue() != null)
+			if(obj.rawValue() != null) {
 				return obj;
+			}
 
 			try {
+				//设置缓存级别为二级缓存
 				obj.setLevel(CacheObject.LEVEL_2);
+				//从二级缓存获取中获取值
 				obj.setValue(CacheProviderHolder.getLevel2Cache(region).get(key));
-				if (obj.rawValue() != null)
+				if (obj.rawValue() != null) {
+					//将二级缓存的值保存到一级缓存中
 					CacheProviderHolder.getLevel1Cache(region).put(key, obj.rawValue());
-				else {
+				}else {
+					//如果二级缓存为空， 则设置默认值
                     boolean cacheNull = (cacheNullObject.length>0)?cacheNullObject[0]: defaultCacheNullObject;
-                    if(cacheNull)
-                        set(region, key, newNullObject(), true);
+                    if(cacheNull) {
+						set(region, key, newNullObject(), true);
+					}
                 }
 			} finally {
+				//移除全局锁
 				_g_keyLocks.remove(lock_key);
 			}
 		}
@@ -106,24 +119,33 @@ public abstract class CacheChannel implements Closeable , AutoCloseable {
 	 * @return cache object
 	 */
 	public CacheObject get(String region, String key, Function<String, Object> loader, boolean...cacheNullObject) {
+		//获取缓存 如果有值 直接返回
 		CacheObject cache = get(region, key, false);
 
-		if (cache.rawValue() != null)
-			return cache ;
+		if (cache.rawValue() != null) {
+			return cache;
+		}
 
 		String lock_key = key + '@' + region;
+		//设置全局锁
 		synchronized (_g_keyLocks.computeIfAbsent(lock_key, v -> new Object())) {
+			//其他线程设置缓存则返回
 			cache = get(region, key, false);
 
-			if (cache.rawValue() != null)
-				return cache ;
+			if (cache.rawValue() != null) {
+				return cache;
+			}
 
 			try {
+				//加载缓存值
 				Object obj = loader.apply(key);
 				boolean cacheNull = (cacheNullObject.length>0)?cacheNullObject[0]: defaultCacheNullObject;
+				//设置缓存
 				set(region, key, obj, cacheNull);
+				//封装返回缓存类
 				cache = new CacheObject(region, key, CacheObject.LEVEL_OUTER, obj);
 			} finally {
+				//解除全局锁
 				_g_keyLocks.remove(lock_key);
 			}
 		}
@@ -137,20 +159,30 @@ public abstract class CacheChannel implements Closeable , AutoCloseable {
 	 * @return cache object
 	 */
 	public Map<String, CacheObject> get(String region, Collection<String> keys)  {
+		//批量获取一级缓存值
 		final Map<String, Object> objs = CacheProviderHolder.getLevel1Cache(region).get(keys);
-		List<String> level2Keys = keys.stream().filter(k -> !objs.containsKey(k) || objs.get(k) == null).collect(Collectors.toList());
-		Map<String, CacheObject> results = objs.entrySet().stream().filter(p -> p.getValue() != null).collect(
+		//过滤没有找到一级缓存的key
+		List<String> level2Keys = keys
+				.stream().filter(k -> !objs.containsKey(k) || objs.get(k) == null).collect(Collectors.toList());
+
+		//映射需要查询到缓存的key 返回结果
+		Map<String, CacheObject> results = objs.entrySet().stream()
+										.filter(p -> p.getValue() != null).collect(
 			Collectors.toMap(
 				p -> p.getKey(),
 				p -> new CacheObject(region, p.getKey(), CacheObject.LEVEL_1, p.getValue())
 			)
 		);
-
+		//查找二级缓存
 		Map<String, Object> objs_level2 = CacheProviderHolder.getLevel2Cache(region).get(level2Keys);
+		//遍历查询二级缓存结果
 		objs_level2.forEach((k,v) -> {
+			//将其设置到返回结果集中
 			results.put(k, new CacheObject(region, k, CacheObject.LEVEL_2, v));
-			if (v != null)
+			// 如果有缓存则设置一级缓存
+			if (v != null) {
 				CacheProviderHolder.getLevel1Cache(region).put(k, v);
+			}
 		});
 
 		return results;

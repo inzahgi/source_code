@@ -28,7 +28,6 @@ import java.util.Collection;
 
 /**
  * 两级的缓存管理器
- * @author Winter Lau(javayou@gmail.com)
  */
 public class CacheProviderHolder {
 
