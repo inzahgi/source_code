@@ -74,8 +74,9 @@ public abstract class CacheChannel implements Closeable , AutoCloseable {
 		CacheObject obj = new CacheObject(region, key, CacheObject.LEVEL_1);
 		//按照key 从L1缓存提供管理器获取相应的值
 		obj.setValue(CacheProviderHolder.getLevel1Cache(region).get(key));
-		if(obj.rawValue() != null)
+		if(obj.rawValue() != null) {
 			return obj;
+		}
 		// 计算该key 全局的锁的key
 		String lock_key = key + '%' + region;
 		// 对该key 加全局锁
@@ -189,7 +190,7 @@ public abstract class CacheChannel implements Closeable , AutoCloseable {
 	}
 
 	/**
-	 * 使用数据加载器的批量缓存读取
+	 * 使用数据加载器的批量缓存读取   引入外部数据时
 	 * @param region Cache region name
 	 * @param keys cache keys
 	 * @param loader data loader
@@ -197,17 +198,24 @@ public abstract class CacheChannel implements Closeable , AutoCloseable {
 	 * @return multiple cache data
 	 */
 	public Map<String, CacheObject> get(String region, Collection<String> keys, Function<String, Object> loader, boolean...cacheNullObject)  {
+		//批量获取缓存
 		Map<String, CacheObject> results = get(region, keys);
+		//先找出所有没有缓存的结果  然后加全局锁
 		results.entrySet().stream().filter(e -> e.getValue().rawValue() == null).forEach( e -> {
 			String lock_key = e.getKey() + '@' + region;
 			synchronized (_g_keyLocks.computeIfAbsent(lock_key, v -> new Object())) {
 				CacheObject cache = get(region, e.getKey(), false);
 				if(cache.rawValue() == null) {
 					try {
+						//利用引入的加载器加载数据
 						Object obj = loader.apply(e.getKey());
+						// 获取缓存null object标志位
 						boolean cacheNull = (cacheNullObject.length>0)?cacheNullObject[0]: defaultCacheNullObject;
+						// 保存缓存
 						set(region, e.getKey(), obj, cacheNull);
+						//将缓存保存到返回结果中
 						e.getValue().setValue(obj);
+						// 设置返回缓存级别
 						e.getValue().setLevel(CacheObject.LEVEL_OUTER);
 					} finally {
 						_g_keyLocks.remove(lock_key);
@@ -238,15 +246,18 @@ public abstract class CacheChannel implements Closeable , AutoCloseable {
 	 * @return  0(不存在),1(一级),2(二级)
 	 */
 	public int check(String region, String key) {
-		if(CacheProviderHolder.getLevel1Cache(region).exists(key))
+		if(CacheProviderHolder.getLevel1Cache(region).exists(key)) {
 			return 1;
-		if(CacheProviderHolder.getLevel2Cache(region).exists(key))
+		}
+		if(CacheProviderHolder.getLevel2Cache(region).exists(key)) {
 			return 2;
+		}
 		return 0;
 	}
 
 	/**
 	 * Write data to J2Cache
+	 * 将数据保存到缓存中
 	 *
 	 * @param region: Cache Region name
 	 * @param key: Cache key
@@ -265,17 +276,19 @@ public abstract class CacheChannel implements Closeable , AutoCloseable {
 	 * @param cacheNullObject if allow cache null object
 	 */
 	public void set(String region, String key, Object value, boolean cacheNullObject) {
-		if (!cacheNullObject && value == null)
-			return ;
+		if (!cacheNullObject && value == null) {
+			return;
+		}
 
 		try {
 			Level1Cache level1 = CacheProviderHolder.getLevel1Cache(region);
 			level1.put(key, (value==null && cacheNullObject)?newNullObject():value);
 			Level2Cache level2 = CacheProviderHolder.getLevel2Cache(region);
-			if(config.isSyncTtlToRedis())
-				level2.put(key, (value==null && cacheNullObject)?newNullObject():value, level1.ttl());
-			else
-				level2.put(key, (value==null && cacheNullObject)?newNullObject():value);
+			if(config.isSyncTtlToRedis()) {
+				level2.put(key, (value == null && cacheNullObject) ? newNullObject() : value, level1.ttl());
+			}else {
+				level2.put(key, (value == null && cacheNullObject) ? newNullObject() : value);
+			}
 		} finally {
 			this.sendEvictCmd(region, key);//清除原有的一级缓存的内容
 		}
