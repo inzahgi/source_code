@@ -105,9 +105,12 @@ public class J2CacheBuilder {
                 //再一次清除一级缓存是为了避免缓存失效时再次从 L2 获取到值
                 CacheProviderHolder.getLevel1Cache(region).evict(key);
             }
-            log.debug(String.format("Level 1 cache object expired, evict level 2 cache object [%s,%s]", region, key));
-            if(policy != null)
+            if(log.isDebugEnabled()) {
+                log.debug(String.format("Level 1 cache object expired, evict level 2 cache object [%s,%s]", region, key));
+            }
+            if(policy != null) {
                 policy.sendEvictCmd(region, key);
+            }
         });
 
         policy = ClusterPolicyFactory.init(config.getBroadcast(), config.getBroadcastProperties());

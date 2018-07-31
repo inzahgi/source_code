@@ -370,31 +370,37 @@ public abstract class CacheChannel implements Closeable , AutoCloseable {
 	 */
 	public void set(String region, Map<String, Object> elements, boolean cacheNullObject)  {
 		try {
+			// 插入为null的缓存
 			if (cacheNullObject && elements.containsValue(null)) {
 				Map<String, Object> newElems = new HashMap<>();
 				newElems.putAll(elements);
+				//遍历为空的值 插入默认空缓存
 				newElems.forEach((k,v) -> {
-					if (v == null)
+					if (v == null) {
 						newElems.put(k, newNullObject());
+					}
 				});
+				//设置一级缓存
 				Level1Cache level1 = CacheProviderHolder.getLevel1Cache(region);
 				level1.put(newElems);
-				if(config.isSyncTtlToRedis())
+				//同步redis
+				if(config.isSyncTtlToRedis()) {
 					CacheProviderHolder.getLevel2Cache(region).put(newElems, level1.ttl());
-				else
+				}else {
 					CacheProviderHolder.getLevel2Cache(region).put(newElems);
-			}
-			else {
+				}
+			}else {
+				//有数据时 批量缓存 同步redis
 				Level1Cache level1 = CacheProviderHolder.getLevel1Cache(region);
 				level1.put(elements);
-				if(config.isSyncTtlToRedis())
+				if(config.isSyncTtlToRedis()) {
 					CacheProviderHolder.getLevel2Cache(region).put(elements, level1.ttl());
-				else
-
+				}else {
 					CacheProviderHolder.getLevel2Cache(region).put(elements);
+				}
 			}
 		} finally {
-			//广播
+			//广播  删除一级缓存
 			this.sendEvictCmd(region, elements.keySet().stream().toArray(String[]::new));
 		}
 	}
@@ -423,29 +429,34 @@ public abstract class CacheChannel implements Closeable , AutoCloseable {
 	 * @param cacheNullObject if allow cache null object
 	 */
 	public void set(String region, Map<String, Object> elements, long timeToLiveInSeconds, boolean cacheNullObject)  {
-		if(timeToLiveInSeconds <= 0)
+		// 无有效过期时间时， 直接设置缓存
+		if(timeToLiveInSeconds <= 0) {
 			set(region, elements, cacheNullObject);
-		else {
+		}else {
 			try {
+				// 如果存在null值时 根据设置 加入
 				if (cacheNullObject && elements.containsValue(null)) {
 					Map<String, Object> newElems = new HashMap<>();
 					newElems.putAll(elements);
 					newElems.forEach((k,v) -> {
-						if (v == null)
+						if (v == null) {
 							newElems.put(k, newNullObject());
+						}
 					});
 					CacheProviderHolder.getLevel1Cache(region, timeToLiveInSeconds).put(newElems);
-					if(config.isSyncTtlToRedis())
+					if(config.isSyncTtlToRedis()) {
 						CacheProviderHolder.getLevel2Cache(region).put(newElems, timeToLiveInSeconds);
-					else
+					}else {
 						CacheProviderHolder.getLevel2Cache(region).put(newElems);
+					}
 				}
 				else {
 					CacheProviderHolder.getLevel1Cache(region, timeToLiveInSeconds).put(elements);
-					if(config.isSyncTtlToRedis())
+					if(config.isSyncTtlToRedis()) {
 						CacheProviderHolder.getLevel2Cache(region).put(elements, timeToLiveInSeconds);
-					else
+					}else {
 						CacheProviderHolder.getLevel2Cache(region).put(elements);
+					}
 				}
 			} finally {
 				//广播
