@@ -276,20 +276,27 @@ public abstract class CacheChannel implements Closeable , AutoCloseable {
 	 * @param cacheNullObject if allow cache null object
 	 */
 	public void set(String region, String key, Object value, boolean cacheNullObject) {
+		//设置默认缓存标志为false 并且值未null  直接返回
 		if (!cacheNullObject && value == null) {
 			return;
 		}
 
 		try {
+			// 获取一级缓存的缓存实现类
 			Level1Cache level1 = CacheProviderHolder.getLevel1Cache(region);
+			//  设置一级缓存
 			level1.put(key, (value==null && cacheNullObject)?newNullObject():value);
+			// 获取二级缓存的操作类
 			Level2Cache level2 = CacheProviderHolder.getLevel2Cache(region);
+			// 判断是否需要同步过期时间 设置二级缓存
 			if(config.isSyncTtlToRedis()) {
 				level2.put(key, (value == null && cacheNullObject) ? newNullObject() : value, level1.ttl());
 			}else {
 				level2.put(key, (value == null && cacheNullObject) ? newNullObject() : value);
 			}
 		} finally {
+			//todo //
+			// 这里清除一级缓存  下次加载设置时就可以直接设置新缓存了  ？？？？
 			this.sendEvictCmd(region, key);//清除原有的一级缓存的内容
 		}
     }
@@ -321,19 +328,25 @@ public abstract class CacheChannel implements Closeable , AutoCloseable {
 	 * @param cacheNullObject if allow cache null object
 	 */
     public void set(String region, String key, Object value, long timeToLiveInSeconds, boolean cacheNullObject) {
-		if (!cacheNullObject && value == null)
-			return ;
-
-    	if(timeToLiveInSeconds <= 0)
-    		set(region, key, value, cacheNullObject);
+		if (!cacheNullObject && value == null) {
+			return;
+		}
+		// 如果没有 过期时间 直接设置缓存
+    	if(timeToLiveInSeconds <= 0) {
+			set(region, key, value, cacheNullObject);
+		}
     	else {
 			try {
+				// 设置一级缓存
 				CacheProviderHolder.getLevel1Cache(region, timeToLiveInSeconds).put(key, (value==null && cacheNullObject)?newNullObject():value);
+				// 获取二级缓存操作类
 				Level2Cache level2 = CacheProviderHolder.getLevel2Cache(region);
-				if(config.isSyncTtlToRedis())
-					level2.put(key, (value==null && cacheNullObject)?newNullObject():value, timeToLiveInSeconds);
-				else
-					level2.put(key, (value==null && cacheNullObject)?newNullObject():value);
+				// 同步二级缓存到redis
+				if(config.isSyncTtlToRedis()) {
+					level2.put(key, (value == null && cacheNullObject) ? newNullObject() : value, timeToLiveInSeconds);
+				}else {
+					level2.put(key, (value == null && cacheNullObject) ? newNullObject() : value);
+				}
 			} finally {
 				this.sendEvictCmd(region, key);//清除原有的一级缓存的内容
 			}
