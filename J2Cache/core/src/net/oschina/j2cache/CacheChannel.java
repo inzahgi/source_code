@@ -451,7 +451,9 @@ public abstract class CacheChannel implements Closeable , AutoCloseable {
 					}
 				}
 				else {
+					//有正常数据时 保存缓存
 					CacheProviderHolder.getLevel1Cache(region, timeToLiveInSeconds).put(elements);
+					//同步到redis
 					if(config.isSyncTtlToRedis()) {
 						CacheProviderHolder.getLevel2Cache(region).put(elements, timeToLiveInSeconds);
 					}else {
@@ -467,13 +469,15 @@ public abstract class CacheChannel implements Closeable , AutoCloseable {
 
 	/**
 	 * Remove cached data in J2Cache
-	 *
+	 * 删除缓存
 	 * @param region:  Cache Region name
 	 * @param keys: Cache key
 	 */
 	public void evict(String region, String...keys)  {
 		try {
+			//删除一级缓存
 			CacheProviderHolder.getLevel1Cache(region).evict(keys);
+			//删除二级缓存
 			CacheProviderHolder.getLevel2Cache(region).evict(keys);
 		} finally {
 			this.sendEvictCmd(region, keys); //发送广播
@@ -482,12 +486,14 @@ public abstract class CacheChannel implements Closeable , AutoCloseable {
 
 	/**
 	 * Clear the cache
-	 *
+	 *	清空分区下所有缓存
 	 * @param region: Cache region name
 	 */
 	public void clear(String region)  {
 		try {
+			//清空该分区下一级缓存
 			CacheProviderHolder.getLevel1Cache(region).clear();
+			//清空该分区下的二级缓存
 			CacheProviderHolder.getLevel2Cache(region).clear();
 		}finally {
 			this.sendClearCmd(region);
@@ -506,6 +512,7 @@ public abstract class CacheChannel implements Closeable , AutoCloseable {
 	 * <p>Get cache region keys</p>
 	 * <p><strong>Notice: ehcache3 not support keys</strong></p>
 	 *
+	 * 获取该分区下所有的缓存键
 	 * @param region: Cache region name
 	 * @return key list
 	 */
@@ -550,6 +557,7 @@ public abstract class CacheChannel implements Closeable , AutoCloseable {
 
 	/**
 	 * Cache Region Define
+	 *  分区的结构
 	 */
 	public static class Region {
 
