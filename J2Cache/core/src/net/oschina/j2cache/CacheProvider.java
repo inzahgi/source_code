@@ -20,7 +20,7 @@ import java.util.Properties;
 
 /**
  * Support for pluggable caches.
- * @author Winter Lau(javayou@gmail.com)
+ * 缓存实现接口类
  */
 public interface CacheProvider {
 
