@@ -29,7 +29,6 @@ import com.alibaba.fastjson.annotation.JSONField;
  * 第N+1、N+2 为 key 长度，长度2 [K_LEN]
  * 第N+3、M为 key值，长度为 [K_LEN]
  * 
- * @author Winter Lau(javayou@gmail.com)
  */
 public class Command {
 
@@ -44,7 +43,8 @@ public class Command {
 	private int operator;
 	private String region;
 	private String[] keys;
-	
+
+	//生成一个和时间相关的随机数代表一个标识
 	private static int genRandomSrc() {
 		long ct = System.currentTimeMillis();
 		Random rnd_seed = new Random(ct);

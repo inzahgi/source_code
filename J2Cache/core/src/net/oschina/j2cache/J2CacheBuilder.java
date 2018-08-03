@@ -24,7 +24,6 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
  * 使用自定义配置构建 J2Cache
- * @author Winter Lau (javayou@gmail.com)
  */
 public class J2CacheBuilder {
 
