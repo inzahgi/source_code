@@ -140,6 +140,7 @@ public class CacheProviderHolder {
 
 	/**
 	 * return all regions
+	 * 返回所有分区
 	 * @return all regions
 	 */
 	public final static Collection<CacheChannel.Region> regions() {
