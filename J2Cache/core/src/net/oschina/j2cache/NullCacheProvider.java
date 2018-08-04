@@ -19,7 +19,8 @@ import java.util.Collection;
 import java.util.Properties;
 
 /**
- * @author Winter Lau(javayou@gmail.com)
+ *  默认为null 的 缓存实现类
+ *
  */
 public class NullCacheProvider implements CacheProvider {
 

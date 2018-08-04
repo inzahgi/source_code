@@ -17,7 +17,6 @@ package net.oschina.j2cache;
 
 /**
  * 以及缓存接口
- * @author Winter Lau(javayou@gmail.com)
  */
 public interface Level1Cache extends Cache {
 

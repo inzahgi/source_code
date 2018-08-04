@@ -25,7 +25,7 @@ import java.util.Properties;
 
 /**
  * J2Cache configurations
- * @author Winter Lau (javayou@gmail.com)
+ *  配置类
  */
 public class J2CacheConfig {
 
@@ -76,18 +76,25 @@ public class J2CacheConfig {
 
     /**
      * get j2cache properties stream
+     *  从资源文件中返回文件流
      * @return
      */
     private static InputStream getConfigStream(String resource) {
         log.info("Load J2Cache Config File : [{}].", resource);
         InputStream configStream = J2Cache.class.getResourceAsStream(resource);
-        if(configStream == null)
+        if(configStream == null) {
             configStream = J2Cache.class.getClassLoader().getParent().getResourceAsStream(resource);
-        if(configStream == null)
+        }
+        if(configStream == null) {
             throw new CacheException("Cannot find " + resource + " !!!");
+        }
         return configStream;
     }
 
+    /**
+     *  打印所有参数
+     * @param writer
+     */
     public void dump(PrintStream writer) {
         writer.printf("j2cache.serialization = %s%n", this.serialization);
         writer.printf("[%s]%n",this.broadcast);

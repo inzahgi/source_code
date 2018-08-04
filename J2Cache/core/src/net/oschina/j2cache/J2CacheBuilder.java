@@ -107,11 +107,12 @@ public class J2CacheBuilder {
             if(log.isDebugEnabled()) {
                 log.debug(String.format("Level 1 cache object expired, evict level 2 cache object [%s,%s]", region, key));
             }
+            //清空相应缓存
             if(policy != null) {
                 policy.sendEvictCmd(region, key);
             }
         });
-
+        //初始化
         policy = ClusterPolicyFactory.init(config.getBroadcast(), config.getBroadcastProperties());
         log.info("Using cluster policy : " + policy.getClass().getName());
     }

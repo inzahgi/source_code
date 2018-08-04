@@ -19,7 +19,6 @@ import java.util.Properties;
 
 /**
  * 实现空的集群通知策略
- * @author Winter Lau(javayou@gmail.com)
  */
 public class NoneClusterPolicy implements ClusterPolicy {
 

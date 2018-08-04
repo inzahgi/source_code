@@ -79,18 +79,21 @@ public class JGroupsClusterPolicy extends ReceiverAdapter implements ClusterPoli
     public void receive(Message msg) {
 
         //不处理发送给自己的消息
-        if(msg.getSrc().equals(channel.getAddress()))
-            return ;
+        if(msg.getSrc().equals(channel.getAddress())) {
+            return;
+        }
 
-        //无效消息
+
         String msgJson = (String)msg.getObject();
 
         try{
             Command cmd = Command.parse(msgJson);
-
-            if(cmd == null || cmd.isLocal())
+            //无效消息直接返回
+            if(cmd == null || cmd.isLocal()) {
                 return;
+            }
 
+            //执行相应命令
             switch(cmd.getOperator()){
                 case Command.OPT_JOIN:
                     log.info("Node-"+cmd.getSrc()+" joined to " + name);
