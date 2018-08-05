@@ -17,9 +17,9 @@ import net.oschina.j2cache.cache.support.util.SpringUtil;
 
 /**
  * spring redis缓存
- * @author zhangsaizz
  *
  */
+
 public class SpringRedisProvider implements CacheProvider {
 
 	private RedisTemplate<String, Serializable> redisTemplate;

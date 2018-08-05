@@ -15,6 +15,9 @@ import org.springframework.data.redis.core.RedisTemplate;
 
 import net.oschina.j2cache.Level2Cache;
 
+/**
+ *  对redis的操作封装
+ */
 public class SpringRedisGenericCache implements Level2Cache {
 
 	private final static Logger log = LoggerFactory.getLogger(SpringRedisGenericCache.class);
