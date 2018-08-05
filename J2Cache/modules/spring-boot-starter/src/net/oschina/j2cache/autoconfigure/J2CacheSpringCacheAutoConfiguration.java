@@ -18,7 +18,6 @@ import net.oschina.j2cache.cache.support.J2CacheCacheManger;
 
 /**
  * 开启对spring cache支持的配置入口
- * @author zhangsaizz
  *
  */
 @Configuration
@@ -37,6 +36,12 @@ public class J2CacheSpringCacheAutoConfiguration {
 		this.j2CacheConfig = j2CacheConfig;
 	}
 
+	/**
+	 * 生成缓存管理类
+	 * ConditionalOnBean 仅仅在当前上下文中存在某个对象时，才会实例化一个Bean
+	 * @param cacheChannel
+	 * @return
+	 */
 	@Bean
 	@ConditionalOnBean(CacheChannel.class)
 	public J2CacheCacheManger cacheManager(CacheChannel cacheChannel) {

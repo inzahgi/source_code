@@ -33,7 +33,6 @@ import redis.clients.jedis.exceptions.JedisConnectionException;
 /**
  * 对spring redis支持的配置入口
  * 
- * @author zhangsaizz
  *
  */
 @Configuration
@@ -47,6 +46,12 @@ public class J2CacheSpringRedisAutoConfiguration {
 
 	private static final Logger log = LoggerFactory.getLogger(J2CacheSpringRedisAutoConfiguration.class);
 
+	/**
+	 * 生成redis连接工厂类
+	 * @ConditionalOnMissingBean（仅仅在当前上下文中不存在某个对象时，才会实例化一个Bean）
+	 * @param j2CacheConfig
+	 * @return
+	 */
 	@Bean("j2CahceRedisConnectionFactory")
 	@ConditionalOnMissingBean(name = "j2CahceRedisConnectionFactory")
 	public JedisConnectionFactory j2CahceRedisConnectionFactory(net.oschina.j2cache.J2CacheConfig j2CacheConfig) {
@@ -66,7 +71,7 @@ public class J2CacheSpringRedisAutoConfiguration {
 			RedisNode n = new RedisNode(host, port);
 			nodes.add(n);
 		}
-
+		// 判断reids的模式  生成相应的模式
 		switch (mode) {
 		case "sentinel":
 			RedisSentinelConfiguration sentinel = new RedisSentinelConfiguration();
@@ -115,6 +120,11 @@ public class J2CacheSpringRedisAutoConfiguration {
 
 	}
 
+	/**
+	 * 生成redis的操作类
+	 * @param j2CahceRedisConnectionFactory
+	 * @return
+	 */
 	@Bean("j2CacheRedisTemplate")
 	@ConditionalOnBean(name = "j2CahceRedisConnectionFactory")
 	public RedisTemplate<String, Serializable> j2CacheRedisTemplate(
@@ -127,6 +137,11 @@ public class J2CacheSpringRedisAutoConfiguration {
 		return template;
 	}
 
+	/**
+	 * redis消息订阅 监听器
+	 * @param j2CahceRedisConnectionFactory
+	 * @return
+	 */
 	@Bean("j2CacheRedisMessageListenerContainer")
 	@ConditionalOnBean(name = "j2CahceRedisConnectionFactory")
 	RedisMessageListenerContainer container(JedisConnectionFactory j2CahceRedisConnectionFactory) {
