@@ -45,6 +45,12 @@ public class SpringRedisProvider implements CacheProvider {
 		return Collections.emptyList();
 	}
 
+	/**
+	 *  生成缓存操作类
+	 * @param region
+	 * @param listener listener for expired elements
+	 * @return
+	 */
 	@Override
 	public Cache buildCache(String region, CacheExpiredListener listener) {
 		Cache cache = caches.get(region);

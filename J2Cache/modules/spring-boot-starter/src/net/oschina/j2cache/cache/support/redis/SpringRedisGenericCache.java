@@ -17,6 +17,7 @@ import net.oschina.j2cache.Level2Cache;
 
 /**
  *  对redis的操作封装
+ *  以set操作为主
  */
 public class SpringRedisGenericCache implements Level2Cache {
 
