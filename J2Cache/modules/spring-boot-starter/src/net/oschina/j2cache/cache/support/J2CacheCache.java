@@ -12,7 +12,7 @@ import net.oschina.j2cache.NullObject;
 
 /**
  * {@link CacheManager} implementation for J2Cache.
- * @author zhangsaizz
+ *  操作本地缓存类
  *
  */
 public class J2CacheCache extends AbstractValueAdaptingCache {
@@ -40,11 +40,22 @@ public class J2CacheCache extends AbstractValueAdaptingCache {
 		this.j2CacheName = name;
 	}
 
+	/**
+	 * 获取本地缓存的操作接口
+	 * @return
+	 */
 	@Override
 	public Object getNativeCache() {
 		return this.cacheChannel;
 	}
 
+	/**
+	 * 从特定数据源加载数据并保存起来
+	 * @param key
+	 * @param valueLoader
+	 * @param <T>
+	 * @return
+	 */
 	@Override
 	public <T> T get(Object key, Callable<T> valueLoader) {
 		T value;

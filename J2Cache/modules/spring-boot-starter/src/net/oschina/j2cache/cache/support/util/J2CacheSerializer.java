@@ -7,7 +7,9 @@ import org.springframework.data.redis.serializer.SerializationException;
 
 import net.oschina.j2cache.util.SerializationUtils;
 
-
+/**
+ * 序列化操作类 封装序列化工具类
+ */
 public class J2CacheSerializer implements RedisSerializer<Object>{
 
 	@Override

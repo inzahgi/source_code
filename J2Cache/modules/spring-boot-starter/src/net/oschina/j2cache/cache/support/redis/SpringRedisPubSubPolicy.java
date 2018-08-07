@@ -34,6 +34,7 @@ public class SpringRedisPubSubPolicy implements ClusterPolicy{
 	@SuppressWarnings("unchecked")
 	@Override
 	public void connect(Properties props) {
+		//获取配置bean类
 		J2CacheConfig j2config = SpringUtil.getBean(J2CacheConfig.class);
 		this.config =  SpringUtil.getBean(net.oschina.j2cache.autoconfigure.J2CacheConfig.class);
 		this.redisTemplate = SpringUtil.getBean("j2CacheRedisTemplate", RedisTemplate.class);
@@ -66,6 +67,7 @@ public class SpringRedisPubSubPolicy implements ClusterPolicy{
 
 	@Override
 	public void sendEvictCmd(String region, String... keys) {
+		//当缓存配置中设置为非活动状态 或清理模式为混合模式 则发送删除命令
 		if(!isActive || "blend".equals(config.getCacheCleanMode())) {
 			String com = new Command(Command.OPT_EVICT_KEY, region, keys).json();
 	        redisTemplate.convertAndSend(this.channel, com);	
@@ -75,6 +77,7 @@ public class SpringRedisPubSubPolicy implements ClusterPolicy{
 
 	@Override
 	public void sendClearCmd(String region) {
+		//当缓存配置中设置为非活动状态 或清理模式为混合模式 则发送清理命令
 		if(!isActive || "blend".equals(config.getCacheCleanMode())) {
 			String com = new Command(Command.OPT_CLEAR_KEY, region, "").json();
 			redisTemplate.convertAndSend(this.channel, com);	
