@@ -14,7 +14,6 @@ import net.oschina.j2cache.J2CacheBuilder;
 import net.oschina.j2cache.cache.support.util.SpringUtil;
 /**
  * 启动入口
- * @author zhangsaizz
  *
  */
 @ConditionalOnClass(J2Cache.class)
@@ -28,13 +27,24 @@ public class J2CacheAutoConfiguration {
         this.j2CacheConfig = j2CacheConfig;
     }
 
+    /**
+     * 初始化配置类
+     * @return
+     * @throws IOException
+     */
     @Bean
     public net.oschina.j2cache.J2CacheConfig j2CacheConfig() throws IOException{
     	net.oschina.j2cache.J2CacheConfig cacheConfig = new net.oschina.j2cache.J2CacheConfig();
     	cacheConfig = net.oschina.j2cache.J2CacheConfig.initFromConfig(j2CacheConfig.getConfigLocation());
     	return cacheConfig;
     }
-    
+
+    /**
+     * 初始化缓存操作接口
+     * @param j2CacheConfig
+     * @return
+     * @throws IOException
+     */
     @Bean
     @DependsOn({"springUtil","j2CacheConfig"})
     public CacheChannel cacheChannel(net.oschina.j2cache.J2CacheConfig j2CacheConfig) throws IOException {

@@ -15,7 +15,7 @@ import net.oschina.j2cache.CacheChannel;
 
 /**
  * {@link Cache} implementation for J2Cache.
- * @author zhangsaizz
+ *  本地缓存管理类
  *
  */
 public class J2CacheCacheManger extends AbstractTransactionSupportingCacheManager{
@@ -31,7 +31,11 @@ public class J2CacheCacheManger extends AbstractTransactionSupportingCacheManage
 	public J2CacheCacheManger(CacheChannel cacheChannel){
 		this.cacheChannel = cacheChannel;
 	}
-	
+
+	/**
+	 * 批量导入本地缓存
+	 * @return
+	 */
 	@Override
 	protected Collection<? extends Cache> loadCaches() {
 		Collection<Cache> caches = new LinkedHashSet<>(cacheNames.size());
@@ -55,8 +59,11 @@ public class J2CacheCacheManger extends AbstractTransactionSupportingCacheManage
 	protected Cache getMissingCache(String name) {
 		return this.dynamic ? new J2CacheCache(name, cacheChannel, allowNullValues) : null;
 	}
-	
-	
+
+	/**
+	 * 设置本地缓存
+	 * @param cacheNames
+	 */
 	public void setCacheNames(Collection<String> cacheNames) {
 		Set<String> newCacheNames = CollectionUtils.isEmpty(cacheNames) ? Collections.<String> emptySet()
 				: new HashSet<String>(cacheNames);
