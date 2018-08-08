@@ -15,7 +15,7 @@ import net.oschina.j2cache.CacheChannel;
 
 /**
  * {@link Cache} implementation for J2Cache.
- * @author zhangsaizz
+ *  本地缓存管理实现类
  *
  */
 public class J2CacheCacheManger extends AbstractTransactionSupportingCacheManager{
