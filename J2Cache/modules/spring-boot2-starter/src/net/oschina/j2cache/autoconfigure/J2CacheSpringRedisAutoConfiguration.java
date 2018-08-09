@@ -52,6 +52,11 @@ public class J2CacheSpringRedisAutoConfiguration {
 
 	private static final Logger log = LoggerFactory.getLogger(J2CacheSpringRedisAutoConfiguration.class);
 
+	/**
+	 * 初始化 redis 连接工厂类
+	 * @param j2CacheConfig
+	 * @return
+	 */
 	@SuppressWarnings("deprecation")
 	@Bean("j2CahceRedisConnectionFactory")
 	@ConditionalOnMissingBean(name = "j2CahceRedisConnectionFactory")

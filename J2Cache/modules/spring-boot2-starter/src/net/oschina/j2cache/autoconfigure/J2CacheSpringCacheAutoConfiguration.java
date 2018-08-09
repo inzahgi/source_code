@@ -36,6 +36,11 @@ public class J2CacheSpringCacheAutoConfiguration {
 		this.j2CacheConfig = j2CacheConfig;
 	}
 
+	/**
+	 * 初始化生成缓存管理类
+	 * @param cacheChannel
+	 * @return
+	 */
 	@Bean
 	@ConditionalOnBean(CacheChannel.class)
 	public J2CacheCacheManger cacheManager(CacheChannel cacheChannel) {
