@@ -121,14 +121,20 @@ public class J2CacheSpringRedisAutoConfiguration {
 				connectionFactory = new JedisConnectionFactory(single, clientConfiguration.build());
 				break;
 			}
-			if (!"single".equalsIgnoreCase(mode))
+			if (!"single".equalsIgnoreCase(mode)) {
 				log.warn("Redis mode [" + mode + "] not defined. Using 'single'.");
+			}
 			break;
 		}
 		return connectionFactory;
 
 	}
 
+	/**
+	 * 初始化redis操作接口类
+	 * @param j2CahceRedisConnectionFactory
+	 * @return
+	 */
 	@Bean("j2CacheRedisTemplate")
 	@ConditionalOnBean(name = "j2CahceRedisConnectionFactory")
 	public RedisTemplate<String, Serializable> j2CacheRedisTemplate(
@@ -141,6 +147,11 @@ public class J2CacheSpringRedisAutoConfiguration {
 		return template;
 	}
 
+	/**
+	 * 	redis监听接口
+	 * @param j2CahceRedisConnectionFactory
+	 * @return
+	 */
 	@Bean("j2CacheRedisMessageListenerContainer")
 	@ConditionalOnBean(name = "j2CahceRedisConnectionFactory")
 	RedisMessageListenerContainer container(JedisConnectionFactory j2CahceRedisConnectionFactory) {

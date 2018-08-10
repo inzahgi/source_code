@@ -15,8 +15,7 @@ import net.oschina.j2cache.Level2Cache;
 /**
  * 重新实现二级缓存
  * 
- * @author zhangsaizz
- *
+ *	hash字典保存
  */
 public class SpringRedisCache implements Level2Cache {
 

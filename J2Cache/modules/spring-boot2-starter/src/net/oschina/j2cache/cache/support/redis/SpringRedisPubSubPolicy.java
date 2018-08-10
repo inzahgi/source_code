@@ -16,7 +16,6 @@ import net.oschina.j2cache.cache.support.util.SpringUtil;
 
 /**
  * 使用spring redis实现订阅功能
- * @author zhangsaizz
  *
  */
 public class SpringRedisPubSubPolicy implements ClusterPolicy{

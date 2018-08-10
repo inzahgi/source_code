@@ -11,7 +11,6 @@ import net.oschina.j2cache.util.SerializationUtils;
 
 /**
  * spring redis 订阅消息监听
- * @author zhangsaizz
  *
  */
 public class SpringRedisMessageListener implements MessageListener{
@@ -35,6 +34,7 @@ public class SpringRedisMessageListener implements MessageListener{
 			return;
 		}
         try {
+			//将接收到的消息反序列化出来 再执行相应的命令
             Command cmd = Command.parse(String.valueOf(SerializationUtils.deserialize(messageBody)));
             if (cmd == null || cmd.isLocal())
                 return;

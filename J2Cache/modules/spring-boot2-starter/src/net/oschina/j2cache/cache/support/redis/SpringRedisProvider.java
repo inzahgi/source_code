@@ -17,7 +17,6 @@ import net.oschina.j2cache.cache.support.util.SpringUtil;
 
 /**
  * spring redis缓存
- * @author zhangsaizz
  *
  */
 public class SpringRedisProvider implements CacheProvider {
@@ -45,6 +44,12 @@ public class SpringRedisProvider implements CacheProvider {
 		return Collections.emptyList();
 	}
 
+	/**
+	 * 封装redis操作类
+	 * @param region
+	 * @param listener listener for expired elements
+	 * @return
+	 */
 	@Override
 	public Cache buildCache(String region, CacheExpiredListener listener) {
 		Cache cache = caches.get(region);
