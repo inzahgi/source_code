@@ -21,7 +21,10 @@ import java.util.Collections;
 import java.util.Set;
 import org.checkerframework.checker.nullness.qual.Nullable;
 
-/** Implementation of an {@link Optional} containing a reference. */
+/** Implementation of an {@link Optional} containing a reference.
+ *
+ *  参数封装Optional 有参数时实现类
+ */
 @GwtCompatible
 final class Present<T> extends Optional<T> {
   private final T reference;

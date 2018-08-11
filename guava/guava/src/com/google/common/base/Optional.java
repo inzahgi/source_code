@@ -78,6 +78,8 @@ import org.checkerframework.checker.nullness.qual.Nullable;
  * @author Kurt Alfred Kluever
  * @author Kevin Bourrillion
  * @since 10.0
+ *
+ * 参数封装 用于自动检测null的情况
  */
 @GwtCompatible(serializable = true)
 public abstract class Optional<T> implements Serializable {

@@ -21,7 +21,11 @@ import java.util.Collections;
 import java.util.Set;
 import org.checkerframework.checker.nullness.qual.Nullable;
 
-/** Implementation of an {@link Optional} not containing a reference. */
+/** Implementation of an {@link Optional} not containing a reference. *
+ *
+ * Optional  参数为null时默认实现类
+ */
+
 @GwtCompatible
 final class Absent<T> extends Optional<T> {
   static final Absent<Object> INSTANCE = new Absent<>();

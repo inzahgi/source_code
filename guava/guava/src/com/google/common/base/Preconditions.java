@@ -111,6 +111,8 @@ import org.checkerframework.checker.nullness.qual.Nullable;
  *
  * @author Kevin Bourrillion
  * @since 2.0
+ *
+ * 静态类 用于检测参数 并返回指定消息
  */
 @GwtCompatible
 public final class Preconditions {
