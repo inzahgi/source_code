@@ -35,6 +35,8 @@ import com.google.common.annotations.GwtCompatible;
  * @author Catherine Berry
  * @author Gregory Kick
  * @since 7.0
+ *
+ * ascii处理工具类
  */
 @GwtCompatible
 public final class Ascii {
