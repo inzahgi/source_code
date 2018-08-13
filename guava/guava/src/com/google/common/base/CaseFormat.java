@@ -26,6 +26,8 @@ import org.checkerframework.checker.nullness.qual.Nullable;
  *
  * @author Mike Bostock
  * @since 1.0
+ *
+ * ascii字符格式转换
  */
 @GwtCompatible
 public enum CaseFormat {

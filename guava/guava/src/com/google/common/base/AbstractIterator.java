@@ -25,6 +25,8 @@ import org.checkerframework.checker.nullness.qual.Nullable;
 /**
  * Note this class is a copy of {@link com.google.common.collect.AbstractIterator} (for dependency
  * reasons).
+ * 带状态的迭代器抽象类
+ *
  */
 @GwtCompatible
 abstract class AbstractIterator<T> implements Iterator<T> {
@@ -32,6 +34,7 @@ abstract class AbstractIterator<T> implements Iterator<T> {
 
   protected AbstractIterator() {}
 
+  //枚举类 所有的运行中状态
   private enum State {
     READY,
     NOT_READY,
@@ -39,16 +42,22 @@ abstract class AbstractIterator<T> implements Iterator<T> {
     FAILED,
   }
 
+//下一个节点
   private @Nullable T next;
 
+  //计算下一个节点抽象接口
   protected abstract T computeNext();
 
+  //遍历结束 返回null值
   @CanIgnoreReturnValue
   protected final @Nullable T endOfData() {
     state = State.DONE;
     return null;
   }
 
+  //判断是否有下一个元素
+  // 如果状态为 FAILED 直接抛异常  READY 为有下一个 DONE 为结束
+  // NOT_READY 另外计算
   @Override
   public final boolean hasNext() {
     checkState(state != State.FAILED);
@@ -62,6 +71,7 @@ abstract class AbstractIterator<T> implements Iterator<T> {
     return tryToComputeNext();
   }
 
+  //查找下一个节点  state在查找中状态改变？？？
   private boolean tryToComputeNext() {
     state = State.FAILED; // temporary pessimism
     next = computeNext();
@@ -72,6 +82,7 @@ abstract class AbstractIterator<T> implements Iterator<T> {
     return false;
   }
 
+  //获取下一个元素  在hasNext()方法中就已经找到了下一个元素
   @Override
   public final T next() {
     if (!hasNext()) {
@@ -83,6 +94,7 @@ abstract class AbstractIterator<T> implements Iterator<T> {
     return result;
   }
 
+  //未实现
   @Override
   public final void remove() {
     throw new UnsupportedOperationException();
