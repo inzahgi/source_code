@@ -32,6 +32,8 @@ import org.checkerframework.checker.nullness.qual.Nullable;
  *
  * @author Steve McKay
  * @since 9.0
+ *
+ * 枚举工具类  利用反射获取枚举类属性值
  */
 @GwtCompatible(emulated = true)
 public final class Enums {

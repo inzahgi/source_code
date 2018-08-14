@@ -112,6 +112,8 @@ import org.checkerframework.checker.nullness.qual.Nullable;
  * @author Kurt Alfred Kluever
  * @author Gregory Kick
  * @since 16.0
+ *
+ * 格式转化器 抽象类接口
  */
 @GwtCompatible
 public abstract class Converter<A, B> implements Function<A, B> {

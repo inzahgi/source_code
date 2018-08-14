@@ -29,6 +29,8 @@ import java.nio.charset.Charset;
  *
  * @author Mike Bostock
  * @since 1.0
+ *
+ * 常用字符集常量
  */
 @GwtCompatible(emulated = true)
 public final class Charsets {

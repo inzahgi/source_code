@@ -24,6 +24,7 @@ import org.checkerframework.checker.nullness.qual.Nullable;
  *
  * @author Ben Yu
  * @since 1.0
+ * 为java类型提供默认值  包装基本类型为0  类类型为null
  */
 @GwtIncompatible
 public final class Defaults {
