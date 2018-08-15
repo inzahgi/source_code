@@ -151,6 +151,7 @@ public abstract class CharMatcher implements Predicate<Character> {
    * discussion of that term.
    *
    * @since 19.0 (since 2.0 as constant {@code BREAKING_WHITESPACE})
+   * 破空格-----用来区分单词
    */
   public static CharMatcher breakingWhitespace() {
     return BreakingWhitespace.INSTANCE;
@@ -290,7 +291,9 @@ public abstract class CharMatcher implements Predicate<Character> {
 
   // Static factories
 
-  /** Returns a {@code char} matcher that matches only one specified BMP character. */
+  /** Returns a {@code char} matcher that matches only one specified BMP character.
+   *  返回指定的字符的比较器
+   */
   public static CharMatcher is(final char match) {
     return new Is(match);
   }
@@ -299,6 +302,8 @@ public abstract class CharMatcher implements Predicate<Character> {
    * Returns a {@code char} matcher that matches any character except the BMP character specified.
    *
    * <p>To negate another {@code CharMatcher}, use {@link #negate()}.
+   *
+   * 返回除指定字符外的比较器  取反比较用 negate()
    */
   public static CharMatcher isNot(final char match) {
     return new IsNot(match);
@@ -307,6 +312,8 @@ public abstract class CharMatcher implements Predicate<Character> {
   /**
    * Returns a {@code char} matcher that matches any BMP character present in the given character
    * sequence. Returns a bogus matcher if the sequence contains supplementary characters.
+   *
+   * 返回匹配指定输入字符序列的比较器
    */
   public static CharMatcher anyOf(final CharSequence sequence) {
     switch (sequence.length()) {
@@ -326,6 +333,7 @@ public abstract class CharMatcher implements Predicate<Character> {
   /**
    * Returns a {@code char} matcher that matches any BMP character not present in the given
    * character sequence. Returns a bogus matcher if the sequence contains supplementary characters.
+   * 返回匹配排除指定输入字符序列的比较器
    */
   public static CharMatcher noneOf(CharSequence sequence) {
     return anyOf(sequence).negate();
@@ -337,6 +345,7 @@ public abstract class CharMatcher implements Predicate<Character> {
    * CharMatcher.inRange('a', 'z')}.
    *
    * @throws IllegalArgumentException if {@code endInclusive < startInclusive}
+   * 返回匹配指定范围字符的比较器
    */
   public static CharMatcher inRange(final char startInclusive, final char endInclusive) {
     return new InRange(startInclusive, endInclusive);
