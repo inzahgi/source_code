@@ -85,6 +85,9 @@ import org.checkerframework.checker.nullness.qual.Nullable;
  * failures explained</a> in the Guava User Guide for advice on when this class should be used.
  *
  * @since 17.0
+ *
+ * 代替assert 的验证工具类
+ *
  */
 @GwtCompatible
 public final class Verify {

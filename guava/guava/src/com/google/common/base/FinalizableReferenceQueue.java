@@ -87,6 +87,8 @@ import org.checkerframework.checker.nullness.qual.Nullable;
  *
  * @author Bob Lee
  * @since 2.0
+ *
+ * 一个保存引用的队列 防止单个类被提前gc回收 可以设置清理方法
  */
 @GwtIncompatible
 public class FinalizableReferenceQueue implements Closeable {

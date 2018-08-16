@@ -27,6 +27,7 @@ import java.lang.ref.ReferenceQueue;
  *
  * @author Bob Lee
  * @since 2.0
+ *  虚引用抽象类 gc回收后会自动清理
  */
 @GwtIncompatible
 public abstract class FinalizablePhantomReference<T> extends PhantomReference<T>
