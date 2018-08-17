@@ -27,7 +27,7 @@ import org.checkerframework.checker.nullness.qual.Nullable;
  * @author Mike Bostock
  * @since 1.0
  *
- * ascii字符格式转换
+ * ascii字符格式 下划线风格转换成驼峰命名格式
  */
 @GwtCompatible
 public enum CaseFormat {

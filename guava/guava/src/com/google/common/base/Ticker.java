@@ -28,6 +28,8 @@ import com.google.errorprone.annotations.CanIgnoreReturnValue;
  * @author Kevin Bourrillion
  * @since 10.0 (<a href="https://github.com/google/guava/wiki/Compatibility">mostly
  *     source-compatible</a> since 9.0)
+ *
+ *     获取经过的纳秒时间
  */
 @Beta
 @GwtCompatible

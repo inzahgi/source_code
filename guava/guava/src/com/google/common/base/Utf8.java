@@ -35,6 +35,8 @@ import com.google.common.annotations.GwtCompatible;
  * @author Martin Buchholz
  * @author Clément Roux
  * @since 16.0
+ *
+ * utf-8 编码工具类
  */
 @Beta
 @GwtCompatible(emulated = true)

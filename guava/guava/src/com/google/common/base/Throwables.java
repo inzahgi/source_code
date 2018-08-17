@@ -43,6 +43,8 @@ import org.checkerframework.checker.nullness.qual.Nullable;
  * @author Kevin Bourrillion
  * @author Ben Yu
  * @since 1.0
+ *
+ * throwable 封装替代类
  */
 @GwtCompatible(emulated = true)
 public final class Throwables {

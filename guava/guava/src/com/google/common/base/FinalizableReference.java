@@ -22,6 +22,7 @@ import com.google.common.annotations.GwtIncompatible;
  * @see FinalizableReferenceQueue
  * @author Bob Lee
  * @since 2.0
+ * 回收引用后清理接口
  */
 @GwtIncompatible
 public interface FinalizableReference {

@@ -23,6 +23,8 @@ import org.checkerframework.checker.nullness.qual.Nullable;
  * including those performed by the convenience methods of the {@link Verify} class.
  *
  * @since 17.0
+ *
+ * 验证异常类
  */
 @GwtCompatible
 public class VerifyException extends RuntimeException {
