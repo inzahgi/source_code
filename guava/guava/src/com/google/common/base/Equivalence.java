@@ -32,6 +32,8 @@ import org.checkerframework.checker.nullness.qual.Nullable;
  * @author Gregory Kick
  * @since 10.0 (<a href="https://github.com/google/guava/wiki/Compatibility">mostly
  *     source-compatible</a> since 4.0)
+ *
+ *     判断是否相等 抽象类接口
  */
 @GwtCompatible
 public abstract class Equivalence<T> implements BiPredicate<T, T> {
