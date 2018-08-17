@@ -26,6 +26,7 @@ import org.checkerframework.checker.nullness.qual.Nullable;
  *
  * @author Bob Lee
  * @since 10.0
+ * 对比函数返回结果判断相等
  */
 @Beta
 @GwtCompatible

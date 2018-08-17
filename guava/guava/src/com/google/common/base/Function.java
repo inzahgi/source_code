@@ -38,6 +38,8 @@ import org.checkerframework.checker.nullness.qual.Nullable;
  *
  * @author Kevin Bourrillion
  * @since 2.0
+ *
+ *  对jdk中function 进行扩展
  */
 @GwtCompatible
 @FunctionalInterface
