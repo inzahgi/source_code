@@ -19,7 +19,10 @@ import java.io.Serializable;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-/** A regex pattern implementation which is backed by the {@link Pattern}. */
+/** A regex pattern implementation which is backed by the {@link Pattern}.
+ *
+ *  封装jdk 正则类
+ * */
 @GwtIncompatible
 final class JdkPattern extends CommonPattern implements Serializable {
   private final Pattern pattern;

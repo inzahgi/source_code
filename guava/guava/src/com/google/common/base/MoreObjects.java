@@ -31,6 +31,7 @@ import org.checkerframework.checker.nullness.qual.Nullable;
  *
  * @author Laurence Gonsalves
  * @since 18.0 (since 2.0 as {@code Objects})
+ *  objects 增强工具类  可以格式化输出类属性
  */
 @GwtCompatible
 public final class MoreObjects {
@@ -50,6 +51,8 @@ public final class MoreObjects {
    * @return {@code first} if it is non-null; otherwise {@code second} if it is non-null
    * @throws NullPointerException if both {@code first} and {@code second} are null
    * @since 18.0 (since 3.0 as {@code Objects.firstNonNull()}).
+   *
+   * 查找第一个不是null的元素
    */
   public static <T> T firstNonNull(@Nullable T first, @Nullable T second) {
     if (first != null) {
@@ -100,6 +103,8 @@ public final class MoreObjects {
    * @param self the object to generate the string for (typically {@code this}), used only for its
    *     class name
    * @since 18.0 (since 2.0 as {@code Objects.toStringHelper()}).
+   *
+   * 格式化输出 类属性
    */
   public static ToStringHelper toStringHelper(Object self) {
     return new ToStringHelper(self.getClass().getSimpleName());
