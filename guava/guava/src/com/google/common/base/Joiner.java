@@ -61,6 +61,8 @@ import org.checkerframework.checker.nullness.qual.Nullable;
  *
  * @author Kevin Bourrillion
  * @since 2.0
+ *
+ * 字符串连接器
  */
 @GwtCompatible
 public class Joiner {

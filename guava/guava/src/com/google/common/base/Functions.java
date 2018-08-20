@@ -34,6 +34,8 @@ import org.checkerframework.checker.nullness.qual.Nullable;
  * @author Mike Bostock
  * @author Jared Levy
  * @since 2.0
+ *
+ *
  */
 @GwtCompatible
 public final class Functions {

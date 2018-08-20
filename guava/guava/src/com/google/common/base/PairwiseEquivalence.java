@@ -19,6 +19,10 @@ import java.io.Serializable;
 import java.util.Iterator;
 import org.checkerframework.checker.nullness.qual.Nullable;
 
+/**
+ * 判断容器是否相等
+ * @param <T>
+ */
 @GwtCompatible(serializable = true)
 final class PairwiseEquivalence<T> extends Equivalence<Iterable<T>> implements Serializable {
 
@@ -28,6 +32,7 @@ final class PairwiseEquivalence<T> extends Equivalence<Iterable<T>> implements S
     this.elementEquivalence = Preconditions.checkNotNull(elementEquivalence);
   }
 
+  //比较两个可迭代类 是否相等
   @Override
   protected boolean doEquivalent(Iterable<T> iterableA, Iterable<T> iterableB) {
     Iterator<T> iteratorA = iterableA.iterator();
@@ -42,6 +47,7 @@ final class PairwiseEquivalence<T> extends Equivalence<Iterable<T>> implements S
     return !iteratorA.hasNext() && !iteratorB.hasNext();
   }
 
+  //计算 容器hash
   @Override
   protected int doHash(Iterable<T> iterable) {
     int hash = 78721;

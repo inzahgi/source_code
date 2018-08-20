@@ -37,6 +37,7 @@ import org.checkerframework.checker.nullness.qual.Nullable;
  *
  * @author Kevin Bourrillion
  * @since 2.0
+ *  用于预测的静态工具类
  */
 @GwtCompatible(emulated = true)
 public final class Predicates {
