@@ -152,14 +152,21 @@ import org.checkerframework.checker.nullness.qual.MonotonicNonNull;
  * @author Charles Fry
  * @author Kevin Bourrillion
  * @since 10.0
+ *
+ * 缓存静态工厂类
  */
 @GwtCompatible(emulated = true)
 public final class CacheBuilder<K, V> {
+  //默认容量
   private static final int DEFAULT_INITIAL_CAPACITY = 16;
+  //默认并发级别
   private static final int DEFAULT_CONCURRENCY_LEVEL = 4;
+  //默认过期时间
   private static final int DEFAULT_EXPIRATION_NANOS = 0;
+  //默认刷新时间
   private static final int DEFAULT_REFRESH_NANOS = 0;
 
+  //计数器
   static final Supplier<? extends StatsCounter> NULL_STATS_COUNTER =
       Suppliers.ofInstance(
           new StatsCounter() {
@@ -183,6 +190,7 @@ public final class CacheBuilder<K, V> {
               return EMPTY_STATS;
             }
           });
+  //空统计类
   static final CacheStats EMPTY_STATS = new CacheStats(0, 0, 0, 0, 0, 0);
 
   static final Supplier<StatsCounter> CACHE_STATS_COUNTER =

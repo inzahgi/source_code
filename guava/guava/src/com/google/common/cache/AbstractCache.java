@@ -36,6 +36,8 @@ import java.util.concurrent.ExecutionException;
  *
  * @author Charles Fry
  * @since 10.0
+ *
+ * Cache抽象接口类
  */
 @GwtCompatible
 public abstract class AbstractCache<K, V> implements Cache<K, V> {

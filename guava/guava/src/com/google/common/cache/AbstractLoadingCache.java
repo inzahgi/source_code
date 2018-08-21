@@ -36,6 +36,8 @@ import java.util.concurrent.ExecutionException;
  *
  * @author Charles Fry
  * @since 11.0
+ *
+ * 缓存自动加载抽象类
  */
 @GwtIncompatible
 public abstract class AbstractLoadingCache<K, V> extends AbstractCache<K, V>

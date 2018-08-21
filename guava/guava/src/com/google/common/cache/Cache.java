@@ -35,6 +35,7 @@ import org.checkerframework.checker.nullness.qual.Nullable;
  *
  * @author Charles Fry
  * @since 10.0
+ * 缓存接口
  */
 @GwtCompatible
 public interface Cache<K, V> {
