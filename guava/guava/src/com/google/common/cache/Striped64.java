@@ -109,6 +109,7 @@ abstract class Striped64 extends Number {
     private static final sun.misc.Unsafe UNSAFE;
     private static final long valueOffset;
 
+    // 初始化获取原子操作类
     static {
       try {
         UNSAFE = getUnsafe();
@@ -290,6 +291,7 @@ abstract class Striped64 extends Number {
       return sun.misc.Unsafe.getUnsafe();
     } catch (SecurityException tryReflectionInstead) {
     }
+    //通过反射的方式获取unsafe类
     try {
       return java.security.AccessController.doPrivileged(
           new java.security.PrivilegedExceptionAction<sun.misc.Unsafe>() {

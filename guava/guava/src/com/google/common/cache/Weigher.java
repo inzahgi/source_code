@@ -21,6 +21,7 @@ import com.google.common.annotations.GwtCompatible;
  *
  * @author Charles Fry
  * @since 11.0
+ * 计算每个entry 的权重
  */
 @GwtCompatible
 @FunctionalInterface
