@@ -261,6 +261,7 @@ public final class CacheBuilder<K, V> {
    * <p>Note that while this return type is {@code CacheBuilder<Object, Object>}, type parameters on
    * the {@link #build} methods allow you to create a cache of any key and value type desired.
    */
+  //构造缓存默认实例
   public static CacheBuilder<Object, Object> newBuilder() {
     return new CacheBuilder<>();
   }
@@ -269,6 +270,7 @@ public final class CacheBuilder<K, V> {
    * Constructs a new {@code CacheBuilder} instance with the settings specified in {@code spec}.
    *
    * @since 12.0
+   * 复制配置 构造工厂类实例
    */
   @GwtIncompatible // To be supported
   public static CacheBuilder<Object, Object> from(CacheBuilderSpec spec) {
@@ -281,6 +283,7 @@ public final class CacheBuilder<K, V> {
    *
    * @param spec a String in the format specified by {@link CacheBuilderSpec}
    * @since 12.0
+   * 从字符串配置构造缓存工厂类实例
    */
   @GwtIncompatible // To be supported
   public static CacheBuilder<Object, Object> from(String spec) {
@@ -348,6 +351,7 @@ public final class CacheBuilder<K, V> {
    * @return this {@code CacheBuilder} instance (for chaining)
    * @throws IllegalArgumentException if {@code initialCapacity} is negative
    * @throws IllegalStateException if an initial capacity was already set
+   * 设置hash table的最小值
    */
   public CacheBuilder<K, V> initialCapacity(int initialCapacity) {
     checkState(
