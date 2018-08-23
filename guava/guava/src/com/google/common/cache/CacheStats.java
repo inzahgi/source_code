@@ -53,14 +53,21 @@ import org.checkerframework.checker.nullness.qual.Nullable;
  *
  * @author Charles Fry
  * @since 10.0
+ * 缓存统计类
  */
 @GwtCompatible
 public final class CacheStats {
+  //命中数
   private final long hitCount;
+  //没命中数
   private final long missCount;
+  //加载成功数
   private final long loadSuccessCount;
+  //加载异常数
   private final long loadExceptionCount;
+  //总的加载时间
   private final long totalLoadTime;
+  //清楚次数
   private final long evictionCount;
 
   /**
@@ -94,12 +101,15 @@ public final class CacheStats {
   /**
    * Returns the number of times {@link Cache} lookup methods have returned either a cached or
    * uncached value. This is defined as {@code hitCount + missCount}.
+   *  获取总的请求次数
    */
   public long requestCount() {
     return hitCount + missCount;
   }
 
-  /** Returns the number of times {@link Cache} lookup methods have returned a cached value. */
+  /** Returns the number of times {@link Cache} lookup methods have returned a cached value.
+   * 获取命中次数
+   **/
   public long hitCount() {
     return hitCount;
   }
@@ -108,6 +118,7 @@ public final class CacheStats {
    * Returns the ratio of cache requests which were hits. This is defined as {@code hitCount /
    * requestCount}, or {@code 1.0} when {@code requestCount == 0}. Note that {@code hitRate +
    * missRate =~ 1.0}.
+   * 获取命中率
    */
   public double hitRate() {
     long requestCount = requestCount();
@@ -119,6 +130,7 @@ public final class CacheStats {
    * loaded) value, or null. Multiple concurrent calls to {@link Cache} lookup methods on an absent
    * value can result in multiple misses, all returning the results of a single cache load
    * operation.
+   * 获取非命中数
    */
   public long missCount() {
     return missCount;
@@ -132,6 +144,7 @@ public final class CacheStats {
    * waited for other threads to finish loading. It is thus the case that {@code missCount &gt;=
    * loadSuccessCount + loadExceptionCount}. Multiple concurrent misses for the same key will result
    * in a single load operation.
+   *  获取非命中率
    */
   public double missRate() {
     long requestCount = requestCount();
@@ -215,6 +228,7 @@ public final class CacheStats {
    * Returns a new {@code CacheStats} representing the difference between this {@code CacheStats}
    * and {@code other}. Negative values, which aren't supported by {@code CacheStats} will be
    * rounded up to zero.
+   * 两个统计类相减
    */
   public CacheStats minus(CacheStats other) {
     return new CacheStats(
@@ -231,6 +245,7 @@ public final class CacheStats {
    * other}.
    *
    * @since 11.0
+   * 俩个统计类相加生成一个新的类
    */
   public CacheStats plus(CacheStats other) {
     return new CacheStats(
@@ -242,6 +257,7 @@ public final class CacheStats {
         evictionCount + other.evictionCount);
   }
 
+  //快速计算hashCode
   @Override
   public int hashCode() {
     return Objects.hashCode(
@@ -262,6 +278,7 @@ public final class CacheStats {
     return false;
   }
 
+  // 自定义输出
   @Override
   public String toString() {
     return MoreObjects.toStringHelper(this)

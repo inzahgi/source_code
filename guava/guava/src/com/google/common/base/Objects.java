@@ -29,7 +29,7 @@ import org.checkerframework.checker.nullness.qual.Nullable;
  * @since 2.0
  *
  * Objects工具类
- *  1判断两个Object是否相等 2获取数组的hashCode
+ *  1判断两个Object是否相等 2获取输入数组的hashCode
  */
 @GwtCompatible
 public final class Objects extends ExtraObjectsMethodsForWeb {
