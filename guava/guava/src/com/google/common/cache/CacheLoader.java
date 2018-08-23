@@ -54,6 +54,7 @@ import java.util.concurrent.Executor;
  *
  * @author Charles Fry
  * @since 10.0
+ * 缓存自动加载器
  */
 @GwtCompatible(emulated = true)
 public abstract class CacheLoader<K, V> {
