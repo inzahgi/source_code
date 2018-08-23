@@ -24,6 +24,7 @@ import java.util.concurrent.ConcurrentMap;
  *
  * @author Charles Fry
  * @since 10.0
+ * 枚举类 缓存移除原因
  */
 @GwtCompatible
 public enum RemovalCause {

@@ -24,6 +24,7 @@ import java.util.concurrent.Executor;
  *
  * @author Charles Fry
  * @since 10.0
+ * 移除监听器
  */
 @GwtIncompatible
 public final class RemovalListeners {
@@ -36,6 +37,7 @@ public final class RemovalListeners {
    *
    * @param listener the backing listener
    * @param executor the executor with which removal notifications are asynchronously executed
+   * 设置异步处理监听器
    */
   public static <K, V> RemovalListener<K, V> asynchronous(
       final RemovalListener<K, V> listener, final Executor executor) {

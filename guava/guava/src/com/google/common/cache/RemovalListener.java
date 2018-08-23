@@ -31,6 +31,7 @@ import com.google.common.annotations.GwtCompatible;
  *     Object} if any key is acceptable
  * @author Charles Fry
  * @since 10.0
+ * 移除缓存时监听接口
  */
 @GwtCompatible
 @FunctionalInterface

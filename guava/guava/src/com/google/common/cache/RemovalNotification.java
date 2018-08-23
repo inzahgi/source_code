@@ -30,6 +30,7 @@ import org.checkerframework.checker.nullness.qual.Nullable;
  *
  * @author Charles Fry
  * @since 10.0
+ * 缓存移除通知类
  */
 @GwtCompatible
 public final class RemovalNotification<K, V> extends SimpleImmutableEntry<K, V> {
@@ -52,7 +53,9 @@ public final class RemovalNotification<K, V> extends SimpleImmutableEntry<K, V> 
     this.cause = checkNotNull(cause);
   }
 
-  /** Returns the cause for which the entry was removed. */
+  /** Returns the cause for which the entry was removed.
+   * 移除的原因
+   **/
   public RemovalCause getCause() {
     return cause;
   }
@@ -60,6 +63,7 @@ public final class RemovalNotification<K, V> extends SimpleImmutableEntry<K, V> 
   /**
    * Returns {@code true} if there was an automatic removal due to eviction (the cause is neither
    * {@link RemovalCause#EXPLICIT} nor {@link RemovalCause#REPLACED}).
+   * 判断是否移除
    */
   public boolean wasEvicted() {
     return cause.wasEvicted();
