@@ -37,6 +37,7 @@ import org.checkerframework.checker.nullness.qual.Nullable;
  *   <li>Collected: key/value was partially collected, but not yet cleaned up
  *   <li>Unset: marked as unset, awaiting cleanup or reuse
  * </ul>
+ *  保存缓存的entry接口
  */
 @GwtIncompatible
 interface ReferenceEntry<K, V> {

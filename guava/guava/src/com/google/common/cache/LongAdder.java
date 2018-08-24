@@ -38,6 +38,7 @@ import java.util.concurrent.atomic.AtomicLong;
  *
  * @since 1.8
  * @author Doug Lea
+ * long并发计数器
  */
 @GwtCompatible(emulated = true)
 final class LongAdder extends Striped64 implements Serializable, LongAddable {
