@@ -20,6 +20,7 @@ import com.google.common.annotations.GwtCompatible;
  * Abstract interface for objects that can concurrently add longs.
  *
  * @author Louis Wasserman
+ * 计数器接口
  */
 @GwtCompatible
 interface LongAddable {

@@ -97,6 +97,8 @@ import org.checkerframework.checker.nullness.qual.Nullable;
  * @author Charles Fry
  * @author Bob Lee ({@code com.google.common.collect.MapMaker})
  * @author Doug Lea ({@code ConcurrentHashMap})
+ *
+ * 本地缓存实现类  基于concurrentHadhMap
  */
 @GwtCompatible(emulated = true)
 class LocalCache<K, V> extends AbstractMap<K, V> implements ConcurrentMap<K, V> {
