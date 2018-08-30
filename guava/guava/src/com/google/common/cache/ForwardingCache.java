@@ -31,6 +31,7 @@ import org.checkerframework.checker.nullness.qual.Nullable;
  *
  * @author Charles Fry
  * @since 10.0
+ * 装饰器模式缓存抽象类
  */
 @GwtIncompatible
 public abstract class ForwardingCache<K, V> extends ForwardingObject implements Cache<K, V> {

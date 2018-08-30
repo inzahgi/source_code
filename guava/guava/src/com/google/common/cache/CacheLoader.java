@@ -70,6 +70,7 @@ public abstract class CacheLoader<K, V> {
    * @throws InterruptedException if this method is interrupted. {@code InterruptedException} is
    *     treated like any other {@code Exception} in all respects except that, when it is caught,
    *     the thread's interrupt status is set
+   *     缓存导入接口
    */
   public abstract V load(K key) throws Exception;
 
