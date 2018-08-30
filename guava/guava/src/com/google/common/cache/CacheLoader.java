@@ -70,7 +70,7 @@ public abstract class CacheLoader<K, V> {
    * @throws InterruptedException if this method is interrupted. {@code InterruptedException} is
    *     treated like any other {@code Exception} in all respects except that, when it is caught,
    *     the thread's interrupt status is set
-   *     缓存导入接口
+   *     get失败后 缓存导入接口
    */
   public abstract V load(K key) throws Exception;
 
@@ -94,6 +94,7 @@ public abstract class CacheLoader<K, V> {
    *     treated like any other {@code Exception} in all respects except that, when it is caught,
    *     the thread's interrupt status is set
    * @since 11.0
+   *  刷新缓存接口
    */
   @GwtIncompatible // Futures
   public ListenableFuture<V> reload(K key, V oldValue) throws Exception {
@@ -123,6 +124,7 @@ public abstract class CacheLoader<K, V> {
    *     treated like any other {@code Exception} in all respects except that, when it is caught,
    *     the thread's interrupt status is set
    * @since 11.0
+   *  批量导入缓存
    */
   public Map<K, V> loadAll(Iterable<? extends K> keys) throws Exception {
     // This will be caught by getAll(), causing it to fall back to multiple calls to
