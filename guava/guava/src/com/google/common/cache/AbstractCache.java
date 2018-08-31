@@ -59,6 +59,7 @@ public abstract class AbstractCache<K, V> implements Cache<K, V> {
    * possible with an unsafe cast which requires {@code keys} to actually be of type {@code K}.
    *
    * @since 11.0
+   * 批量返回所有存在的缓存
    */
   @Override
   public ImmutableMap<K, V> getAllPresent(Iterable<?> keys) {

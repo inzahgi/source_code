@@ -138,6 +138,7 @@ public abstract class CacheLoader<K, V> {
    *
    * @param function the function to be used for loading values; must never return {@code null}
    * @return a cache loader that loads values by passing each key to {@code function}
+   * 传入一个函数方法导入缓存并返回 缓存加载器
    */
   public static <K, V> CacheLoader<K, V> from(Function<K, V> function) {
     return new FunctionToCacheLoader<>(function);
@@ -151,11 +152,18 @@ public abstract class CacheLoader<K, V> {
    * @param supplier the supplier to be used for loading values; must never return {@code null}
    * @return a cache loader that loads values by calling {@link Supplier#get}, irrespective of the
    *     key
+   * 传入一个supplier函数方法导入缓存并返回 缓存加载器
    */
   public static <V> CacheLoader<Object, V> from(Supplier<V> supplier) {
     return new SupplierToCacheLoader<V>(supplier);
   }
 
+
+  /**
+   * 静态内部类  装饰器模式 实现缓存加载
+   * @param <K>
+   * @param <V>
+   */
   private static final class FunctionToCacheLoader<K, V> extends CacheLoader<K, V>
       implements Serializable {
     private final Function<K, V> computingFunction;
@@ -180,6 +188,7 @@ public abstract class CacheLoader<K, V> {
    * as {@linkplain #reload the default implementation}.
    *
    * @since 17.0
+   * 异步刷新缓存
    */
   @GwtIncompatible // Executor + Futures
   public static <K, V> CacheLoader<K, V> asyncReloading(
