@@ -45,7 +45,9 @@ public abstract class AbstractCache<K, V> implements Cache<K, V> {
   /** Constructor for use by subclasses. */
   protected AbstractCache() {}
 
-  /** @since 11.0 */
+  /** @since 11.0
+   *
+   * 获取缓存的抽象方法*/
   @Override
   public V get(K key, Callable<? extends V> valueLoader) throws ExecutionException {
     throw new UnsupportedOperationException();
@@ -77,13 +79,17 @@ public abstract class AbstractCache<K, V> implements Cache<K, V> {
     return ImmutableMap.copyOf(result);
   }
 
-  /** @since 11.0 */
+  /** @since 11.0
+   * 添加缓存
+   */
   @Override
   public void put(K key, V value) {
     throw new UnsupportedOperationException();
   }
 
-  /** @since 12.0 */
+  /** @since 12.0
+   * 批量添加缓存
+   */
   @Override
   public void putAll(Map<? extends K, ? extends V> m) {
     for (Entry<? extends K, ? extends V> entry : m.entrySet()) {
@@ -130,7 +136,7 @@ public abstract class AbstractCache<K, V> implements Cache<K, V> {
   /**
    * Accumulates statistics during the operation of a {@link Cache} for presentation by {@link
    * Cache#stats}. This is solely intended for consumption by {@code Cache} implementors.
-   *
+   * 统计接口类
    * @since 10.0
    */
   public interface StatsCounter {
