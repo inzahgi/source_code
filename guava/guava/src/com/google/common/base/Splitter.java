@@ -95,6 +95,7 @@ import java.util.regex.Pattern;
  * @author Kevin Bourrillion
  * @author Louis Wasserman
  * @since 1.0
+ * 字符串切割类
  */
 @GwtCompatible(emulated = true)
 public final class Splitter {

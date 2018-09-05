@@ -131,10 +131,12 @@ public final class CacheBuilderSpec {
    * Creates a CacheBuilderSpec from a string.
    *
    * @param cacheBuilderSpecification the string form
+   * 解析缓存配置文件
    */
   public static CacheBuilderSpec parse(String cacheBuilderSpecification) {
     CacheBuilderSpec spec = new CacheBuilderSpec(cacheBuilderSpecification);
     if (!cacheBuilderSpecification.isEmpty()) {
+      //按逗号切割配置文件
       for (String keyValuePair : KEYS_SPLITTER.split(cacheBuilderSpecification)) {
         List<String> keyAndValue = ImmutableList.copyOf(KEY_VALUE_SPLITTER.split(keyValuePair));
         checkArgument(!keyAndValue.isEmpty(), "blank key-value pair");
