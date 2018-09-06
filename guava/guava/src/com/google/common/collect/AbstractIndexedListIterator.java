@@ -28,6 +28,7 @@ import java.util.NoSuchElementException;
  * {@link #set}, or {@link #add}.
  *
  * @author Jared Levy
+ * 固定长度列表迭代器抽象类
  */
 @GwtCompatible
 abstract class AbstractIndexedListIterator<E> extends UnmodifiableListIterator<E> {
