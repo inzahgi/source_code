@@ -26,6 +26,7 @@ import org.checkerframework.checker.nullness.qual.Nullable;
  * Entry}.
  *
  * @author Jared Levy
+ * entry 的抽象实现
  */
 @GwtCompatible
 abstract class AbstractMapEntry<K, V> implements Entry<K, V> {

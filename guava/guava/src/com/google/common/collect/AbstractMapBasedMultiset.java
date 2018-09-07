@@ -43,6 +43,7 @@ import org.checkerframework.checker.nullness.qual.Nullable;
  * writeObject} methods.
  *
  * @author Kevin Bourrillion
+ * 多重set的 基于map的实现
  */
 @GwtCompatible(emulated = true)
 abstract class AbstractMapBasedMultiset<E> extends AbstractMultiset<E> implements Serializable {

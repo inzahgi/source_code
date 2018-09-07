@@ -84,6 +84,7 @@ import org.checkerframework.checker.nullness.qual.Nullable;
  *
  * @author Jared Levy
  * @author Louis Wasserman
+ *  多重键值对 的抽象实现类
  */
 @GwtCompatible
 abstract class AbstractMapBasedMultimap<K, V> extends AbstractMultimap<K, V>
