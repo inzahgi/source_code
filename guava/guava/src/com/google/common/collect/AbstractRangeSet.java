@@ -21,6 +21,7 @@ import org.checkerframework.checker.nullness.qual.Nullable;
  * A skeletal implementation of {@code RangeSet}.
  *
  * @author Louis Wasserman
+ * 指定范围的set
  */
 @GwtIncompatible
 abstract class AbstractRangeSet<C extends Comparable> implements RangeSet<C> {

@@ -29,6 +29,7 @@ import java.util.SortedSet;
  * map types in non-GWT only, while GWT code will inherit the SortedMap/SortedSet overrides.
  *
  * @author Louis Wasserman
+ * 有序键值的set集合抽象类
  */
 @GwtCompatible
 abstract class AbstractSortedKeySortedSetMultimap<K, V> extends AbstractSortedSetMultimap<K, V> {

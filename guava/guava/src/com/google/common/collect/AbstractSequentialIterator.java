@@ -38,6 +38,7 @@ import org.checkerframework.checker.nullness.qual.Nullable;
  *
  * @author Chris Povirk
  * @since 12.0 (in Guava as {@code AbstractLinkedIterator} since 8.0)
+ * 通过迭代器访问序列
  */
 @GwtCompatible
 public abstract class AbstractSequentialIterator<T> extends UnmodifiableIterator<T> {

@@ -31,6 +31,7 @@ import org.checkerframework.checker.nullness.qual.Nullable;
  * #createCollection} method must return a {@code Set}.
  *
  * @author Jared Levy
+ * multimap转set的实现类
  */
 @GwtCompatible
 abstract class AbstractSetMultimap<K, V> extends AbstractMapBasedMultimap<K, V>

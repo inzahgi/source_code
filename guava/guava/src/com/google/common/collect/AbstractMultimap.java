@@ -36,6 +36,7 @@ import org.checkerframework.checker.nullness.qual.Nullable;
  * A skeleton {@code Multimap} implementation, not necessarily in terms of a {@code Map}.
  *
  * @author Louis Wasserman
+ * 多重键值对抽象类
  */
 @GwtCompatible
 abstract class AbstractMultimap<K, V> implements Multimap<K, V> {

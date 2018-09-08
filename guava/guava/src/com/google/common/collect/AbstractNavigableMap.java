@@ -30,6 +30,7 @@ import org.checkerframework.checker.nullness.qual.Nullable;
  * Skeletal implementation of {@link NavigableMap}.
  *
  * @author Louis Wasserman
+ * 给定特定排序的map抽象类
  */
 @GwtIncompatible
 abstract class AbstractNavigableMap<K, V> extends IteratorBasedAbstractMap<K, V>
