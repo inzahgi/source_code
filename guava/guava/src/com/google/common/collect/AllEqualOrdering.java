@@ -25,6 +25,7 @@ import org.checkerframework.checker.nullness.qual.Nullable;
  * An ordering that treats all references as equals, even nulls.
  *
  * @author Emily Soldal
+ *
  */
 @GwtCompatible(serializable = true)
 final class AllEqualOrdering extends Ordering<Object> implements Serializable {

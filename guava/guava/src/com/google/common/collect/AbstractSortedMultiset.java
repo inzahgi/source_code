@@ -32,6 +32,7 @@ import org.checkerframework.checker.nullness.qual.Nullable;
  * #elementSet()}. Override those methods for better performance.
  *
  * @author Louis Wasserman
+ * 有序 multiset实现抽象类
  */
 @GwtCompatible(emulated = true)
 abstract class AbstractSortedMultiset<E> extends AbstractMultiset<E> implements SortedMultiset<E> {

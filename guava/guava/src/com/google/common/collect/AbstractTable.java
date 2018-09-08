@@ -32,6 +32,7 @@ import org.checkerframework.checker.nullness.qual.Nullable;
  * Skeletal, implementation-agnostic implementation of the {@link Table} interface.
  *
  * @author Louis Wasserman
+ * table接口抽象实现
  */
 @GwtCompatible
 abstract class AbstractTable<R, C, V> implements Table<R, C, V> {

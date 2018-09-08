@@ -31,6 +31,7 @@ import org.checkerframework.checker.nullness.qual.Nullable;
  * #createCollection} method must return a {@code SortedSet}.
  *
  * @author Jared Levy
+ * 将multimap转换为有序set的抽象类
  */
 @GwtCompatible
 abstract class AbstractSortedSetMultimap<K, V> extends AbstractSetMultimap<K, V>
