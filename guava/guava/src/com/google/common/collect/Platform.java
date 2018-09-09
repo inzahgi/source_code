@@ -25,6 +25,7 @@ import java.util.Set;
  * Methods factored out so that they can be emulated differently in GWT.
  *
  * @author Hayward Chan
+ * 基于不同平台的初始化类
  */
 @GwtCompatible(emulated = true)
 final class Platform {

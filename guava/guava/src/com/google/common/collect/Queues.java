@@ -39,6 +39,7 @@ import java.util.concurrent.TimeUnit;
  *
  * @author Kurt Alfred Kluever
  * @since 11.0
+ * 生成队列的静态工具类
  */
 @GwtCompatible(emulated = true)
 public final class Queues {

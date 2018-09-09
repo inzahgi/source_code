@@ -27,6 +27,7 @@ import java.io.Serializable;
  * approach but with a subclass rather than a superclass.
  *
  * <p>TODO(cpovirk): Consider applying this subclass approach to our other types.
+ * 可以序列化的比较抽象类
  */
 @GwtCompatible(emulated = true)
 abstract class RangeGwtSerializationDependencies<C extends Comparable> implements Serializable {}

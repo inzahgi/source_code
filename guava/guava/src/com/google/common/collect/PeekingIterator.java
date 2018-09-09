@@ -30,6 +30,7 @@ import java.util.NoSuchElementException;
  *
  * @author Mick Killianey
  * @since 2.0
+ * 从迭代器中取出某一个元素接口
  */
 @GwtCompatible
 public interface PeekingIterator<E> extends Iterator<E> {

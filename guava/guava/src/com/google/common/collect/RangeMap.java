@@ -33,6 +33,7 @@ import org.checkerframework.checker.nullness.qual.Nullable;
  *
  * @author Louis Wasserman
  * @since 14.0
+ * 保存一定范围的键值的map
  */
 @Beta
 @GwtIncompatible

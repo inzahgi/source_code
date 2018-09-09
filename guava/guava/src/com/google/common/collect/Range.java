@@ -113,6 +113,7 @@ import org.checkerframework.checker.nullness.qual.Nullable;
  * @author Kevin Bourrillion
  * @author Gregory Kick
  * @since 10.0
+ * 表示范围的类
  */
 @GwtCompatible
 @SuppressWarnings("rawtypes")

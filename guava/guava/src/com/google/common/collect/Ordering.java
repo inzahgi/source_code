@@ -139,6 +139,7 @@ import org.checkerframework.checker.nullness.qual.Nullable;
  * @author Jesse Wilson
  * @author Kevin Bourrillion
  * @since 2.0
+ * 实现比较器接口的抽象排序类
  */
 @GwtCompatible
 public abstract class Ordering<T> implements Comparator<T> {
