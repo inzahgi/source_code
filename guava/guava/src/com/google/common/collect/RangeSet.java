@@ -47,6 +47,7 @@ import org.checkerframework.checker.nullness.qual.Nullable;
  * @author Kevin Bourrillion
  * @author Louis Wasserman
  * @since 14.0
+ * 保存一定范围的set集合
  */
 @Beta
 @GwtIncompatible

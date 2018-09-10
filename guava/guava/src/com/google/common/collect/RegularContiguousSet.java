@@ -29,6 +29,7 @@ import org.checkerframework.checker.nullness.qual.Nullable;
  * An implementation of {@link ContiguousSet} that contains one or more elements.
  *
  * @author Gregory Kick
+ * 连续集合的门面类
  */
 @GwtCompatible(emulated = true)
 @SuppressWarnings("unchecked") // allow ungenerified Comparable types

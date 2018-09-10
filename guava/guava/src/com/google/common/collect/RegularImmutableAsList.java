@@ -25,6 +25,7 @@ import java.util.function.Consumer;
  * backed by an {@code ImmutableList} or array.
  *
  * @author Louis Wasserman
+ * 不可变集合的门面类
  */
 @GwtCompatible(emulated = true)
 @SuppressWarnings("serial") // uses writeReplace, not default serialization
