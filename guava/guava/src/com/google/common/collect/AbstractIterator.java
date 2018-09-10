@@ -57,7 +57,11 @@ import org.checkerframework.checker.nullness.qual.Nullable;
  *
  * @author Kevin Bourrillion
  * @since 2.0
+<<<<<<< Updated upstream
  * 抽象迭代器类
+=======
+ *
+>>>>>>> Stashed changes
  */
 // When making changes to this class, please also update the copy at
 // com.google.common.base.AbstractIterator
