@@ -25,6 +25,7 @@ import java.util.Spliterators;
  * Implementation of {@link ImmutableList} backed by a simple array.
  *
  * @author Kevin Bourrillion
+ * 常量列表
  */
 @GwtCompatible(serializable = true, emulated = true)
 @SuppressWarnings("serial") // uses writeReplace(), not default serialization

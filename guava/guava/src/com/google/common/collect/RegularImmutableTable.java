@@ -29,6 +29,7 @@ import org.checkerframework.checker.nullness.qual.Nullable;
  * An implementation of {@link ImmutableTable} holding an arbitrary number of cells.
  *
  * @author Gregory Kick
+ * 常量存储任意元素的table
  */
 @GwtCompatible
 abstract class RegularImmutableTable<R, C, V> extends ImmutableTable<R, C, V> {

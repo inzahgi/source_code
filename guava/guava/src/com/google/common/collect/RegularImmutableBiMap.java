@@ -38,6 +38,8 @@ import org.checkerframework.checker.nullness.qual.Nullable;
  * Bimap with zero or more mappings.
  *
  * @author Louis Wasserman
+ *
+ *
  */
 @GwtCompatible(serializable = true, emulated = true)
 @SuppressWarnings("serial") // uses writeReplace(), not default serialization

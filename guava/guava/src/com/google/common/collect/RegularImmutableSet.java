@@ -26,6 +26,7 @@ import org.checkerframework.checker.nullness.qual.Nullable;
  * Implementation of {@link ImmutableSet} with two or more elements.
  *
  * @author Kevin Bourrillion
+ * 常量set集合
  */
 @GwtCompatible(serializable = true, emulated = true)
 @SuppressWarnings("serial") // uses writeReplace(), not default serialization

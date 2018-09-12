@@ -22,7 +22,10 @@ import com.google.common.annotations.GwtCompatible;
 import java.io.Serializable;
 import java.util.Iterator;
 
-/** An ordering that uses the reverse of the natural order of the values. */
+/** An ordering that uses the reverse of the natural order of the values. *
+ *  自然派排序反转序列
+ */
+
 @GwtCompatible(serializable = true)
 @SuppressWarnings("unchecked") // TODO(kevinb): the right way to explain this??
 final class ReverseNaturalOrdering extends Ordering<Comparable> implements Serializable {

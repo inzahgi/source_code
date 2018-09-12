@@ -29,6 +29,7 @@ import org.checkerframework.checker.nullness.qual.Nullable;
  * An immutable sorted multiset with one or more distinct elements.
  *
  * @author Louis Wasserman
+ * 常量的有序多重set集合
  */
 @SuppressWarnings("serial") // uses writeReplace, not default serialization
 @GwtIncompatible

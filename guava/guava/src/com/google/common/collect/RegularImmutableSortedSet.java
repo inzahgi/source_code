@@ -36,6 +36,7 @@ import org.checkerframework.checker.nullness.qual.Nullable;
  *
  * @author Jared Levy
  * @author Louis Wasserman
+ * 常量的有序set集合
  */
 @GwtCompatible(serializable = true, emulated = true)
 @SuppressWarnings("serial")
