@@ -31,6 +31,7 @@ import java.util.Map;
  * serialize collections that are defined elsewhere.
  *
  * @author Jared Levy
+ * 序列化静态工具类
  */
 @GwtIncompatible
 final class Serialization {

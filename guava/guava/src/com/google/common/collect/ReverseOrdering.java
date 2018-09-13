@@ -23,7 +23,12 @@ import java.io.Serializable;
 import java.util.Iterator;
 import org.checkerframework.checker.nullness.qual.Nullable;
 
-/** An ordering that uses the reverse of a given order. */
+/** An ordering that uses the reverse of a given order.
+ *
+ *
+ *  反转排序
+ *
+ */
 @GwtCompatible(serializable = true)
 final class ReverseOrdering<T> extends Ordering<T> implements Serializable {
   final Ordering<? super T> forwardOrder;

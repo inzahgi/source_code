@@ -31,6 +31,7 @@ import java.util.SortedSet;
  *
  * @author Warren Dukes
  * @since 8.0
+ * 扩展table的接口
  */
 @GwtCompatible
 public interface RowSortedTable<R, C, V> extends Table<R, C, V> {

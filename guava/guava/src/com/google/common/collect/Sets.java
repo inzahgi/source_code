@@ -65,6 +65,7 @@ import org.checkerframework.checker.nullness.qual.Nullable;
  * @author Jared Levy
  * @author Chris Povirk
  * @since 2.0
+ * set的静态工具类
  */
 @GwtCompatible(emulated = true)
 public final class Sets {
