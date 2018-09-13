@@ -97,6 +97,7 @@ public final class Sets {
    * @param anElement one of the elements the set should contain
    * @param otherElements the rest of the elements the set should contain
    * @return an immutable set containing those elements, minus duplicates
+   *  生成不可变的枚举集合
    */
   // http://code.google.com/p/google-web-toolkit/issues/detail?id=3028
   @GwtCompatible(serializable = true)
@@ -114,6 +115,7 @@ public final class Sets {
    *
    * @param elements the elements, all of the same {@code enum} type, that the set should contain
    * @return an immutable set containing those elements, minus duplicates
+   * 通过迭代器接口生成不可变的枚举集合
    */
   // http://code.google.com/p/google-web-toolkit/issues/detail?id=3028
   @GwtCompatible(serializable = true)
