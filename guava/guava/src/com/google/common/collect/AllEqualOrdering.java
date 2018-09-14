@@ -26,7 +26,8 @@ import org.checkerframework.checker.nullness.qual.Nullable;
  *
  * @author Emily Soldal
  *
- */
+ * 对所有引用相等 包括null
+ * */
 @GwtCompatible(serializable = true)
 final class AllEqualOrdering extends Ordering<Object> implements Serializable {
   static final AllEqualOrdering INSTANCE = new AllEqualOrdering();

@@ -31,6 +31,7 @@ import org.checkerframework.checker.nullness.qual.MonotonicNonNull;
  * <p>This class is not thread-safe even if the underlying map is.
  *
  * @author Dimitris Andreou
+ * enumMap包装类
  */
 @GwtCompatible
 final class WellBehavedMap<K, V> extends ForwardingMap<K, V> {
