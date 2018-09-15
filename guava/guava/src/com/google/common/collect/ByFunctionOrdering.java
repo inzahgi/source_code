@@ -28,6 +28,7 @@ import org.checkerframework.checker.nullness.qual.Nullable;
 /**
  * An ordering that orders elements by applying an order to the result of a function on those
  * elements.
+ * 根据传入的function 排序
  */
 @GwtCompatible(serializable = true)
 final class ByFunctionOrdering<F, T> extends Ordering<F> implements Serializable {

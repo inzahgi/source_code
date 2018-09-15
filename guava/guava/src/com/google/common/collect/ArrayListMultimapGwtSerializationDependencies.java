@@ -28,6 +28,7 @@ import java.util.Map;
  * approach but with a subclass rather than a superclass.
  *
  * <p>TODO(cpovirk): Consider applying this subclass approach to our other types.
+ * 序列化的包装类
  */
 @GwtCompatible(emulated = true)
 abstract class ArrayListMultimapGwtSerializationDependencies<K, V>

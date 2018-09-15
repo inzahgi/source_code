@@ -22,6 +22,7 @@ import com.google.common.annotations.GwtCompatible;
  * bound simply does not exist.
  *
  * @since 10.0
+ * 边界范围枚举类
  */
 @GwtCompatible
 public enum BoundType {

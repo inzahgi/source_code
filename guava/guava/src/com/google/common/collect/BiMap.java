@@ -33,6 +33,7 @@ import org.checkerframework.checker.nullness.qual.Nullable;
  *
  * @author Kevin Bourrillion
  * @since 2.0
+ * 位图映射
  */
 @GwtCompatible
 public interface BiMap<K, V> extends Map<K, V> {

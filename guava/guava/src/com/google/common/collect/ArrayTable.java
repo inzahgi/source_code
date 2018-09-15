@@ -76,6 +76,7 @@ import org.checkerframework.checker.nullness.qual.Nullable;
  *
  * @author Jared Levy
  * @since 10.0
+ * 固定长度的二维数组  分别保存键 值
  */
 @Beta
 @GwtCompatible(emulated = true)
