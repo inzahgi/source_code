@@ -51,6 +51,7 @@ import org.checkerframework.checker.nullness.qual.Nullable;
  * @author Mike Bostock
  * @author Jared Levy
  * @since 2.0
+ * 创建集合实例的静态工具类
  */
 @GwtCompatible
 public final class Collections2 {

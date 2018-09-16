@@ -24,7 +24,10 @@ import java.util.Comparator;
 import java.util.function.Function;
 import java.util.stream.Collector;
 
-/** Collectors utilities for {@code common.collect} internals. */
+/** Collectors utilities for {@code common.collect} internals.
+ *
+ *  集合工具类
+ */
 @GwtCompatible
 final class CollectCollectors {
   static <T, K, V> Collector<T, ?, ImmutableBiMap<K, V>> toImmutableBiMap(

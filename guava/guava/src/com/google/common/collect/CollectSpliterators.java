@@ -30,7 +30,10 @@ import java.util.function.Predicate;
 import java.util.stream.IntStream;
 import org.checkerframework.checker.nullness.qual.Nullable;
 
-/** Spliterator utilities for {@code common.collect} internals. */
+/** Spliterator utilities for {@code common.collect} internals.
+ *
+ * 集合切割工具类
+ */
 @GwtCompatible
 final class CollectSpliterators {
   private CollectSpliterators() {}

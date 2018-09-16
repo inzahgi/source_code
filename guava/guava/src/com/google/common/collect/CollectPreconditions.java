@@ -21,7 +21,10 @@ import static com.google.common.base.Preconditions.checkState;
 import com.google.common.annotations.GwtCompatible;
 import com.google.errorprone.annotations.CanIgnoreReturnValue;
 
-/** Precondition checks useful in collection implementations. */
+/** Precondition checks useful in collection implementations.
+ *
+ *  检测集合是否可用
+ */
 @GwtCompatible
 final class CollectPreconditions {
 
