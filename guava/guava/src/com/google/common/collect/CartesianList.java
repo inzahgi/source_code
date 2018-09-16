@@ -28,6 +28,7 @@ import org.checkerframework.checker.nullness.qual.Nullable;
  * Implementation of {@link Lists#cartesianProduct(List)}.
  *
  * @author Louis Wasserman
+ * 生成笛卡儿积列表
  */
 @GwtCompatible
 final class CartesianList<E> extends AbstractList<List<E>> implements RandomAccess {
