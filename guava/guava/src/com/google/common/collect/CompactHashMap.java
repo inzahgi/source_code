@@ -70,6 +70,7 @@ import org.checkerframework.checker.nullness.qual.Nullable;
  * reason to prioritize memory over CPU.
  *
  * @author Louis Wasserman
+ * 支持key value 为null的 map  迭代器遍历时比实际空间大
  */
 @GwtIncompatible // not worth using in GWT for now
 class CompactHashMap<K, V> extends AbstractMap<K, V> implements Serializable {
