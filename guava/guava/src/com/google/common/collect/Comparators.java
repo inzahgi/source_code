@@ -41,6 +41,7 @@ import java.util.stream.Collector;
  *
  * @since 21.0
  * @author Louis Wasserman
+ * 提供比较器的静态方法
  */
 @Beta
 @GwtCompatible
