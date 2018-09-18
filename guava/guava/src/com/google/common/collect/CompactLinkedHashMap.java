@@ -48,6 +48,7 @@ import org.checkerframework.checker.nullness.qual.MonotonicNonNull;
  * when there is a specific reason to prioritize memory over CPU.
  *
  * @author Louis Wasserman
+ * 复杂的linkhashMap  实现插入或者lru排序 支持null key和value 可以确定遍历的迭代顺序
  */
 @GwtIncompatible // not worth using in GWT for now
 class CompactLinkedHashMap<K, V> extends CompactHashMap<K, V> {

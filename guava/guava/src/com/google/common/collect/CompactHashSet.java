@@ -66,6 +66,7 @@ import org.checkerframework.checker.nullness.qual.Nullable;
  * reason to prioritize memory over CPU.
  *
  * @author Dimitris Andreou
+ * 复杂的set集合 遍历空间比实际size大
  */
 @GwtIncompatible // not worth using in GWT for now
 class CompactHashSet<E> extends AbstractSet<E> implements Serializable {

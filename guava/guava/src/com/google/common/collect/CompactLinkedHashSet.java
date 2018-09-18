@@ -47,6 +47,8 @@ import org.checkerframework.checker.nullness.qual.MonotonicNonNull;
  * when there is a specific reason to prioritize memory over CPU.
  *
  * @author Louis Wasserman
+ *
+ * 复杂的linkhashSet   可以确定遍历的迭代顺序
  */
 @GwtIncompatible // not worth using in GWT for now
 class CompactLinkedHashSet<E> extends CompactHashSet<E> {

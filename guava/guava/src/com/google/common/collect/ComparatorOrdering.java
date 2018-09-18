@@ -23,7 +23,9 @@ import java.io.Serializable;
 import java.util.Comparator;
 import org.checkerframework.checker.nullness.qual.Nullable;
 
-/** An ordering for a pre-existing comparator. */
+/** An ordering for a pre-existing comparator.
+ * 排序比较器包装类
+ */
 @GwtCompatible(serializable = true)
 final class ComparatorOrdering<T> extends Ordering<T> implements Serializable {
   final Comparator<T> comparator;
