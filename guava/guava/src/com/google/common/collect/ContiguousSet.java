@@ -45,6 +45,7 @@ import java.util.Set;
  *
  * @author Gregory Kick
  * @since 10.0
+ * 有序的连续集合  实际保存上下边界
  */
 @GwtCompatible(emulated = true)
 @SuppressWarnings("rawtypes") // allow ungenerified Comparable types

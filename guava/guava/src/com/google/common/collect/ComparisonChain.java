@@ -55,6 +55,7 @@ import org.checkerframework.checker.nullness.qual.Nullable;
  * @author Mark Davis
  * @author Kevin Bourrillion
  * @since 2.0
+ * 比较链 使用静态方法 流式编写比较器
  */
 @GwtCompatible
 public abstract class ComparisonChain {

@@ -24,6 +24,8 @@ import org.checkerframework.checker.nullness.qual.Nullable;
  *
  * @author Bob Lee
  * @since 2.0
+ * 比较器异常类
+ *
  */
 @GwtCompatible
 public class ComputationException extends RuntimeException {

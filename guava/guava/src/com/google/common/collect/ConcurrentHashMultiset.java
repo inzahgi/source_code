@@ -54,6 +54,7 @@ import org.checkerframework.checker.nullness.qual.Nullable;
  * @author Cliff L. Biffle
  * @author mike nonemacher
  * @since 2.0
+ * 并发的 hashMultiset
  */
 @GwtIncompatible
 public final class ConcurrentHashMultiset<E> extends AbstractMultiset<E> implements Serializable {

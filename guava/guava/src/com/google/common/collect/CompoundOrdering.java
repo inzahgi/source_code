@@ -21,7 +21,9 @@ import java.io.Serializable;
 import java.util.Arrays;
 import java.util.Comparator;
 
-/** An ordering that tries several comparators in order. */
+/** An ordering that tries several comparators in order.
+ * 包含一个比较器数组的排序类
+ */
 @GwtCompatible(serializable = true)
 final class CompoundOrdering<T> extends Ordering<T> implements Serializable {
   final Comparator<? super T>[] comparators;

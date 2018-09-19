@@ -24,6 +24,7 @@ import java.util.Queue;
 /**
  * An Iterator implementation which draws elements from a queue, removing them from the queue as it
  * iterates.
+ * 包装队列的迭代器 调用移除一个元素
  */
 @GwtCompatible
 class ConsumingQueueIterator<T> extends AbstractIterator<T> {
