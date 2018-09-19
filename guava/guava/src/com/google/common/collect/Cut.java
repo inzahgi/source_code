@@ -30,6 +30,7 @@ import org.checkerframework.checker.nullness.qual.Nullable;
  * always be represented by a pair of {@code Cut} instances.
  *
  * @author Kevin Bourrillion
+ * 将内部数据结构按一定范围切分 抽象类接口
  */
 @GwtCompatible
 abstract class Cut<C extends Comparable> implements Comparable<Cut<C>>, Serializable {

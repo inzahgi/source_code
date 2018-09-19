@@ -22,6 +22,7 @@ import org.checkerframework.checker.nullness.qual.Nullable;
  * A mutable value of type {@code int}, for multisets to use in tracking counts of values.
  *
  * @author Louis Wasserman
+ * int 计数类
  */
 @GwtCompatible
 final class Count implements Serializable {
