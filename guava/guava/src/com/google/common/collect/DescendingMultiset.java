@@ -29,6 +29,7 @@ import org.checkerframework.checker.nullness.qual.MonotonicNonNull;
  * {@code entryIterator()}.
  *
  * @author Louis Wasserman
+ * 降序排列的multiset集合
  */
 @GwtCompatible(emulated = true)
 abstract class DescendingMultiset<E> extends ForwardingMultiset<E> implements SortedMultiset<E> {

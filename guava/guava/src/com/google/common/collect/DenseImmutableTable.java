@@ -23,7 +23,10 @@ import com.google.j2objc.annotations.WeakOuter;
 import java.util.Map;
 import org.checkerframework.checker.nullness.qual.Nullable;
 
-/** A {@code RegularImmutableTable} optimized for dense data. */
+/** A {@code RegularImmutableTable} optimized for dense data.
+ *
+ *  对大数据量的进行优化的不可变table
+ * */
 @GwtCompatible
 @Immutable(containerOf = {"R", "C", "V"})
 final class DenseImmutableTable<R, C, V> extends RegularImmutableTable<R, C, V> {

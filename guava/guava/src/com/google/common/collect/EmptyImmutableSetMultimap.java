@@ -22,6 +22,7 @@ import com.google.common.annotations.GwtCompatible;
  * Implementation of {@link ImmutableListMultimap} with no entries.
  *
  * @author Mike Ward
+ * 空的不可变 保存多个multimap的set集合
  */
 @GwtCompatible(serializable = true)
 class EmptyImmutableSetMultimap extends ImmutableSetMultimap<Object, Object> {

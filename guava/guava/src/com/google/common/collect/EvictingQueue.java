@@ -42,6 +42,7 @@ import java.util.Queue;
  *
  * @author Kurt Alfred Kluever
  * @since 15.0
+ * 非阻塞队列 线程安全  当队列满时添加元素会自动删除队首元素
  */
 @Beta
 @GwtCompatible

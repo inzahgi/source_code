@@ -39,6 +39,7 @@ import org.checkerframework.checker.nullness.qual.Nullable;
  *
  * @author Mike Bostock
  * @since 2.0
+ *  枚举的双向映射的hashmap
  */
 @GwtCompatible(emulated = true)
 public final class EnumHashBiMap<K extends Enum<K>, V> extends AbstractBiMap<K, V> {

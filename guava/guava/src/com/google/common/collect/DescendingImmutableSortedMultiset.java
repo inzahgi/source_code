@@ -21,6 +21,7 @@ import org.checkerframework.checker.nullness.qual.Nullable;
  * A descending wrapper around an {@code ImmutableSortedMultiset}
  *
  * @author Louis Wasserman
+ * 降序排列的 包装的multiset
  */
 @SuppressWarnings("serial") // uses writeReplace, not default serialization
 @GwtIncompatible

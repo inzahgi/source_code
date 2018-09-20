@@ -41,6 +41,7 @@ import java.util.NoSuchElementException;
  *
  * @author Kevin Bourrillion
  * @since 10.0
+ * 保存离散域
  */
 @GwtCompatible
 public abstract class DiscreteDomain<C extends Comparable> {

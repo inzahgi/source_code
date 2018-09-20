@@ -24,6 +24,7 @@ import org.checkerframework.checker.nullness.qual.Nullable;
  * An empty contiguous set.
  *
  * @author Gregory Kick
+ * 空的保存连续集合
  */
 @GwtCompatible(emulated = true)
 @SuppressWarnings("unchecked") // allow ungenerified Comparable types

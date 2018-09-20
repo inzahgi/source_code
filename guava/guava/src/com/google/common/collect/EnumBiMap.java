@@ -36,6 +36,7 @@ import java.util.Map;
  *
  * @author Mike Bostock
  * @since 2.0
+ * 枚举 的双向映射map
  */
 @GwtCompatible(emulated = true)
 public final class EnumBiMap<K extends Enum<K>, V extends Enum<V>> extends AbstractBiMap<K, V> {

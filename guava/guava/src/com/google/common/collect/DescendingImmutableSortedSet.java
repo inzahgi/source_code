@@ -23,6 +23,7 @@ import org.checkerframework.checker.nullness.qual.Nullable;
  * Skeletal implementation of {@link ImmutableSortedSet#descendingSet()}.
  *
  * @author Louis Wasserman
+ * 降序排列的set
  */
 @GwtIncompatible
 final class DescendingImmutableSortedSet<E> extends ImmutableSortedSet<E> {
