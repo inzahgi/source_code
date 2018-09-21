@@ -34,6 +34,7 @@ import org.checkerframework.checker.nullness.qual.Nullable;
  * Implementation of {@link Multimaps#filterKeys(Multimap, Predicate)}.
  *
  * @author Louis Wasserman
+ * 对multimap按指定key过滤
  */
 @GwtCompatible
 class FilteredKeyMultimap<K, V> extends AbstractMultimap<K, V> implements FilteredMultimap<K, V> {

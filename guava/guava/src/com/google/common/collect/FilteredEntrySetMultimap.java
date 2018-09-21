@@ -25,6 +25,8 @@ import java.util.Set;
  * Implementation of {@link Multimaps#filterEntries(SetMultimap, Predicate)}.
  *
  * @author Louis Wasserman
+ * setMultimap过滤器
+ *
  */
 @GwtCompatible
 final class FilteredEntrySetMultimap<K, V> extends FilteredEntryMultimap<K, V>

@@ -22,6 +22,7 @@ import com.google.common.annotations.GwtCompatible;
  * A supertype for filtered {@link SetMultimap} implementations.
  *
  * @author Louis Wasserman
+ * setmultimap的过滤器实现
  */
 @GwtCompatible
 interface FilteredSetMultimap<K, V> extends FilteredMultimap<K, V>, SetMultimap<K, V> {

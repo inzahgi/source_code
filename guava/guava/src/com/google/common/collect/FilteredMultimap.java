@@ -24,6 +24,7 @@ import java.util.Map.Entry;
  * An interface for all filtered multimap types.
  *
  * @author Louis Wasserman
+ * multimap过滤类型接口
  */
 @GwtCompatible
 interface FilteredMultimap<K, V> extends Multimap<K, V> {

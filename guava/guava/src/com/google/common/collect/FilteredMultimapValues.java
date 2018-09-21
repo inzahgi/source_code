@@ -31,6 +31,7 @@ import org.checkerframework.checker.nullness.qual.Nullable;
  * Implementation for {@link FilteredMultimap#values()}.
  *
  * @author Louis Wasserman
+ * filterdMultimap的value 迭代器操作接口
  */
 @GwtCompatible
 final class FilteredMultimapValues<K, V> extends AbstractCollection<V> {

@@ -25,6 +25,7 @@ import org.checkerframework.checker.nullness.qual.Nullable;
  * Implementation of {@link Multimaps#filterKeys(ListMultimap, Predicate)}.
  *
  * @author Louis Wasserman
+ * listMultimap 的过滤器
  */
 @GwtCompatible
 final class FilteredKeyListMultimap<K, V> extends FilteredKeyMultimap<K, V>
