@@ -29,6 +29,7 @@ import java.util.Set;
  *
  * @author Gregory Kick
  * @since 7.0
+ * table包装类
  */
 @GwtCompatible
 public abstract class ForwardingTable<R, C, V> extends ForwardingObject implements Table<R, C, V> {

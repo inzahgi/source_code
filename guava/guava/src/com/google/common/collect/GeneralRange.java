@@ -34,6 +34,8 @@ import org.checkerframework.checker.nullness.qual.Nullable;
  * <p>Whenever possible, use {@code Range} instead, which is better supported.
  *
  * @author Louis Wasserman
+ *
+ * 首选用range  generalRange 可以使用任意比较器 对集合类型排序
  */
 @GwtCompatible(serializable = true)
 final class GeneralRange<T> implements Serializable {

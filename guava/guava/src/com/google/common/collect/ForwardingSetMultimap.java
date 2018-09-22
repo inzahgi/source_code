@@ -33,6 +33,7 @@ import org.checkerframework.checker.nullness.qual.Nullable;
  *
  * @author Kurt Alfred Kluever
  * @since 3.0
+ * setMultimap装饰类
  */
 @GwtCompatible
 public abstract class ForwardingSetMultimap<K, V> extends ForwardingMultimap<K, V>

@@ -41,6 +41,7 @@ import java.util.NavigableSet;
  *
  * @author Louis Wasserman
  * @since 15.0
+ * sortedMultiset装饰类
  */
 @Beta
 @GwtCompatible(emulated = true)

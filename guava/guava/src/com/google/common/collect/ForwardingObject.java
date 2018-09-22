@@ -42,6 +42,7 @@ import java.io.Serializable;
  *
  * @author Mike Bostock
  * @since 2.0
+ * 装饰类的抽象类
  */
 @GwtCompatible
 public abstract class ForwardingObject {

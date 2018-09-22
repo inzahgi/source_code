@@ -44,6 +44,7 @@ import org.checkerframework.checker.nullness.qual.Nullable;
  * @author Kevin Bourrillion
  * @author Louis Wasserman
  * @since 2.0
+ * set装饰类
  */
 @GwtCompatible
 public abstract class ForwardingSet<E> extends ForwardingCollection<E> implements Set<E> {

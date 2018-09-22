@@ -32,6 +32,7 @@ import org.checkerframework.checker.nullness.qual.Nullable;
  *
  * @author Kurt Alfred Kluever
  * @since 3.0
+ * sortedSetultimap装饰类
  */
 @GwtCompatible
 public abstract class ForwardingSortedSetMultimap<K, V> extends ForwardingSetMultimap<K, V>

@@ -50,6 +50,7 @@ import org.checkerframework.checker.nullness.qual.Nullable;
  * @author Mike Bostock
  * @author Louis Wasserman
  * @since 2.0
+ * sortedSet装饰类
  */
 @GwtCompatible
 public abstract class ForwardingSortedSet<E> extends ForwardingSet<E> implements SortedSet<E> {

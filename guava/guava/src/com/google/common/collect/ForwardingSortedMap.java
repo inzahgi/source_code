@@ -49,6 +49,7 @@ import org.checkerframework.checker.nullness.qual.Nullable;
  * @author Mike Bostock
  * @author Louis Wasserman
  * @since 2.0
+ * sortedMap装饰类
  */
 @GwtCompatible
 public abstract class ForwardingSortedMap<K, V> extends ForwardingMap<K, V>
