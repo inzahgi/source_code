@@ -27,6 +27,7 @@ import java.util.stream.Collector;
  * ImmutableSortedSetFauxverideShim} for details.
  *
  * @author Chris Povirk
+ * 重写immutableMap的静态方法
  */
 @GwtIncompatible
 abstract class ImmutableSortedMapFauxverideShim<K, V> extends ImmutableMap<K, V> {

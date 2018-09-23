@@ -45,6 +45,7 @@ import org.checkerframework.checker.nullness.qual.Nullable;
  *
  * @author Gregory Kick
  * @since 11.0
+ * 不可变table的抽象类
  */
 @GwtCompatible
 public abstract class ImmutableTable<R, C, V> extends AbstractTable<R, C, V>

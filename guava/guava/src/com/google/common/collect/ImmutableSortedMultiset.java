@@ -47,6 +47,7 @@ import java.util.stream.Collector;
  *
  * @author Louis Wasserman
  * @since 12.0
+ * sortedMultiset的不可变集合实现类
  */
 @GwtIncompatible // hasn't been tested yet
 public abstract class ImmutableSortedMultiset<E> extends ImmutableSortedMultisetFauxverideShim<E>

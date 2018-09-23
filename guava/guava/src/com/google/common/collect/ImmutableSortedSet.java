@@ -57,6 +57,7 @@ import org.checkerframework.checker.nullness.qual.Nullable;
  * @author Jared Levy
  * @author Louis Wasserman
  * @since 2.0 (implements {@code NavigableSet} since 12.0)
+ * 有序的不可变集合
  */
 // TODO(benyu): benchmark and optimize all creation paths, which are a mess now
 @GwtCompatible(serializable = true, emulated = true)

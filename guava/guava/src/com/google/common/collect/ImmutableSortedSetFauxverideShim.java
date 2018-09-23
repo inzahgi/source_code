@@ -35,6 +35,7 @@ import java.util.stream.Collector;
  * separate these "do not call" methods from those intended for normal use.
  *
  * @author Chris Povirk
+ * 重写immutableSet大部分方法
  */
 @GwtIncompatible
 abstract class ImmutableSortedSetFauxverideShim<E> extends ImmutableSet<E> {

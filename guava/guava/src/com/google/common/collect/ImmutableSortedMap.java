@@ -57,6 +57,7 @@ import org.checkerframework.checker.nullness.qual.Nullable;
  * @author Jared Levy
  * @author Louis Wasserman
  * @since 2.0 (implements {@code NavigableMap} since 12.0)
+ * sortedMap的不可变实现类
  */
 @GwtCompatible(serializable = true, emulated = true)
 public final class ImmutableSortedMap<K, V> extends ImmutableSortedMapFauxverideShim<K, V>

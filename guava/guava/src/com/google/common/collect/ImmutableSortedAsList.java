@@ -25,6 +25,7 @@ import org.checkerframework.checker.nullness.qual.Nullable;
  *
  * @author Jared Levy
  * @author Louis Wasserman
+ * immutableSortedSet转list
  */
 @GwtCompatible(emulated = true)
 @SuppressWarnings("serial")

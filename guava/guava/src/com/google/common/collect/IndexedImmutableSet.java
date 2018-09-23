@@ -23,6 +23,10 @@ import com.google.common.annotations.GwtIncompatible;
 import java.util.Spliterator;
 import java.util.function.Consumer;
 
+/**
+ * immutableSet 的索引类
+ */
+
 @GwtCompatible(emulated = true)
 abstract class IndexedImmutableSet<E> extends ImmutableSet<E> {
   abstract E get(int index);

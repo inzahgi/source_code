@@ -35,6 +35,7 @@ import java.util.stream.Collector;
  * to separate these "do not call" methods from those intended for normal use.
  *
  * @author Louis Wasserman
+ * 重写immutableMultiset的多种静态方法
  */
 @GwtIncompatible
 abstract class ImmutableSortedMultisetFauxverideShim<E> extends ImmutableMultiset<E> {

@@ -52,6 +52,7 @@ import org.checkerframework.checker.nullness.qual.Nullable;
  *
  * @author Mike Ward
  * @since 2.0
+ * 不可变setMultimap集合
  */
 @GwtCompatible(serializable = true, emulated = true)
 public class ImmutableSetMultimap<K, V> extends ImmutableMultimap<K, V>
