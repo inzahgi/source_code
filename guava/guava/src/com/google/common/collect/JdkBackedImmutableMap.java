@@ -27,6 +27,7 @@ import org.checkerframework.checker.nullness.qual.Nullable;
 /**
  * Implementation of ImmutableMap backed by a JDK HashMap, which has smartness protecting against
  * hash flooding.
+ * jdk中map的不可变实现
  */
 @GwtCompatible(emulated = true)
 final class JdkBackedImmutableMap<K, V> extends ImmutableMap<K, V> {

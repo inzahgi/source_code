@@ -24,6 +24,7 @@ import org.checkerframework.checker.nullness.qual.Nullable;
  * for serialization to work.
  *
  * @author Louis Wasserman
+ * jdk中hashSet的不可变实现
  */
 @GwtCompatible(serializable = true)
 final class JdkBackedImmutableSet<E> extends IndexedImmutableSet<E> {

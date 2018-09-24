@@ -28,6 +28,7 @@ import java.util.Map;
  * approach but with a subclass rather than a superclass.
  *
  * <p>TODO(cpovirk): Consider applying this subclass approach to our other types.
+ * linkedHashMultimap的序列化超类
  */
 @GwtCompatible(emulated = true)
 abstract class LinkedHashMultimapGwtSerializationDependencies<K, V>

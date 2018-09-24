@@ -94,6 +94,7 @@ import org.checkerframework.checker.nullness.qual.Nullable;
  *
  * @author Mike Bostock
  * @since 2.0
+ * multiMap的linkdList实现
  */
 @GwtCompatible(serializable = true, emulated = true)
 public class LinkedListMultimap<K, V> extends AbstractMultimap<K, V>

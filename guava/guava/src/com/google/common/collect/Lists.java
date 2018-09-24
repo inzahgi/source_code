@@ -63,6 +63,7 @@ import org.checkerframework.checker.nullness.qual.Nullable;
  * @author Mike Bostock
  * @author Louis Wasserman
  * @since 2.0
+ * List 静态工具类 创建实例
  */
 @GwtCompatible(emulated = true)
 public final class Lists {

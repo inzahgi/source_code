@@ -38,6 +38,7 @@ import org.checkerframework.checker.nullness.qual.Nullable;
  *
  * @author Jared Levy
  * @since 2.0
+ * multimap 操作返回list结果
  */
 @GwtCompatible
 public interface ListMultimap<K, V> extends Multimap<K, V> {

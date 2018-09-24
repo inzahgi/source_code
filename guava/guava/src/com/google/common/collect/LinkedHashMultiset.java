@@ -37,6 +37,7 @@ import java.util.LinkedHashMap;
  * @author Kevin Bourrillion
  * @author Jared Levy
  * @since 2.0
+ * multiset的linkedHash实现
  */
 @GwtCompatible(serializable = true, emulated = true)
 @SuppressWarnings("serial") // we're overriding default serialization

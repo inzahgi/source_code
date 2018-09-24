@@ -76,6 +76,7 @@ import org.checkerframework.checker.nullness.qual.Nullable;
  * @author Jared Levy
  * @author Louis Wasserman
  * @since 2.0
+ * multimap的linkedhash实现
  */
 @GwtCompatible(serializable = true, emulated = true)
 public final class LinkedHashMultimap<K, V>

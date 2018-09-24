@@ -27,6 +27,7 @@ import org.checkerframework.checker.nullness.qual.Nullable;
  * against hash flooding attacks.
  *
  * @author Louis Wasserman
+ * jdk中multiset的不可变实现
  */
 @GwtCompatible
 final class JdkBackedImmutableMultiset<E> extends ImmutableMultiset<E> {
