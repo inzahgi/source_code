@@ -80,6 +80,7 @@ import org.checkerframework.checker.nullness.qual.Nullable;
  *
  * @author Kevin Bourrillion
  * @since 2.0
+ * multiSet接口
  */
 @GwtCompatible
 public interface Multiset<E> extends Collection<E> {

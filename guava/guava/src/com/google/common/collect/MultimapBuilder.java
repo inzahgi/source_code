@@ -60,6 +60,7 @@ import java.util.TreeSet;
  * @param <K0> An upper bound on the key type of the generated multimap.
  * @param <V0> An upper bound on the value type of the generated multimap.
  * @since 16.0
+ * multimap的builder类
  */
 @Beta
 @GwtCompatible

@@ -39,6 +39,7 @@ import java.util.Spliterator;
  *
  * @author Kevin Bourrillion
  * @since 2.0
+ * class 类型类作为key  实例作为value
  */
 @GwtIncompatible
 @SuppressWarnings("serial") // using writeReplace instead of standard serialization

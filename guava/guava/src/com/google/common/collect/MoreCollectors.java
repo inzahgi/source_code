@@ -33,6 +33,7 @@ import org.checkerframework.checker.nullness.qual.Nullable;
  *
  * @author Louis Wasserman
  * @since 21.0
+ * 操作更多类型的collectors
  */
 @Beta
 @GwtCompatible

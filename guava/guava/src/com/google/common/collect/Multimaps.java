@@ -67,6 +67,7 @@ import org.checkerframework.checker.nullness.qual.Nullable;
  * @author Mike Bostock
  * @author Louis Wasserman
  * @since 2.0
+ * multiMap静态工具类
  */
 @GwtCompatible(emulated = true)
 public final class Multimaps {

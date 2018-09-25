@@ -157,6 +157,7 @@ import org.checkerframework.checker.nullness.qual.Nullable;
  *
  * @author Jared Levy
  * @since 2.0
+ * multimap接口
  */
 @GwtCompatible
 public interface Multimap<K, V> {

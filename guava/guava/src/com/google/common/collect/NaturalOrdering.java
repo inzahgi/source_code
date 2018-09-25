@@ -22,7 +22,9 @@ import com.google.common.annotations.GwtCompatible;
 import java.io.Serializable;
 import org.checkerframework.checker.nullness.qual.MonotonicNonNull;
 
-/** An ordering that uses the natural order of the values. */
+/** An ordering that uses the natural order of the values.
+ * 自然排序
+ * */
 @GwtCompatible(serializable = true)
 @SuppressWarnings("unchecked") // TODO(kevinb): the right way to explain this??
 final class NaturalOrdering extends Ordering<Comparable> implements Serializable {

@@ -54,6 +54,7 @@ import org.checkerframework.checker.nullness.qual.Nullable;
  * @author Mike Bostock
  * @author Louis Wasserman
  * @since 2.0
+ * multiSet静态工具类
  */
 @GwtCompatible
 public final class Multisets {
