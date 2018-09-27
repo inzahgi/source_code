@@ -76,7 +76,9 @@ public class ArrayListMultimapTest extends TestCase {
     return ArrayListMultimap.create();
   }
 
-  /** Confirm that get() returns a List implementing RandomAccess. */
+  /** Confirm that get() returns a List implementing RandomAccess.
+   * multimap 单个key保存多个value
+   * */
   public void testGetRandomAccess() {
     Multimap<String, Integer> multimap = create();
     multimap.put("foo", 1);
