@@ -87,7 +87,9 @@ public class ArrayListMultimapTest extends TestCase {
     assertTrue(multimap.get("bar") instanceof RandomAccess);
   }
 
-  /** Confirm that removeAll() returns a List implementing RandomAccess. */
+  /** Confirm that removeAll() returns a List implementing RandomAccess.
+   *  removeAll 移除该键值对后 返回原来的键对应的值
+   * */
   public void testRemoveAllRandomAccess() {
     Multimap<String, Integer> multimap = create();
     multimap.put("foo", 1);
@@ -96,7 +98,9 @@ public class ArrayListMultimapTest extends TestCase {
     assertTrue(multimap.removeAll("bar") instanceof RandomAccess);
   }
 
-  /** Confirm that replaceValues() returns a List implementing RandomAccess. */
+  /** Confirm that replaceValues() returns a List implementing RandomAccess.
+   * replaceValues 替换值集合并返回 该集合 只能用迭代器遍历
+   * */
   public void testReplaceValuesRandomAccess() {
     Multimap<String, Integer> multimap = create();
     multimap.put("foo", 1);
