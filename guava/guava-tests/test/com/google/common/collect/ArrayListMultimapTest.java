@@ -109,7 +109,10 @@ public class ArrayListMultimapTest extends TestCase {
     assertTrue(multimap.replaceValues("bar", asList(2, 4)) instanceof RandomAccess);
   }
 
-  /** Test throwing ConcurrentModificationException when a sublist's ancestor's delegate changes. */
+  /** Test throwing ConcurrentModificationException when a sublist's ancestor's delegate changes.
+   *  ListMultimap  单key多value映射  value为list map<Object, List<Object>>
+   *      get方法会获取一个视图 变更list试图会改变 原有的值  直接变更listMultiMap 试图会失效
+   * */
   public void testSublistConcurrentModificationException() {
     ListMultimap<String, Integer> multimap = create();
     multimap.putAll("foo", asList(1, 2, 3, 4, 5));
@@ -129,6 +132,9 @@ public class ArrayListMultimapTest extends TestCase {
     }
   }
 
+  /**
+   * 拷贝构造 使用的是浅拷贝
+   */
   public void testCreateFromMultimap() {
     Multimap<String, Integer> multimap = create();
     multimap.put("foo", 1);
