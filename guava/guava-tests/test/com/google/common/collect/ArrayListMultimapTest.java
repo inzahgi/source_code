@@ -144,16 +144,26 @@ public class ArrayListMultimapTest extends TestCase {
     assertEquals(multimap, copy);
   }
 
+  /**
+   * 使用create静态方法生成实例 value的 list大小默认为 3
+   */
   public void testCreate() {
     ArrayListMultimap<String, Integer> multimap = ArrayListMultimap.create();
     assertEquals(3, multimap.expectedValuesPerKey);
   }
 
+
+  /**
+   * 使用create静态方法生成指定的大小的 map 和 每一个value的 list的大小
+   */
   public void testCreateFromSizes() {
     ArrayListMultimap<String, Integer> multimap = ArrayListMultimap.create(15, 20);
     assertEquals(20, multimap.expectedValuesPerKey);
   }
 
+  /**
+   * 初始化参数不能为负数
+   */
   public void testCreateFromIllegalSizes() {
     try {
       ArrayListMultimap.create(15, -2);
@@ -168,6 +178,7 @@ public class ArrayListMultimapTest extends TestCase {
     }
   }
 
+  
   public void testCreateFromHashMultimap() {
     Multimap<String, Integer> original = HashMultimap.create();
     ArrayListMultimap<String, Integer> multimap = ArrayListMultimap.create(original);
