@@ -116,6 +116,7 @@ public abstract class AbstractImmutableSetTest extends TestCase {
     assertEquals(Sets.newHashSet("a", "b", "c", "d", "e", "f", "g", "h"), set);
   }
 
+  //复制空数组生成immutableSet 与构造生成相等
   public void testCopyOf_emptyArray() {
     String[] array = new String[0];
     Set<String> set = copyOf(array);
@@ -123,29 +124,35 @@ public abstract class AbstractImmutableSetTest extends TestCase {
     assertSame(of(), set);
   }
 
+  //复制构造包含一个元素的数组 与生成的单集合相等
   public void testCopyOf_arrayOfOneElement() {
     String[] array = new String[] {"a"};
     Set<String> set = copyOf(array);
     assertEquals(Collections.singleton("a"), set);
   }
 
+  //拷贝构造的输入数组不能为null
   public void testCopyOf_nullArray() {
     try {
       copyOf((String[]) null);
       fail();
     } catch (NullPointerException expected) {
+      expected.printStackTrace();
     }
   }
 
+  //拷贝构造的输入复制的数组不能包含null
   public void testCopyOf_arrayContainingOnlyNull() {
-    String[] array = new String[] {null};
+    String[] array = new String[] {"", null};
     try {
       copyOf(array);
       fail();
     } catch (NullPointerException expected) {
+      expected.printStackTrace();
     }
   }
 
+  //拷贝构造的可以输入空集合
   public void testCopyOf_collection_empty() {
     // "<String>" is required to work around a javac 1.5 bug.
     Collection<String> c = MinimalCollection.<String>of();
@@ -154,18 +161,21 @@ public abstract class AbstractImmutableSetTest extends TestCase {
     assertSame(of(), set);
   }
 
+  //拷贝构造单元素集合 相等
   public void testCopyOf_collection_oneElement() {
     Collection<String> c = MinimalCollection.of("a");
     Set<String> set = copyOf(c);
     assertEquals(Collections.singleton("a"), set);
   }
 
+  //多个重复元素集合构造生成 自动去重
   public void testCopyOf_collection_oneElementRepeated() {
     Collection<String> c = MinimalCollection.of("a", "a", "a");
     Set<String> set = copyOf(c);
     assertEquals(Collections.singleton("a"), set);
   }
 
+  //多元素集合构造生成
   public void testCopyOf_collection_general() {
     Collection<String> c = MinimalCollection.of("a", "b", "a");
     Set<String> set = copyOf(c);
@@ -174,6 +184,7 @@ public abstract class AbstractImmutableSetTest extends TestCase {
     assertTrue(set.contains("b"));
   }
 
+  //拷贝构造的输入集合不能包含null
   public void testCopyOf_collectionContainingNull() {
     Collection<String> c = MinimalCollection.of("a", null, "b");
     try {
@@ -190,6 +201,7 @@ public abstract class AbstractImmutableSetTest extends TestCase {
     D
   }
 
+  //拷贝构造enumSet
   public void testCopyOf_collection_enumSet() {
     Collection<TestEnum> c = EnumSet.of(TestEnum.A, TestEnum.B, TestEnum.D);
     Set<TestEnum> set = copyOf(c);
@@ -197,6 +209,7 @@ public abstract class AbstractImmutableSetTest extends TestCase {
     assertEquals(c, set);
   }
 
+  //拷贝构造空迭代器
   public void testCopyOf_iterator_empty() {
     Iterator<String> iterator = Iterators.emptyIterator();
     Set<String> set = copyOf(iterator);
@@ -204,18 +217,21 @@ public abstract class AbstractImmutableSetTest extends TestCase {
     assertSame(of(), set);
   }
 
+  //拷贝构造单元素迭代器
   public void testCopyOf_iterator_oneElement() {
     Iterator<String> iterator = Iterators.singletonIterator("a");
     Set<String> set = copyOf(iterator);
     assertEquals(Collections.singleton("a"), set);
   }
 
+  //拷贝构造多重复元素的迭代器 自动去重
   public void testCopyOf_iterator_oneElementRepeated() {
     Iterator<String> iterator = Iterators.forArray("a", "a", "a");
     Set<String> set = copyOf(iterator);
     assertEquals(Collections.singleton("a"), set);
   }
 
+  //同上
   public void testCopyOf_iterator_general() {
     Iterator<String> iterator = Iterators.forArray("a", "b", "a");
     Set<String> set = copyOf(iterator);
@@ -224,6 +240,7 @@ public abstract class AbstractImmutableSetTest extends TestCase {
     assertTrue(set.contains("b"));
   }
 
+  //拷贝构造的输入迭代器不能包含null元素
   public void testCopyOf_iteratorContainingNull() {
     Iterator<String> c = Iterators.forArray("a", null, "b");
     try {
