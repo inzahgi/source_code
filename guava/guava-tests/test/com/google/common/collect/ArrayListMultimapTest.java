@@ -178,19 +178,27 @@ public class ArrayListMultimapTest extends TestCase {
     }
   }
 
-  
+  /**
+   * 由HashMultimap 生成 ArrayListMultimap
+   */
   public void testCreateFromHashMultimap() {
     Multimap<String, Integer> original = HashMultimap.create();
     ArrayListMultimap<String, Integer> multimap = ArrayListMultimap.create(original);
     assertEquals(3, multimap.expectedValuesPerKey);
   }
 
+  /**
+   * arrayListMultimap 拷贝构造
+   */
   public void testCreateFromArrayListMultimap() {
     ArrayListMultimap<String, Integer> original = ArrayListMultimap.create(15, 20);
     ArrayListMultimap<String, Integer> multimap = ArrayListMultimap.create(original);
     assertEquals(20, multimap.expectedValuesPerKey);
   }
 
+  /**
+   * trimToSize 已经废弃
+   */
   public void testTrimToSize() {
     ArrayListMultimap<String, Integer> multimap = ArrayListMultimap.create();
     multimap.put("foo", 1);

@@ -295,7 +295,8 @@ public abstract class AbstractImmutableSetTest extends TestCase {
     new IteratorTester<String>(
         5, UNMODIFIABLE, asList("a", "b", "c"), IteratorTester.KnownOrder.KNOWN_ORDER) {
       @Override
-      protected Iterator<String> newTargetIterator() {
+      protected
+      Iterator<String> newTargetIterator() {
         return of("a", "b", "c").iterator();
       }
     }.test();

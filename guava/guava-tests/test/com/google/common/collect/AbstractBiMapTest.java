@@ -28,6 +28,7 @@ public class AbstractBiMapTest extends TestCase {
 
   // The next two tests verify that map entries are not accessed after they're
   // removed, since IdentityHashMap throws an exception when that occurs.
+  //bimap的抽象类 abstractBiMap 的key集合 边遍历边删除回影响实例的大小
   public void testIdentityKeySetIteratorRemove() {
     BiMap<Integer, String> bimap =
         new AbstractBiMap<Integer, String>(
@@ -45,6 +46,7 @@ public class AbstractBiMapTest extends TestCase {
     assertEquals(1, bimap.inverse().size());
   }
 
+  //bimap 的抽象实现类 abstractiBiMap 边遍历entry 边删除 改变大小
   public void testIdentityEntrySetIteratorRemove() {
     BiMap<Integer, String> bimap =
         new AbstractBiMap<Integer, String>(
