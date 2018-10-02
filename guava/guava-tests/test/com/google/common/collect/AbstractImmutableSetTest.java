@@ -260,6 +260,7 @@ public abstract class AbstractImmutableSetTest extends TestCase {
     }
   }
 
+  //拷贝构造 自定义的迭代器
   public void testCopyOf_plainIterable() {
     CountingIterable iterable = new CountingIterable();
     Set<String> set = copyOf(iterable);
@@ -268,29 +269,34 @@ public abstract class AbstractImmutableSetTest extends TestCase {
     assertTrue(set.contains("b"));
   }
 
+  //拷贝构造迭代器  迭代器仅调用一次
   public void testCopyOf_plainIterable_iteratesOnce() {
     CountingIterable iterable = new CountingIterable();
     Set<String> unused = copyOf(iterable);
     assertEquals(1, iterable.count);
   }
 
+  //拷贝构造空的集合 相等
   public void testCopyOf_shortcut_empty() {
     Collection<String> c = of();
     assertEquals(Collections.<String>emptySet(), copyOf(c));
     assertSame(c, copyOf(c));
   }
 
+  //拷贝构造单元素集合 相等
   public void testCopyOf_shortcut_singleton() {
     Collection<String> c = of("a");
     assertEquals(Collections.singleton("a"), copyOf(c));
     assertSame(c, copyOf(c));
   }
 
+  //拷贝构造 多个元素集合
   public void testCopyOf_shortcut_sameType() {
     Collection<String> c = of("a", "b", "c");
     assertSame(c, copyOf(c));
   }
 
+  //元素去重
   public void testToString() {
     Set<String> set = of("a", "b", "c", "d", "e", "f", "g");
     assertEquals("[a, b, c, d, e, f, g]", set.toString());
@@ -319,6 +325,7 @@ public abstract class AbstractImmutableSetTest extends TestCase {
     }.test();
   }
 
+  //测试是否全包涵 指定集合元素
   public void testContainsAll_sameType() {
     Collection<String> c = of("a", "b", "c");
     assertFalse(c.containsAll(of("a", "b", "c", "d")));
@@ -327,6 +334,7 @@ public abstract class AbstractImmutableSetTest extends TestCase {
     assertTrue(c.containsAll(of("a", "b", "c")));
   }
 
+  //测试与特定集合相等
   public void testEquals_sameType() {
     Collection<String> c = of("a", "b", "c");
     assertTrue(c.equals(of("a", "b", "c")));
@@ -335,6 +343,7 @@ public abstract class AbstractImmutableSetTest extends TestCase {
 
   abstract <E extends Comparable<E>> ImmutableSet.Builder<E> builder();
 
+  //多次添加元素 完全保护
   public void testBuilderWithNonDuplicateElements() {
     ImmutableSet<String> set =
         this.<String>builder()
@@ -345,6 +354,7 @@ public abstract class AbstractImmutableSetTest extends TestCase {
             .build();
     assertThat(set).containsExactly("a", "b", "c", "d", "e", "f", "g", "h", "i", "j").inOrder();
   }
+
 
   public void testReuseBuilderWithNonDuplicateElements() {
     ImmutableSet.Builder<String> builder = this.<String>builder().add("a").add("b");
@@ -373,6 +383,7 @@ public abstract class AbstractImmutableSetTest extends TestCase {
     assertThat(builder.build()).containsExactly("a", "b", "c").inOrder();
   }
 
+  //多次添加list去重
   public void testBuilderAddAll() {
     List<String> a = asList("a", "b", "c");
     List<String> b = asList("c", "d", "e");
