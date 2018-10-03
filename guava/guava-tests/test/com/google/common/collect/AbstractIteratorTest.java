@@ -33,6 +33,7 @@ import junit.framework.TestCase;
 @GwtCompatible(emulated = true)
 public class AbstractIteratorTest extends TestCase {
 
+  //模拟计算hasNext()
   public void testDefaultBehaviorOfNextAndHasNext() {
 
     // This sample AbstractIterator returns 0 on the first call, 1 on the
@@ -75,9 +76,11 @@ public class AbstractIteratorTest extends TestCase {
       iter.next();
       fail("no exception thrown");
     } catch (NoSuchElementException expected) {
+      expected.printStackTrace();
     }
   }
 
+  //模拟peek的实现
   public void testDefaultBehaviorOfPeek() {
     /*
      * This sample AbstractIterator returns 0 on the first call, 1 on the

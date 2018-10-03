@@ -29,17 +29,20 @@ public abstract class AbstractImmutableTableTest extends TestCase {
 
   abstract Iterable<ImmutableTable<Character, Integer, String>> getTestInstances();
 
+  //immutabletable 不能清空
   public final void testClear() {
     for (Table<Character, Integer, String> testInstance : getTestInstances()) {
       try {
         testInstance.clear();
         fail();
       } catch (UnsupportedOperationException e) {
+        e.printStackTrace();
         // success
       }
     }
   }
 
+  //immutableTable不能添加单个
   public final void testPut() {
     for (Table<Character, Integer, String> testInstance : getTestInstances()) {
       try {
@@ -51,6 +54,7 @@ public abstract class AbstractImmutableTableTest extends TestCase {
     }
   }
 
+  //immutableTable不能添加全部
   public final void testPutAll() {
     for (Table<Character, Integer, String> testInstance : getTestInstances()) {
       try {
@@ -62,6 +66,7 @@ public abstract class AbstractImmutableTableTest extends TestCase {
     }
   }
 
+  //immutable也不能移除
   public final void testRemove() {
     for (Table<Character, Integer, String> testInstance : getTestInstances()) {
       try {
@@ -73,12 +78,16 @@ public abstract class AbstractImmutableTableTest extends TestCase {
     }
   }
 
+  //视图和其遍历内容一致
   public final void testConsistentToString() {
     for (ImmutableTable<Character, Integer, String> testInstance : getTestInstances()) {
+      System.out.println("rowMap = " + testInstance.rowMap().toString());
+      System.out.println("testInstance = " + testInstance.toString());
       assertEquals(testInstance.rowMap().toString(), testInstance.toString());
     }
   }
 
+  //单元视图 和其遍历hashcode一致
   public final void testConsistentHashCode() {
     for (ImmutableTable<Character, Integer, String> testInstance : getTestInstances()) {
       assertEquals(testInstance.cellSet().hashCode(), testInstance.hashCode());
