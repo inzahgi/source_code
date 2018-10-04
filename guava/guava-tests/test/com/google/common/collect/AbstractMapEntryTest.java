@@ -49,16 +49,19 @@ public class AbstractMapEntryTest extends TestCase {
     return Collections.singletonMap(key, value).entrySet().iterator().next();
   }
 
+  //转字符串
   public void testToString() {
     assertEquals("foo=1", entry("foo", 1).toString());
   }
 
+  //不包含的key转字符串
   public void testToStringNull() {
     assertEquals("null=1", entry(NK, 1).toString());
     assertEquals("foo=null", entry("foo", NV).toString());
     assertEquals("null=null", entry(NK, NV).toString());
   }
 
+  //迭代器返回的元素和 原始数据相比较
   public void testEquals() {
     Entry<String, Integer> foo1 = entry("foo", 1);
     assertEquals(foo1, foo1);
@@ -70,6 +73,7 @@ public class AbstractMapEntryTest extends TestCase {
     assertFalse(foo1.equals(null));
   }
 
+  //entry 内容完全相等才会 equals true
   public void testEqualsNull() {
     assertEquals(control(NK, 1), entry(NK, 1));
     assertEquals(control("bar", NV), entry("bar", NV));
@@ -79,11 +83,13 @@ public class AbstractMapEntryTest extends TestCase {
     assertFalse(entry(NK, 1).equals(null));
   }
 
+  //测试hashCode
   public void testHashCode() {
     assertEquals(control("foo", 1).hashCode(), entry("foo", 1).hashCode());
     assertEquals(control("bar", 2).hashCode(), entry("bar", 2).hashCode());
   }
 
+  //包含 null时的hashCode
   public void testHashCodeNull() {
     assertEquals(control(NK, 1).hashCode(), entry(NK, 1).hashCode());
     assertEquals(control("bar", NV).hashCode(), entry("bar", NV).hashCode());
