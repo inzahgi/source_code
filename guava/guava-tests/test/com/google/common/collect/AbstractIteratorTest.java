@@ -140,6 +140,7 @@ public class AbstractIteratorTest extends TestCase {
     }
   }
 
+  //测试弱引用回收
   @GwtIncompatible // weak references
   public void testFreesNextReference() {
     Iterator<Object> itr =
@@ -153,6 +154,7 @@ public class AbstractIteratorTest extends TestCase {
     GcFinalization.awaitClear(ref);
   }
 
+  //对空迭代器使用 peek方法
   public void testDefaultBehaviorOfPeekForEmptyIteration() {
 
     AbstractIterator<Integer> empty =
@@ -182,6 +184,7 @@ public class AbstractIteratorTest extends TestCase {
     }
   }
 
+  //没有 修改 迭代器状态 hasNext 多次报异常
   public void testSneakyThrow() throws Exception {
     Iterator<Integer> iter =
         new AbstractIterator<Integer>() {
@@ -217,6 +220,7 @@ public class AbstractIteratorTest extends TestCase {
     }
   }
 
+  //测试抛异常
   public void testException() {
     final SomeUncheckedException exception = new SomeUncheckedException();
     Iterator<Integer> iter =
@@ -236,6 +240,7 @@ public class AbstractIteratorTest extends TestCase {
     }
   }
 
+  //测试设置完结后报异常
   public void testExceptionAfterEndOfData() {
     Iterator<Integer> iter =
         new AbstractIterator<Integer>() {
@@ -252,6 +257,7 @@ public class AbstractIteratorTest extends TestCase {
     }
   }
 
+  //原生的不支持删除
   public void testCantRemove() {
     Iterator<Integer> iter =
         new AbstractIterator<Integer>() {
@@ -276,6 +282,7 @@ public class AbstractIteratorTest extends TestCase {
     }
   }
 
+  //可重入的 hasNext ? 无状态
   public void testReentrantHasNext() {
     Iterator<Integer> iter =
         new AbstractIterator<Integer>() {
