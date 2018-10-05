@@ -61,6 +61,7 @@ public abstract class AbstractMultimapAsMapImplementsMapTest
    * of a call to {@code remove()}. Thus, the expectation doesn't hold that {@code map.remove(x)}
    * returns the same value which {@code map.get(x)} did immediately beforehand.
    */
+  //测试 multimap 的map视图删除功能
   @Override
   public void testRemove() {
     final Map<String, Collection<Integer>> map;

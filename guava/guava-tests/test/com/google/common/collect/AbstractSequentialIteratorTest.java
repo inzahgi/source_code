@@ -41,6 +41,7 @@ public class AbstractSequentialIteratorTest extends TestCase {
     }.test();
   }
 
+  //计算 翻倍数范围
   public void testDoubler() {
     Iterable<Integer> doubled =
         new Iterable<Integer>() {
@@ -52,6 +53,7 @@ public class AbstractSequentialIteratorTest extends TestCase {
     assertThat(doubled).containsExactly(2, 4, 8, 16, 32).inOrder();
   }
 
+  //
   public void testSampleCode() {
     Iterable<Integer> actual =
         new Iterable<Integer>() {

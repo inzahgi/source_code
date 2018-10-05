@@ -27,6 +27,7 @@ import junit.framework.TestCase;
  */
 @GwtIncompatible // TreeRangeSet
 public abstract class AbstractRangeSetTest extends TestCase {
+  //测试 rangeSet的视图 range一致
   public static void testInvariants(RangeSet<?> rangeSet) {
     testInvariantsInternal(rangeSet);
     testInvariantsInternal(rangeSet.complement());
