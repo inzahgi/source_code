@@ -53,6 +53,7 @@ public abstract class AbstractTableReadTest extends TestCase {
     table = create();
   }
 
+  //table根据索引包含特性
   public void testContains() {
     table = create("foo", 1, 'a', "bar", 1, 'b', "foo", 3, 'c');
     assertTrue(table.contains("foo", 1));
@@ -66,6 +67,7 @@ public abstract class AbstractTableReadTest extends TestCase {
     assertFalse(table.contains(null, null));
   }
 
+  //table包含行
   public void testContainsRow() {
     table = create("foo", 1, 'a', "bar", 1, 'b', "foo", 3, 'c');
     assertTrue(table.containsRow("foo"));
@@ -74,6 +76,7 @@ public abstract class AbstractTableReadTest extends TestCase {
     assertFalse(table.containsRow(null));
   }
 
+  //table包含列
   public void testContainsColumn() {
     table = create("foo", 1, 'a', "bar", 1, 'b', "foo", 3, 'c');
     assertTrue(table.containsColumn(1));
@@ -82,6 +85,7 @@ public abstract class AbstractTableReadTest extends TestCase {
     assertFalse(table.containsColumn(null));
   }
 
+  //table包含元素值
   public void testContainsValue() {
     table = create("foo", 1, 'a', "bar", 1, 'b', "foo", 3, 'c');
     assertTrue(table.containsValue('a'));
@@ -91,6 +95,7 @@ public abstract class AbstractTableReadTest extends TestCase {
     assertFalse(table.containsValue(null));
   }
 
+  //按列和行获取元素
   public void testGet() {
     table = create("foo", 1, 'a', "bar", 1, 'b', "foo", 3, 'c');
     assertEquals((Character) 'a', table.get("foo", 1));
@@ -104,18 +109,21 @@ public abstract class AbstractTableReadTest extends TestCase {
     assertNull(table.get(null, null));
   }
 
+  //判断table是否空
   public void testIsEmpty() {
     assertTrue(table.isEmpty());
     table = create("foo", 1, 'a', "bar", 1, 'b', "foo", 3, 'c');
     assertFalse(table.isEmpty());
   }
 
+  //判断tbale大小
   public void testSize() {
     assertSize(0);
     table = create("foo", 1, 'a', "bar", 1, 'b', "foo", 3, 'c');
     assertSize(3);
   }
 
+  //测试相等
   public void testEquals() {
     table = create("foo", 1, 'a', "bar", 1, 'b', "foo", 3, 'c');
     Table<String, Integer, Character> hashCopy = HashBasedTable.create(table);
@@ -135,6 +143,7 @@ public abstract class AbstractTableReadTest extends TestCase {
         .testEquals();
   }
 
+  //测试hashCode
   public void testHashCode() {
     table = create("foo", 1, 'a', "bar", 1, 'b', "foo", 3, 'c');
     int expected =
@@ -144,17 +153,20 @@ public abstract class AbstractTableReadTest extends TestCase {
     assertEquals(expected, table.hashCode());
   }
 
+  //toString方法
   public void testToStringSize1() {
     table = create("foo", 1, 'a');
     assertEquals("{foo={1=a}}", table.toString());
   }
 
+  //按行获取map
   public void testRow() {
     table = create("foo", 1, 'a', "bar", 1, 'b', "foo", 3, 'c');
     assertEquals(ImmutableMap.of(1, 'a', 3, 'c'), table.row("foo"));
   }
 
   // This test assumes that the implementation does not support null keys.
+  //row的索引非空
   public void testRowNull() {
     table = create("foo", 1, 'a', "bar", 1, 'b', "foo", 3, 'c');
     try {
@@ -164,12 +176,14 @@ public abstract class AbstractTableReadTest extends TestCase {
     }
   }
 
+  //按列获取map
   public void testColumn() {
     table = create("foo", 1, 'a', "bar", 1, 'b', "foo", 3, 'c');
     assertEquals(ImmutableMap.of("foo", 'a', "bar", 'b'), table.column(1));
   }
 
   // This test assumes that the implementation does not support null keys.
+  //column的索引非空
   public void testColumnNull() {
     table = create("foo", 1, 'a', "bar", 1, 'b', "foo", 3, 'c');
     try {
@@ -179,11 +193,13 @@ public abstract class AbstractTableReadTest extends TestCase {
     }
   }
 
+  //获取列的集合
   public void testColumnSetPartialOverlap() {
     table = create("foo", 1, 'a', "bar", 1, 'b', "foo", 2, 'c', "bar", 3, 'd');
     assertThat(table.columnKeySet()).containsExactly(1, 2, 3);
   }
 
+  //空指针测试
   @GwtIncompatible // NullPointerTester
   public void testNullPointerInstance() {
     table = create("foo", 1, 'a', "bar", 1, 'b', "foo", 2, 'c', "bar", 3, 'd');

@@ -53,7 +53,7 @@ public class AbstractSequentialIteratorTest extends TestCase {
     assertThat(doubled).containsExactly(2, 4, 8, 16, 32).inOrder();
   }
 
-  //
+  //迭代器 生成2的幂
   public void testSampleCode() {
     Iterable<Integer> actual =
         new Iterable<Integer>() {
@@ -104,6 +104,7 @@ public class AbstractSequentialIteratorTest extends TestCase {
         .inOrder();
   }
 
+  //空迭代器
   public void testEmpty() {
     Iterator<Object> empty = newEmpty();
     assertFalse(empty.hasNext());
@@ -119,6 +120,7 @@ public class AbstractSequentialIteratorTest extends TestCase {
     }
   }
 
+  //迭代器计算异常
   public void testBroken() {
     Iterator<Object> broken = newBroken();
     assertTrue(broken.hasNext());
@@ -135,6 +137,7 @@ public class AbstractSequentialIteratorTest extends TestCase {
     }
   }
 
+  //获得翻倍序列
   private static Iterator<Integer> newDoubler(int first, final int last) {
     return new AbstractSequentialIterator<Integer>(first) {
       @Override
@@ -144,6 +147,7 @@ public class AbstractSequentialIteratorTest extends TestCase {
     };
   }
 
+  //获得空序列
   private static <T> Iterator<T> newEmpty() {
     return new AbstractSequentialIterator<T>(null) {
       @Override
@@ -153,6 +157,7 @@ public class AbstractSequentialIteratorTest extends TestCase {
     };
   }
 
+  //计算异常
   private static Iterator<Object> newBroken() {
     return new AbstractSequentialIterator<Object>("UNUSED") {
       @Override
