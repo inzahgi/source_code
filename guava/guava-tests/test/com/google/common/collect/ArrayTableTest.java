@@ -47,16 +47,19 @@ public class ArrayTableTest extends AbstractTableTest {
     return table;
   }
 
+  //table size为行*列
   @Override
   protected void assertSize(int expectedSize) {
     assertEquals(9, table.size());
   }
 
+  //不支持移除
   @Override
   protected boolean supportsRemove() {
     return false;
   }
 
+  //可以有null值
   @Override
   protected boolean supportsNullValues() {
     return true;
@@ -64,6 +67,7 @@ public class ArrayTableTest extends AbstractTableTest {
 
   // Overriding tests of behavior that differs for ArrayTable.
 
+  //包含已初始化的单元
   @Override
   public void testContains() {
     table = create("foo", 1, 'a', "bar", 1, 'b', "foo", 3, 'c');
@@ -81,6 +85,7 @@ public class ArrayTableTest extends AbstractTableTest {
     assertFalse(table.contains(null, null));
   }
 
+  //包含指定的行
   @Override
   public void testContainsRow() {
     table = create("foo", 1, 'a', "bar", 1, 'b', "foo", 3, 'c');
@@ -91,6 +96,7 @@ public class ArrayTableTest extends AbstractTableTest {
     assertFalse(table.containsRow(null));
   }
 
+  //包含指定的列
   @Override
   public void testContainsColumn() {
     table = create("foo", 1, 'a', "bar", 1, 'b', "foo", 3, 'c');
@@ -101,6 +107,7 @@ public class ArrayTableTest extends AbstractTableTest {
     assertFalse(table.containsColumn(null));
   }
 
+  //包含指定的单元值
   @Override
   public void testContainsValue() {
     table = create("foo", 1, 'a', "bar", 1, 'b', "foo", 3, 'c');
@@ -111,6 +118,7 @@ public class ArrayTableTest extends AbstractTableTest {
     assertTrue(table.containsValue(null));
   }
 
+  //初始化后不为空
   @Override
   public void testIsEmpty() {
     assertFalse(table.isEmpty());
@@ -118,6 +126,7 @@ public class ArrayTableTest extends AbstractTableTest {
     assertFalse(table.isEmpty());
   }
 
+  //不同table底层实现相等
   @Override
   public void testEquals() {
     table = create("foo", 1, 'a', "bar", 1, 'b', "foo", 3, 'c');
@@ -142,6 +151,7 @@ public class ArrayTableTest extends AbstractTableTest {
         .testEquals();
   }
 
+  //hashCode计算
   @Override
   public void testHashCode() {
     table = ArrayTable.create(asList("foo", "bar"), asList(1, 3));
@@ -156,6 +166,7 @@ public class ArrayTableTest extends AbstractTableTest {
     assertEquals(expected, table.hashCode());
   }
 
+  //行视图
   @Override
   public void testRow() {
     table = create("foo", 1, 'a', "bar", 1, 'b', "foo", 3, 'c');
@@ -166,6 +177,7 @@ public class ArrayTableTest extends AbstractTableTest {
     assertEquals(expected, table.row("foo"));
   }
 
+  //列视图
   @Override
   public void testColumn() {
     table = create("foo", 1, 'a', "bar", 1, 'b', "foo", 3, 'c');
@@ -176,6 +188,7 @@ public class ArrayTableTest extends AbstractTableTest {
     assertEquals(expected, table.column(1));
   }
 
+  //toString方法
   @Override
   public void testToStringSize1() {
     table = ArrayTable.create(ImmutableList.of("foo"), ImmutableList.of(1));
@@ -183,6 +196,7 @@ public class ArrayTableTest extends AbstractTableTest {
     assertEquals("{foo={1=a}}", table.toString());
   }
 
+  //行不能相同
   public void testCreateDuplicateRows() {
     try {
       ArrayTable.create(asList("foo", "bar", "foo"), asList(1, 2, 3));
@@ -191,6 +205,7 @@ public class ArrayTableTest extends AbstractTableTest {
     }
   }
 
+  //列不能相同
   public void testCreateDuplicateColumns() {
     try {
       ArrayTable.create(asList("foo", "bar"), asList(1, 2, 3, 2));
@@ -199,6 +214,7 @@ public class ArrayTableTest extends AbstractTableTest {
     }
   }
 
+  //行不能为空
   public void testCreateEmptyRows() {
     try {
       ArrayTable.create(Arrays.<String>asList(), asList(1, 2, 3));
@@ -207,6 +223,7 @@ public class ArrayTableTest extends AbstractTableTest {
     }
   }
 
+  //列不能为空
   public void testCreateEmptyColumns() {
     try {
       ArrayTable.create(asList("foo", "bar"), Arrays.<Integer>asList());
@@ -215,6 +232,7 @@ public class ArrayTableTest extends AbstractTableTest {
     }
   }
 
+  //测试空table
   public void testCreateEmptyRowsXColumns() {
     ArrayTable<String, String, Character> table =
         ArrayTable.create(Arrays.<String>asList(), Arrays.<String>asList());
@@ -231,6 +249,7 @@ public class ArrayTableTest extends AbstractTableTest {
     }
   }
 
+  //空table转空list
   @GwtIncompatible // toArray
   public void testEmptyToArry() {
     ArrayTable<String, String, Character> table =
@@ -238,6 +257,7 @@ public class ArrayTableTest extends AbstractTableTest {
     assertThat(table.toArray(Character.class)).asList().isEmpty();
   }
 
+  //拷贝构造arrayTable相等
   public void testCreateCopyArrayTable() {
     Table<String, Integer, Character> original =
         create("foo", 1, 'a', "bar", 1, 'b', "foo", 3, 'c');
@@ -250,6 +270,7 @@ public class ArrayTableTest extends AbstractTableTest {
     assertEquals(copy.columnKeySet(), original.columnKeySet());
   }
 
+  //拷贝构造hashBaseTable相等
   public void testCreateCopyHashBasedTable() {
     Table<String, Integer, Character> original = HashBasedTable.create();
     original.put("foo", 1, 'a');
@@ -268,6 +289,7 @@ public class ArrayTableTest extends AbstractTableTest {
     assertEquals(copy.columnKeySet(), ImmutableSet.of(1, 3));
   }
 
+  //空拷贝复制相等
   public void testCreateCopyEmptyTable() {
     Table<String, Integer, Character> original = HashBasedTable.create();
     ArrayTable<String, Integer, Character> copy = ArrayTable.create(original);
