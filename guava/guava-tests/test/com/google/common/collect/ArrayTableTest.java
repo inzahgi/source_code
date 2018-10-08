@@ -299,6 +299,7 @@ public class ArrayTableTest extends AbstractTableTest {
     assertThat(copy).isEmpty();
   }
 
+  //空拷贝复制相等
   public void testCreateCopyEmptyArrayTable() {
     Table<String, Integer, Character> original =
         ArrayTable.create(Arrays.<String>asList(), Arrays.<Integer>asList());
@@ -307,16 +308,19 @@ public class ArrayTableTest extends AbstractTableTest {
     assertThat(copy).isEmpty();
   }
 
+  //测试序列化
   public void testSerialization() {
     table = create("foo", 1, 'a', "bar", 1, 'b', "foo", 3, 'c');
     SerializableTester.reserializeAndAssert(table);
   }
 
+  //利用反射测试方法空参数异常
   @GwtIncompatible // reflection
   public void testNullPointerStatic() {
     new NullPointerTester().testAllPublicStaticMethods(ArrayTable.class);
   }
 
+  //待排序的toString
   public void testToString_ordered() {
     table = create("foo", 1, 'a', "bar", 1, 'b', "foo", 3, 'c');
     assertEquals(
@@ -331,6 +335,7 @@ public class ArrayTableTest extends AbstractTableTest {
         table.rowMap().toString());
   }
 
+  //toString方法
   public void testCellSetToString_ordered() {
     table = create("foo", 1, 'a', "bar", 1, 'b', "foo", 3, 'c');
     assertEquals(
@@ -373,6 +378,7 @@ public class ArrayTableTest extends AbstractTableTest {
     assertNull(table.get("foo", 4));
   }
 
+  //获取指定坐标单元的值
   public void testAt() {
     ArrayTable<String, Integer, Character> table =
         create("foo", 1, 'a', "bar", 1, 'b', "foo", 3, 'c');
@@ -401,6 +407,7 @@ public class ArrayTableTest extends AbstractTableTest {
     }
   }
 
+  //指定单元赋值 行列值错误会直接异常
   public void testSet() {
     ArrayTable<String, Integer, Character> table =
         create("foo", 1, 'a', "bar", 1, 'b', "foo", 3, 'c');
@@ -433,6 +440,7 @@ public class ArrayTableTest extends AbstractTableTest {
     assertFalse(table.containsValue('z'));
   }
 
+  //清空所有的值
   public void testEraseAll() {
     ArrayTable<String, Integer, Character> table =
         create("foo", 1, 'a', "bar", 1, 'b', "foo", 3, 'c');
@@ -441,8 +449,13 @@ public class ArrayTableTest extends AbstractTableTest {
     assertNull(table.get("bar", 1));
     assertTrue(table.containsRow("foo"));
     assertFalse(table.containsValue('a'));
+
+//    table.set(1,1,'a');
+//    assertEquals((Character) 'a', table.set(1,1,'a'));
   }
 
+  //put方法 按行列键值设置 指定单元值
+  //非法键报异常
   public void testPutIllegal() {
     table = create("foo", 1, 'a', "bar", 1, 'b', "foo", 3, 'c');
     try {
@@ -460,6 +473,7 @@ public class ArrayTableTest extends AbstractTableTest {
     assertFalse(table.containsValue('d'));
   }
 
+  //对指定行列设null值
   public void testErase() {
     ArrayTable<String, Integer, Character> table =
         create("foo", 1, 'a', "bar", 1, 'b', "foo", 3, 'c');
@@ -474,6 +488,7 @@ public class ArrayTableTest extends AbstractTableTest {
     assertNull(table.erase("bar", null));
   }
 
+  //table转二维数组
   @GwtIncompatible // ArrayTable.toArray(Class)
   public void testToArray() {
     ArrayTable<String, Integer, Character> table =
@@ -489,6 +504,7 @@ public class ArrayTableTest extends AbstractTableTest {
     assertEquals((Character) 'd', table.at(0, 2));
   }
 
+  //table转换为单元迭代器 变更单元值立即生效
   public void testCellReflectsChanges() {
     table = create("foo", 1, 'a', "bar", 1, 'b', "foo", 3, 'c');
     Cell<String, Integer, Character> cell = table.cellSet().iterator().next();
@@ -497,6 +513,7 @@ public class ArrayTableTest extends AbstractTableTest {
     assertEquals(Tables.immutableCell("foo", 1, 'd'), cell);
   }
 
+  //行键值不对应时  异常
   public void testRowMissing() {
     table = create("foo", 1, 'a', "bar", 1, 'b', "foo", 3, 'c');
     Map<Integer, Character> row = table.row("dog");
@@ -508,6 +525,7 @@ public class ArrayTableTest extends AbstractTableTest {
     }
   }
 
+  //列键值不对应的时候异常
   public void testColumnMissing() {
     table = create("foo", 1, 'a', "bar", 1, 'b', "foo", 3, 'c');
     Map<String, Character> column = table.column(4);
@@ -519,6 +537,7 @@ public class ArrayTableTest extends AbstractTableTest {
     }
   }
 
+  //行设置异常
   public void testRowPutIllegal() {
     table = create("foo", 1, 'a', "bar", 1, 'b', "foo", 3, 'c');
     Map<Integer, Character> map = table.row("foo");
@@ -530,6 +549,7 @@ public class ArrayTableTest extends AbstractTableTest {
     }
   }
 
+  //列设置异常
   public void testColumnPutIllegal() {
     table = create("foo", 1, 'a', "bar", 1, 'b', "foo", 3, 'c');
     Map<String, Character> map = table.column(3);
