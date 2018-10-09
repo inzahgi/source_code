@@ -27,6 +27,8 @@ import junit.framework.TestCase;
 /** Tests for {@code CollectSpliterators}. */
 @GwtCompatible
 public class CollectSpliteratorsTest extends TestCase {
+
+  //拆分string数组并回调处理函数
   public void testMap() {
     SpliteratorTester.of(
             () ->

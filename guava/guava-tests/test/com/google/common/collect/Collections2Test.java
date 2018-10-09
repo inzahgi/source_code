@@ -86,6 +86,7 @@ public class Collections2Test extends TestCase {
         }
       };
 
+  //测试collection2 filter过滤指定元素
   @GwtIncompatible // suite
   private static Test testsForFilter() {
     return CollectionTestSuiteBuilder.using(
@@ -109,6 +110,7 @@ public class Collections2Test extends TestCase {
         .createTestSuite();
   }
 
+  //过滤空集和
   @GwtIncompatible // suite
   private static Test testsForFilterAll() {
     return CollectionTestSuiteBuilder.using(
@@ -130,6 +132,7 @@ public class Collections2Test extends TestCase {
         .createTestSuite();
   }
 
+  //过滤链表
   @GwtIncompatible // suite
   private static Test testsForFilterLinkedList() {
     return CollectionTestSuiteBuilder.using(
@@ -153,6 +156,7 @@ public class Collections2Test extends TestCase {
         .createTestSuite();
   }
 
+  //
   @GwtIncompatible // suite
   private static Test testsForFilterNoNulls() {
     return CollectionTestSuiteBuilder.using(
