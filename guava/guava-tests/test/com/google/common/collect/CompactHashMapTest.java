@@ -57,6 +57,8 @@ public class CompactHashMapTest extends TestCase {
     return suite;
   }
 
+
+  //
   public void testTrimToSize() {
     CompactHashMap<Integer, String> map = CompactHashMap.createWithExpectedSize(100);
     for (int i = 0; i < 10; i++) {
@@ -72,6 +74,7 @@ public class CompactHashMapTest extends TestCase {
     }
   }
 
+  //删除指定key后重新设值
   public void testEntrySetValueAfterRemoved() {
     CompactHashMap<Integer, String> map = CompactHashMap.create();
     map.put(1, "1");

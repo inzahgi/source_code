@@ -55,6 +55,7 @@ public class CompactLinkedHashMapTest extends TestCase {
     return suite;
   }
 
+  //compactLinkedHashMap 按顺序添加
   public void testInsertionOrder() {
     Map<Integer, String> map = CompactLinkedHashMap.create();
     map.put(1, "a");
@@ -64,6 +65,7 @@ public class CompactLinkedHashMapTest extends TestCase {
     testHasMapEntriesInOrder(map, 1, "a", 4, "b", 3, "d", 2, "c");
   }
 
+  //put方法按顺序保存
   public void testInsertionOrderAfterPutKeyTwice() {
     Map<Integer, String> map = CompactLinkedHashMap.create();
     map.put(1, "a");
@@ -74,14 +76,17 @@ public class CompactLinkedHashMapTest extends TestCase {
     testHasMapEntriesInOrder(map, 1, "e", 4, "b", 3, "d", 2, "c");
   }
 
+  //remove 删除指定键
   public void testInsertionOrderAfterRemoveFirstEntry() {
     Map<Integer, String> map = CompactLinkedHashMap.create();
     map.put(1, "a");
     map.put(4, "b");
     map.put(3, "d");
     map.put(2, "c");
-    map.remove(1);
-    testHasMapEntriesInOrder(map, 4, "b", 3, "d", 2, "c");
+    map.remove(4);
+//    testHasMapEntriesInOrder(map, 4, "b", 3, "d", 2, "c");
+    testHasMapEntriesInOrder(map, 1, "a", 3, "d", 2, "c");
+
   }
 
   public void testInsertionOrderAfterRemoveMiddleEntry() {

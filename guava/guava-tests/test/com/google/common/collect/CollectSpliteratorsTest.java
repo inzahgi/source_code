@@ -37,6 +37,7 @@ public class CollectSpliteratorsTest extends TestCase {
         .expect("A", "B", "C", "D", "E");
   }
 
+  //多字符串 拆分成单个字符
   public void testFlatMap() {
     SpliteratorTester.of(
             () ->
@@ -48,6 +49,7 @@ public class CollectSpliteratorsTest extends TestCase {
         .expect('a', 'b', 'c', 'd', 'e', 'f', 'g');
   }
 
+  //multiset 拆分
   public void testMultisetsSpliterator() {
     Multiset<String> multiset = TreeMultiset.create();
     multiset.add("a", 3);
