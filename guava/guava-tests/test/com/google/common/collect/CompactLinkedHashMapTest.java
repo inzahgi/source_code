@@ -76,19 +76,19 @@ public class CompactLinkedHashMapTest extends TestCase {
     testHasMapEntriesInOrder(map, 1, "e", 4, "b", 3, "d", 2, "c");
   }
 
-  //remove 删除指定键
+  //remove 删除第一个键
   public void testInsertionOrderAfterRemoveFirstEntry() {
     Map<Integer, String> map = CompactLinkedHashMap.create();
     map.put(1, "a");
     map.put(4, "b");
     map.put(3, "d");
     map.put(2, "c");
-    map.remove(4);
-//    testHasMapEntriesInOrder(map, 4, "b", 3, "d", 2, "c");
-    testHasMapEntriesInOrder(map, 1, "a", 3, "d", 2, "c");
+    map.remove(1);
+    testHasMapEntriesInOrder(map, 4, "b", 3, "d", 2, "c");
 
   }
 
+  // 删除中间键
   public void testInsertionOrderAfterRemoveMiddleEntry() {
     Map<Integer, String> map = CompactLinkedHashMap.create();
     map.put(1, "a");
@@ -99,6 +99,7 @@ public class CompactLinkedHashMapTest extends TestCase {
     testHasMapEntriesInOrder(map, 1, "a", 4, "b", 2, "c");
   }
 
+  //删除最后一个键
   public void testInsertionOrderAfterRemoveLastEntry() {
     Map<Integer, String> map = CompactLinkedHashMap.create();
     map.put(1, "a");
@@ -109,6 +110,7 @@ public class CompactLinkedHashMapTest extends TestCase {
     testHasMapEntriesInOrder(map, 1, "a", 4, "b", 3, "d");
   }
 
+  //缩小尺寸
   public void testTrimToSize() {
     CompactLinkedHashMap<Integer, String> map = CompactLinkedHashMap.createWithExpectedSize(100);
     map.put(1, "a");
@@ -124,6 +126,7 @@ public class CompactLinkedHashMapTest extends TestCase {
     testHasMapEntriesInOrder(map, 1, "a", 4, "b", 3, "d", 2, "c");
   }
 
+  //测试map的内容一致
   private void testHasMapEntriesInOrder(Map<?, ?> map,
       Object... alternatingKeysAndValues) {
     List<? extends Entry<?, ?>> entries = Lists.newArrayList(map.entrySet());

@@ -57,6 +57,7 @@ public class ComparatorsTest extends TestCase {
         .testEquals();
   }
 
+  //自然数升序排序
   public void testIsInOrder() {
     assertFalse(Comparators.isInOrder(asList(5, 3, 0, 9), Ordering.natural()));
     assertFalse(Comparators.isInOrder(asList(0, 5, 3, 9), Ordering.natural()));
@@ -67,6 +68,7 @@ public class ComparatorsTest extends TestCase {
     assertTrue(Comparators.isInOrder(Collections.<Integer>emptyList(), Ordering.natural()));
   }
 
+  //
   public void testIsInStrictOrder() {
     assertFalse(Comparators.isInStrictOrder(asList(5, 3, 0, 9), Ordering.natural()));
     assertFalse(Comparators.isInStrictOrder(asList(0, 5, 3, 9), Ordering.natural()));
