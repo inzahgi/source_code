@@ -36,6 +36,7 @@ public class ComparisonChainTest extends TestCase {
     }
   }
 
+  //布尔比较练
   public void testCompareBooleans() {
     assertEquals(
         0,
@@ -47,20 +48,24 @@ public class ComparisonChainTest extends TestCase {
             .result());
   }
 
+  //
   public void testDegenerate() {
     // kinda bogus, but who cares?
     assertEquals(0, ComparisonChain.start().result());
   }
 
+  //比较器 结果相等
   public void testOneEqual() {
     assertEquals(0, ComparisonChain.start().compare("a", "a").result());
   }
 
+  //忽略字符大小
   public void testOneEqualUsingComparator() {
     assertEquals(
         0, ComparisonChain.start().compare("a", "A", String.CASE_INSENSITIVE_ORDER).result());
   }
 
+  //多个相等的比较
   public void testManyEqual() {
     assertEquals(
         0,
@@ -74,18 +79,21 @@ public class ComparisonChainTest extends TestCase {
             .result());
   }
 
+  //比较链结果小的情况
   public void testShortCircuitLess() {
     assertTrue(
         ComparisonChain.start().compare("a", "b").compare(DONT_COMPARE_ME, DONT_COMPARE_ME).result()
             < 0);
   }
 
+  //比较链结果大的情况
   public void testShortCircuitGreater() {
     assertTrue(
         ComparisonChain.start().compare("b", "a").compare(DONT_COMPARE_ME, DONT_COMPARE_ME).result()
             > 0);
   }
 
+  //第二链小的情况
   public void testShortCircuitSecondStep() {
     assertTrue(
         ComparisonChain.start()
@@ -96,6 +104,7 @@ public class ComparisonChainTest extends TestCase {
             < 0);
   }
 
+  //比较链左比右大
   public void testCompareFalseFirst() {
     assertTrue(ComparisonChain.start().compareFalseFirst(true, true).result() == 0);
     assertTrue(ComparisonChain.start().compareFalseFirst(true, false).result() > 0);
@@ -103,6 +112,7 @@ public class ComparisonChainTest extends TestCase {
     assertTrue(ComparisonChain.start().compareFalseFirst(false, false).result() == 0);
   }
 
+  //比较链右比左边大
   public void testCompareTrueFirst() {
     assertTrue(ComparisonChain.start().compareTrueFirst(true, true).result() == 0);
     assertTrue(ComparisonChain.start().compareTrueFirst(true, false).result() < 0);

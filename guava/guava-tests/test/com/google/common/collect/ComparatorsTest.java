@@ -57,7 +57,7 @@ public class ComparatorsTest extends TestCase {
         .testEquals();
   }
 
-  //自然数升序排序
+  //自然数升序排序 可以存在重复
   public void testIsInOrder() {
     assertFalse(Comparators.isInOrder(asList(5, 3, 0, 9), Ordering.natural()));
     assertFalse(Comparators.isInOrder(asList(0, 5, 3, 9), Ordering.natural()));
@@ -68,7 +68,7 @@ public class ComparatorsTest extends TestCase {
     assertTrue(Comparators.isInOrder(Collections.<Integer>emptyList(), Ordering.natural()));
   }
 
-  //
+  //是否按升序排序 不重复
   public void testIsInStrictOrder() {
     assertFalse(Comparators.isInStrictOrder(asList(5, 3, 0, 9), Ordering.natural()));
     assertFalse(Comparators.isInStrictOrder(asList(0, 5, 3, 9), Ordering.natural()));
@@ -79,6 +79,7 @@ public class ComparatorsTest extends TestCase {
     assertTrue(Comparators.isInStrictOrder(Collections.<Integer>emptyList(), Ordering.natural()));
   }
 
+  //输入的升序序列
   public void testLeastCollector() {
     CollectorTester.of(Comparators.<Integer>least(2, Comparator.naturalOrder()))
         .expectCollects(Arrays.asList(1, 2), 1, 2, 3, 4, 5, 6)
@@ -86,6 +87,7 @@ public class ComparatorsTest extends TestCase {
         .expectCollects(Collections.emptyList());
   }
 
+  //输入倒序序列
   public void testGreatestCollector() {
     CollectorTester.of(Comparators.<Integer>greatest(2, Comparator.naturalOrder()))
         .expectCollects(Arrays.asList(6, 5), 1, 2, 3, 4, 5, 6)
@@ -93,6 +95,7 @@ public class ComparatorsTest extends TestCase {
         .expectCollects(Collections.emptyList());
   }
 
+  //比较器 null 排前
   public void testEmptiesFirst() {
     Optional<String> empty = Optional.empty();
     Optional<String> abc = Optional.of("abc");
@@ -105,6 +108,7 @@ public class ComparatorsTest extends TestCase {
     comparator = Comparators.emptiesFirst(naturalOrder());
   }
 
+  //比较器 null 排最后
   public void testEmptiesLast() {
     Optional<String> empty = Optional.empty();
     Optional<String> abc = Optional.of("abc");
