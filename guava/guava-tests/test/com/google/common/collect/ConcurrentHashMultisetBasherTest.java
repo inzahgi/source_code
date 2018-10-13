@@ -57,6 +57,7 @@ public class ConcurrentHashMultisetBasherTest extends TestCase {
     testAddAndRemove(mapMaker.<String, AtomicInteger>makeMap());
   }
 
+  //并发测试concurrentMap 线程安全
   private void testAddAndRemove(ConcurrentMap<String, AtomicInteger> map)
       throws ExecutionException, InterruptedException {
 

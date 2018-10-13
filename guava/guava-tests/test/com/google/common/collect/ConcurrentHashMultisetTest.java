@@ -113,6 +113,7 @@ public class ConcurrentHashMultisetTest extends TestCase {
     multiset = new ConcurrentHashMultiset<>(backingMap);
   }
 
+  //统计现有的次数
   public void testCount_elementPresent() {
     final int COUNT = 12;
     when(backingMap.get(KEY)).thenReturn(new AtomicInteger(COUNT));
@@ -120,12 +121,14 @@ public class ConcurrentHashMultisetTest extends TestCase {
     assertEquals(COUNT, multiset.count(KEY));
   }
 
+  //空键的时候返回0
   public void testCount_elementAbsent() {
     when(backingMap.get(KEY)).thenReturn(null);
 
     assertEquals(0, multiset.count(KEY));
   }
 
+  //增加0次数
   public void testAdd_zero() {
     final int INITIAL_COUNT = 32;
 
@@ -133,6 +136,7 @@ public class ConcurrentHashMultisetTest extends TestCase {
     assertEquals(INITIAL_COUNT, multiset.add(KEY, 0));
   }
 
+  //
   public void testAdd_firstFewWithSuccess() {
     final int COUNT = 400;
 
