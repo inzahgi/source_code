@@ -136,7 +136,7 @@ public class ConcurrentHashMultisetTest extends TestCase {
     assertEquals(INITIAL_COUNT, multiset.add(KEY, 0));
   }
 
-  //
+  //测试添加null键
   public void testAdd_firstFewWithSuccess() {
     final int COUNT = 400;
 
@@ -146,6 +146,7 @@ public class ConcurrentHashMultisetTest extends TestCase {
     assertEquals(0, multiset.add(KEY, COUNT));
   }
 
+  //累加次数
   public void testAdd_laterFewWithSuccess() {
     int INITIAL_COUNT = 32;
     int COUNT_TO_ADD = 400;
@@ -157,6 +158,7 @@ public class ConcurrentHashMultisetTest extends TestCase {
     assertEquals(INITIAL_COUNT + COUNT_TO_ADD, initial.get());
   }
 
+  //
   public void testAdd_laterFewWithOverflow() {
     final int INITIAL_COUNT = 92384930;
     final int COUNT_TO_ADD = Integer.MAX_VALUE - INITIAL_COUNT + 1;
