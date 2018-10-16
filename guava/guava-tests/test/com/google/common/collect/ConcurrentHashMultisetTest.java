@@ -158,7 +158,7 @@ public class ConcurrentHashMultisetTest extends TestCase {
     assertEquals(INITIAL_COUNT + COUNT_TO_ADD, initial.get());
   }
 
-  //
+  //添加溢出
   public void testAdd_laterFewWithOverflow() {
     final int INITIAL_COUNT = 92384930;
     final int COUNT_TO_ADD = Integer.MAX_VALUE - INITIAL_COUNT + 1;
@@ -178,6 +178,8 @@ public class ConcurrentHashMultisetTest extends TestCase {
    * the putIfAbsent returns a non-null value, and the case where the replace() of an observed zero
    * fails.
    */
+
+  //putIfAbsent 返回非null值添加指定次数
   public void testAdd_withFailures() {
     AtomicInteger existing = new AtomicInteger(12);
     AtomicInteger existingZero = new AtomicInteger(0);
@@ -205,6 +207,7 @@ public class ConcurrentHashMultisetTest extends TestCase {
     assertEquals(15, existing.get());
   }
 
+  //移除0次
   public void testRemove_zeroFromSome() {
     final int INITIAL_COUNT = 14;
     when(backingMap.get(KEY)).thenReturn(new AtomicInteger(INITIAL_COUNT));
@@ -212,18 +215,21 @@ public class ConcurrentHashMultisetTest extends TestCase {
     assertEquals(INITIAL_COUNT, multiset.remove(KEY, 0));
   }
 
+  //null键移除0次
   public void testRemove_zeroFromNone() {
     when(backingMap.get(KEY)).thenReturn(null);
 
     assertEquals(0, multiset.remove(KEY, 0));
   }
 
+  //null键移除指定次数
   public void testRemove_nonePresent() {
     when(backingMap.get(KEY)).thenReturn(null);
 
     assertEquals(0, multiset.remove(KEY, 400));
   }
 
+  //
   public void testRemove_someRemaining() {
     int countToRemove = 30;
     int countRemaining = 1;
