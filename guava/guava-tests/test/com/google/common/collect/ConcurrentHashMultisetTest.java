@@ -229,7 +229,7 @@ public class ConcurrentHashMultisetTest extends TestCase {
     assertEquals(0, multiset.remove(KEY, 400));
   }
 
-  //
+  //减去指定次数
   public void testRemove_someRemaining() {
     int countToRemove = 30;
     int countRemaining = 1;
