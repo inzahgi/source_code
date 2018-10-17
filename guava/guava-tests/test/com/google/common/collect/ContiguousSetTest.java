@@ -75,6 +75,7 @@ public class ContiguousSetTest extends TestCase {
         }
       };
 
+  //非法上下边界
   public void testInvalidIntRange() {
     try {
       ContiguousSet.closed(2, 1);
@@ -86,8 +87,11 @@ public class ContiguousSetTest extends TestCase {
       fail();
     } catch (IllegalArgumentException expected) {
     }
+    ContiguousSet.closed(2, 6);
+
   }
 
+  //
   public void testInvalidLongRange() {
     try {
       ContiguousSet.closed(2L, 1L);
