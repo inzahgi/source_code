@@ -162,6 +162,7 @@ public class ContiguousSetTest extends TestCase {
     assertEquals(enormous, enormousReserialized);
   }
 
+  //没有最小范围 小于0
   public void testCreate_noMin() {
     Range<Integer> range = Range.lessThan(0);
     try {
@@ -171,6 +172,7 @@ public class ContiguousSetTest extends TestCase {
     }
   }
 
+  //没有最大值 大于0
   public void testCreate_noMax() {
     Range<Integer> range = Range.greaterThan(0);
     try {
