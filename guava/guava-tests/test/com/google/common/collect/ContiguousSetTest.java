@@ -91,7 +91,7 @@ public class ContiguousSetTest extends TestCase {
 
   }
 
-  //
+  //long型上下界错误
   public void testInvalidLongRange() {
     try {
       ContiguousSet.closed(2L, 1L);
@@ -105,6 +105,8 @@ public class ContiguousSetTest extends TestCase {
     }
   }
 
+
+  //等价生成范围集合
   public void testEquals() {
     new EqualsTester()
         .addEqualityGroup(
@@ -138,6 +140,7 @@ public class ContiguousSetTest extends TestCase {
         ContiguousSet.create(Range.atMost(Integer.MAX_VALUE), integers()));
   }
 
+  //测试序列化
   @GwtIncompatible // SerializableTester
   public void testSerialization() {
     ContiguousSet<Integer> empty = ContiguousSet.create(Range.closedOpen(1, 1), integers());
