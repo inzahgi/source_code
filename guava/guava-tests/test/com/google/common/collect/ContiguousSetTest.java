@@ -182,6 +182,7 @@ public class ContiguousSetTest extends TestCase {
     }
   }
 
+  //测试空连续集合
   public void testCreate_empty() {
     assertEquals(ImmutableSet.of(), ContiguousSet.create(Range.closedOpen(1, 1), integers()));
     assertEquals(ImmutableSet.of(), ContiguousSet.closedOpen(1, 1));
@@ -192,6 +193,7 @@ public class ContiguousSetTest extends TestCase {
         ImmutableSet.of(), ContiguousSet.create(Range.greaterThan(Integer.MAX_VALUE), integers()));
   }
 
+  //
   public void testHeadSet() {
     ImmutableSortedSet<Integer> set = ContiguousSet.create(Range.closed(1, 3), integers());
     assertThat(set.headSet(1)).isEmpty();
