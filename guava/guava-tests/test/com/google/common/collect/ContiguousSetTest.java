@@ -262,6 +262,7 @@ public class ContiguousSetTest extends TestCase {
     assertThat(ContiguousSet.create(Range.closed(1, 3), integers()).subSet(-1, 0)).isEmpty();
   }
 
+  //边界范围第一个
   public void testFirst() {
     assertEquals(1, ContiguousSet.create(Range.closed(1, 3), integers()).first().intValue());
     assertEquals(1, ContiguousSet.create(Range.open(0, 4), integers()).first().intValue());
@@ -270,6 +271,7 @@ public class ContiguousSetTest extends TestCase {
         ContiguousSet.create(Range.<Integer>all(), integers()).first().intValue());
   }
 
+  //边界最后一个
   public void testLast() {
     assertEquals(3, ContiguousSet.create(Range.closed(1, 3), integers()).last().intValue());
     assertEquals(3, ContiguousSet.create(Range.open(0, 4), integers()).last().intValue());
@@ -278,6 +280,7 @@ public class ContiguousSetTest extends TestCase {
         ContiguousSet.create(Range.<Integer>all(), integers()).last().intValue());
   }
 
+  //单元素包含
   public void testContains() {
     ImmutableSortedSet<Integer> set = ContiguousSet.create(Range.closed(1, 3), integers());
     assertFalse(set.contains(0));
@@ -294,8 +297,10 @@ public class ContiguousSetTest extends TestCase {
     assertFalse(set.contains((Object) "blah"));
   }
 
+  //set组合 测试包含关系
   public void testContainsAll() {
     ImmutableSortedSet<Integer> set = ContiguousSet.create(Range.closed(1, 3), integers());
+    //powerSet 生成元素组合
     for (Set<Integer> subset : Sets.powerSet(ImmutableSet.of(1, 2, 3))) {
       assertTrue(set.containsAll(subset));
     }
@@ -305,6 +310,7 @@ public class ContiguousSetTest extends TestCase {
     assertFalse(set.containsAll((Collection<?>) ImmutableSet.of("blah")));
   }
 
+  //设置范围
   public void testRange() {
     assertEquals(Range.closed(1, 3), ContiguousSet.create(Range.closed(1, 3), integers()).range());
     assertEquals(Range.closed(1, 3), ContiguousSet.closed(1, 3).range());
@@ -353,6 +359,8 @@ public class ContiguousSetTest extends TestCase {
         ContiguousSet.create(Range.openClosed(0, 3), integers()).range(CLOSED, OPEN));
   }
 
+
+  // 范围选择
   public void testRange_unboundedRange() {
     assertEquals(
         Range.closed(Integer.MIN_VALUE, Integer.MAX_VALUE),
@@ -367,6 +375,7 @@ public class ContiguousSetTest extends TestCase {
         ContiguousSet.create(Range.<Integer>all(), integers()).range(OPEN, CLOSED));
   }
 
+  //空交集
   public void testIntersection_empty() {
     ContiguousSet<Integer> set = ContiguousSet.closed(1, 3);
     ContiguousSet<Integer> emptySet = ContiguousSet.closedOpen(2, 2);
@@ -378,6 +387,7 @@ public class ContiguousSetTest extends TestCase {
             .intersection(ContiguousSet.create(Range.open(3, 64), integers())));
   }
 
+  //交集测试
   public void testIntersection() {
     ContiguousSet<Integer> set = ContiguousSet.create(Range.closed(1, 3), integers());
     assertEquals(
@@ -390,6 +400,7 @@ public class ContiguousSetTest extends TestCase {
         ImmutableSet.of(3), set.intersection(ContiguousSet.create(Range.closed(3, 5), integers())));
   }
 
+  //连续集合转list
   public void testAsList() {
     ImmutableList<Integer> list = ContiguousSet.create(Range.closed(1, 3), integers()).asList();
     for (int i = 0; i < 3; i++) {

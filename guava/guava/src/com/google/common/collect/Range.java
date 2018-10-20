@@ -225,6 +225,7 @@ public final class Range<C extends Comparable> extends RangeGwtSerializationDepe
    *
    * @since 14.0
    */
+  //小于
   public static <C extends Comparable<?>> Range<C> lessThan(C endpoint) {
     return create(Cut.<C>belowAll(), Cut.belowValue(endpoint));
   }
@@ -234,6 +235,7 @@ public final class Range<C extends Comparable> extends RangeGwtSerializationDepe
    *
    * @since 14.0
    */
+  //小于等于
   public static <C extends Comparable<?>> Range<C> atMost(C endpoint) {
     return create(Cut.<C>belowAll(), Cut.aboveValue(endpoint));
   }
@@ -260,6 +262,7 @@ public final class Range<C extends Comparable> extends RangeGwtSerializationDepe
    *
    * @since 14.0
    */
+  //大于
   public static <C extends Comparable<?>> Range<C> greaterThan(C endpoint) {
     return create(Cut.aboveValue(endpoint), Cut.<C>aboveAll());
   }
@@ -269,6 +272,7 @@ public final class Range<C extends Comparable> extends RangeGwtSerializationDepe
    *
    * @since 14.0
    */
+  //大于等于的 范围
   public static <C extends Comparable<?>> Range<C> atLeast(C endpoint) {
     return create(Cut.belowValue(endpoint), Cut.<C>aboveAll());
   }
