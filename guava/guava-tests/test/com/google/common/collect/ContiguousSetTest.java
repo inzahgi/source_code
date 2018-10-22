@@ -193,7 +193,7 @@ public class ContiguousSetTest extends TestCase {
         ImmutableSet.of(), ContiguousSet.create(Range.greaterThan(Integer.MAX_VALUE), integers()));
   }
 
-  //
+  //获取指定值 之前的子集
   public void testHeadSet() {
     ImmutableSortedSet<Integer> set = ContiguousSet.create(Range.closed(1, 3), integers());
     assertThat(set.headSet(1)).isEmpty();
@@ -208,10 +208,12 @@ public class ContiguousSetTest extends TestCase {
     assertThat(set.headSet(Integer.MAX_VALUE, true)).containsExactly(1, 2, 3).inOrder();
   }
 
+  // 获取指定值 之前的 子集 默认开区间
   public void testHeadSet_tooSmall() {
     assertThat(ContiguousSet.create(Range.closed(1, 3), integers()).headSet(0)).isEmpty();
   }
 
+  // tail 从指定值取剩下的范围  可以指定下限开集 闭集
   public void testTailSet() {
     ImmutableSortedSet<Integer> set = ContiguousSet.create(Range.closed(1, 3), integers());
     assertThat(set.tailSet(Integer.MIN_VALUE)).containsExactly(1, 2, 3).inOrder();
@@ -224,10 +226,12 @@ public class ContiguousSetTest extends TestCase {
     assertThat(set.tailSet(3, false)).isEmpty();
   }
 
+  // tail 从指定值开始取剩下的范围 闭集
   public void testTailSet_tooLarge() {
-    assertThat(ContiguousSet.create(Range.closed(1, 3), integers()).tailSet(4)).isEmpty();
+    assertThat(ContiguousSet.create(Range.closed(1, 13), integers()).tailSet(4)).isEmpty();
   }
 
+  //取子集 半闭半开 不包含上界
   public void testSubSet() {
     ImmutableSortedSet<Integer> set = ContiguousSet.create(Range.closed(1, 3), integers());
     assertThat(set.subSet(1, 4)).containsExactly(1, 2, 3).inOrder();
@@ -245,19 +249,23 @@ public class ContiguousSetTest extends TestCase {
     assertThat(set.subSet(1, false, 3, false)).containsExactly(2).inOrder();
   }
 
+  //取子集
   public void testSubSet_outOfOrder() {
     ImmutableSortedSet<Integer> set = ContiguousSet.create(Range.closed(1, 3), integers());
     try {
       set.subSet(3, 2);
       fail();
     } catch (IllegalArgumentException expected) {
+      expected.printStackTrace();
     }
   }
 
+  //连续集合取子集 大于最大值 为空集
   public void testSubSet_tooLarge() {
     assertThat(ContiguousSet.create(Range.closed(1, 3), integers()).subSet(4, 6)).isEmpty();
   }
 
+  //连续集合取子集 小于最小值 为空集
   public void testSubSet_tooSmall() {
     assertThat(ContiguousSet.create(Range.closed(1, 3), integers()).subSet(-1, 0)).isEmpty();
   }

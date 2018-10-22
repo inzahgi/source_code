@@ -544,6 +544,7 @@ public final class Range<C extends Comparable> extends RangeGwtSerializationDepe
    *
    * @throws IllegalArgumentException if {@code isConnected(connectedRange)} is {@code false}
    */
+  //求两个范围的交集
   public Range<C> intersection(Range<C> connectedRange) {
     int lowerCmp = lowerBound.compareTo(connectedRange.lowerBound);
     int upperCmp = upperBound.compareTo(connectedRange.upperBound);
