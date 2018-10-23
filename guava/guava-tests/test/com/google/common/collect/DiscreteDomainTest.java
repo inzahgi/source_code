@@ -29,12 +29,14 @@ import junit.framework.TestCase;
  */
 @GwtIncompatible // SerializableTester
 public class DiscreteDomainTest extends TestCase {
+  //序列化测试
   public void testSerialization() {
     reserializeAndAssert(DiscreteDomain.integers());
     reserializeAndAssert(DiscreteDomain.longs());
     reserializeAndAssert(DiscreteDomain.bigIntegers());
   }
 
+  //Integer计算离散数据域的偏移
   public void testIntegersOffset() {
     assertEquals(1, DiscreteDomain.integers().offset(0, 1).intValue());
     assertEquals(
@@ -42,6 +44,7 @@ public class DiscreteDomainTest extends TestCase {
         DiscreteDomain.integers().offset(Integer.MIN_VALUE, (1L << 32) - 1).intValue());
   }
 
+  //位移起始大于终点 报错
   public void testIntegersOffsetExceptions() {
     try {
       DiscreteDomain.integers().offset(0, -1);
@@ -55,11 +58,13 @@ public class DiscreteDomainTest extends TestCase {
     }
   }
 
+  // Long型的偏移计算
   public void testLongsOffset() {
     assertEquals(1, DiscreteDomain.longs().offset(0L, 1).longValue());
     assertEquals(Long.MAX_VALUE, DiscreteDomain.longs().offset(0L, Long.MAX_VALUE).longValue());
   }
 
+  // Long型偏移错误
   public void testLongsOffsetExceptions() {
     try {
       DiscreteDomain.longs().offset(0L, -1);
@@ -73,6 +78,7 @@ public class DiscreteDomainTest extends TestCase {
     }
   }
 
+  //大整数偏移计算
   public void testBigIntegersOffset() {
     assertEquals(BigInteger.ONE, DiscreteDomain.bigIntegers().offset(BigInteger.ZERO, 1));
     assertEquals(
@@ -80,6 +86,7 @@ public class DiscreteDomainTest extends TestCase {
         DiscreteDomain.bigIntegers().offset(BigInteger.ZERO, Long.MAX_VALUE));
   }
 
+  //偏移计算 起始大于终点错误
   public void testBigIntegersOffsetExceptions() {
     try {
       DiscreteDomain.bigIntegers().offset(BigInteger.ZERO, -1);

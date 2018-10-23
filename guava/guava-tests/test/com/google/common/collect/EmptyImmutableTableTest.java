@@ -34,11 +34,14 @@ public class EmptyImmutableTableTest extends AbstractImmutableTableTest {
     return ImmutableSet.of(INSTANCE);
   }
 
+  //空immutableTable hashcode为0
   public void testHashCode() {
     assertEquals(0, INSTANCE.hashCode());
   }
 
+  //
   public void testEqualsObject() {
+    //hashBasedTable 不用初始化行和列
     Table<Character, Integer, String> nonEmptyTable = HashBasedTable.create();
     nonEmptyTable.put('A', 1, "blah");
 
@@ -48,6 +51,7 @@ public class EmptyImmutableTableTest extends AbstractImmutableTableTest {
         .testEquals();
   }
 
+  //初始化arrayTable  必须指定行和列
   @GwtIncompatible // ArrayTable
   public void testEqualsObjectNullValues() {
     new EqualsTester()

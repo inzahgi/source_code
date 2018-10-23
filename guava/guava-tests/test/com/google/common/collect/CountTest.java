@@ -24,10 +24,12 @@ import junit.framework.TestCase;
  */
 @GwtCompatible
 public class CountTest extends TestCase {
+  //get取当前值
   public void testGet() {
     assertEquals(20, new Count(20).get());
   }
 
+  //先get再add指定值
   public void testGetAndAdd() {
     Count holder = new Count(20);
     assertEquals(20, holder.get());
@@ -35,17 +37,20 @@ public class CountTest extends TestCase {
     assertEquals(21, holder.get());
   }
 
+  //先add再get指定值
   public void testAddAndGet() {
     Count holder = new Count(20);
     assertEquals(21, holder.addAndGet(1));
   }
 
+  //先get在set
   public void testGetAndSet() {
     Count holder = new Count(10);
     assertEquals(10, holder.getAndSet(20));
     assertEquals(20, holder.get());
   }
 
+  //直接set方法
   public void testSet() {
     Count holder = new Count(10);
     holder.set(20);

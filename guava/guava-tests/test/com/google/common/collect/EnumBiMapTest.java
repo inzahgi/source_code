@@ -126,6 +126,7 @@ public class EnumBiMapTest extends TestCase {
     return suite;
   }
 
+  //生成双向枚举map
   public void testCreate() {
     EnumBiMap<Currency, Country> bimap = EnumBiMap.create(Currency.class, Country.class);
     assertTrue(bimap.isEmpty());
@@ -136,6 +137,7 @@ public class EnumBiMapTest extends TestCase {
     assertEquals(Currency.DOLLAR, bimap.inverse().get(Country.CANADA));
   }
 
+  //通过map拷贝生成   常规map不能为空 但enumBiMap可以为空
   public void testCreateFromMap() {
     /* Test with non-empty Map. */
     Map<Currency, Country> map =
@@ -165,6 +167,7 @@ public class EnumBiMapTest extends TestCase {
     assertTrue(bimap.isEmpty());
   }
 
+  //构造函数生成
   public void testEnumBiMapConstructor() {
     /* Test that it copies existing entries. */
     EnumBiMap<Currency, Country> bimap1 = EnumBiMap.create(Currency.class, Country.class);
@@ -183,15 +186,18 @@ public class EnumBiMapTest extends TestCase {
     assertEquals(bimap3, emptyBimap);
   }
 
+  //获取key类型
   public void testKeyType() {
     EnumBiMap<Currency, Country> bimap = EnumBiMap.create(Currency.class, Country.class);
     assertEquals(Currency.class, bimap.keyType());
   }
 
+  //获取value类型
   public void testValueType() {
     EnumBiMap<Currency, Country> bimap = EnumBiMap.create(Currency.class, Country.class);
     assertEquals(Country.class, bimap.valueType());
   }
+
 
   public void testIterationOrder() {
     // The enum orderings are alphabetical, leading to the bimap and its inverse
