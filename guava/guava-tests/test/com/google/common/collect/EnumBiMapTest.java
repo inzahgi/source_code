@@ -198,7 +198,7 @@ public class EnumBiMapTest extends TestCase {
     assertEquals(Country.class, bimap.valueType());
   }
 
-
+  //迭代器遍历
   public void testIterationOrder() {
     // The enum orderings are alphabetical, leading to the bimap and its inverse
     // having inconsistent iteration orderings.
@@ -227,6 +227,7 @@ public class EnumBiMapTest extends TestCase {
         .inOrder();
   }
 
+  //key迭代器移除后  同时删除对应value遍历
   public void testKeySetIteratorRemove() {
     // The enum orderings are alphabetical, leading to the bimap and its inverse
     // having inconsistent iteration orderings.
@@ -253,6 +254,7 @@ public class EnumBiMapTest extends TestCase {
     assertThat(bimap.inverse().values()).containsExactly(Currency.PESO, Currency.FRANC).inOrder();
   }
 
+  //key迭代器移除后  同时删除对应key遍历  value ???
   public void testValuesIteratorRemove() {
     // The enum orderings are alphabetical, leading to the bimap and its inverse
     // having inconsistent iteration orderings.
@@ -278,6 +280,7 @@ public class EnumBiMapTest extends TestCase {
     assertThat(bimap.inverse().values()).containsExactly(Currency.DOLLAR, Currency.PESO).inOrder();
   }
 
+  //enumBiMap转entrySet
   public void testEntrySet() {
     // Bug 3168290
     Map<Currency, Country> map =
@@ -291,12 +294,14 @@ public class EnumBiMapTest extends TestCase {
     assertEquals(3, uniqueEntries.size());
   }
 
+  //测试序列化
   @GwtIncompatible // serialization
   public void testSerializable() {
     SerializableTester.reserializeAndAssert(
         EnumBiMap.create(ImmutableMap.of(Currency.DOLLAR, Country.CANADA)));
   }
 
+  //反射
   @GwtIncompatible // reflection
   public void testNulls() {
     new NullPointerTester().testAllPublicStaticMethods(EnumBiMap.class);
