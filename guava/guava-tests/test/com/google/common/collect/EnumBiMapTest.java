@@ -310,6 +310,7 @@ public class EnumBiMapTest extends TestCase {
             EnumBiMap.create(ImmutableMap.of(Currency.DOLLAR, Country.CHILE)));
   }
 
+  //相等
   public void testEquals() {
     new EqualsTester()
         .addEqualityGroup(

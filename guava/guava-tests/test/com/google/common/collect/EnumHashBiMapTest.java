@@ -120,6 +120,7 @@ public class EnumHashBiMapTest extends TestCase {
     return suite;
   }
 
+  //静态方法生成enumHashBiMap
   public void testCreate() {
     EnumHashBiMap<Currency, String> bimap = EnumHashBiMap.create(Currency.class);
     assertTrue(bimap.isEmpty());
@@ -130,6 +131,7 @@ public class EnumHashBiMapTest extends TestCase {
     assertEquals(Currency.DOLLAR, bimap.inverse().get("dollar"));
   }
 
+  //
   public void testCreateFromMap() {
     /* Test with non-empty Map. */
     Map<Currency, String> map =
