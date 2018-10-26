@@ -131,7 +131,7 @@ public class EnumHashBiMapTest extends TestCase {
     assertEquals(Currency.DOLLAR, bimap.inverse().get("dollar"));
   }
 
-  //
+  //map拷贝构造不能为空
   public void testCreateFromMap() {
     /* Test with non-empty Map. */
     Map<Currency, String> map =
