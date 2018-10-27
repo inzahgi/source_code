@@ -131,7 +131,7 @@ public class EnumHashBiMapTest extends TestCase {
     assertEquals(Currency.DOLLAR, bimap.inverse().get("dollar"));
   }
 
-  //map拷贝构造不能为空
+  //map拷贝构造不能为空  空EnumHashBiMap可以拷贝构造
   public void testCreateFromMap() {
     /* Test with non-empty Map. */
     Map<Currency, String> map =
@@ -161,6 +161,8 @@ public class EnumHashBiMapTest extends TestCase {
     assertTrue(bimap2.isEmpty());
   }
 
+
+  //EnumHashBiMap构造
   public void testEnumHashBiMapConstructor() {
     /* Test that it copies existing entries. */
     EnumHashBiMap<Currency, String> bimap1 = EnumHashBiMap.create(Currency.class);
@@ -179,6 +181,7 @@ public class EnumHashBiMapTest extends TestCase {
     assertEquals(bimap3, emptyBimap);
   }
 
+  //拷贝构造一个EnumBiMap  深拷贝
   public void testEnumBiMapConstructor() {
     /* Test that it copies existing entries. */
     EnumBiMap<Currency, Country> bimap1 = EnumBiMap.create(Currency.class, Country.class);
@@ -199,11 +202,13 @@ public class EnumHashBiMapTest extends TestCase {
     assertEquals(bimap3, emptyBimap);
   }
 
+  //获取key的类型
   public void testKeyType() {
     EnumHashBiMap<Currency, String> bimap = EnumHashBiMap.create(Currency.class);
     assertEquals(Currency.class, bimap.keyType());
   }
 
+  //转entrySet
   public void testEntrySet() {
     // Bug 3168290
     Map<Currency, String> map =
@@ -218,6 +223,7 @@ public class EnumHashBiMapTest extends TestCase {
     assertEquals(3, uniqueEntries.size());
   }
 
+  //序列化测试
   @GwtIncompatible // serialize
   public void testSerializable() {
     SerializableTester.reserializeAndAssert(EnumHashBiMap.create(Currency.class));
