@@ -86,6 +86,7 @@ public class EnumMultisetTest extends TestCase {
     FEMALE
   }
 
+  //静态方法创建EnumMultiset
   public void testClassCreate() {
     Multiset<Color> ms = EnumMultiset.create(Color.class);
     ms.add(Color.RED);
@@ -96,6 +97,7 @@ public class EnumMultisetTest extends TestCase {
     assertEquals(2, ms.count(Color.RED));
   }
 
+  //静态方法 包含参数初始化
   public void testCollectionCreate() {
     Multiset<Color> ms = EnumMultiset.create(asList(Color.RED, Color.YELLOW, Color.RED));
     assertEquals(0, ms.count(Color.BLUE));
@@ -103,6 +105,7 @@ public class EnumMultisetTest extends TestCase {
     assertEquals(2, ms.count(Color.RED));
   }
 
+  //非法创建
   public void testIllegalCreate() {
     Collection<Color> empty = EnumSet.noneOf(Color.class);
     try {
@@ -112,11 +115,15 @@ public class EnumMultisetTest extends TestCase {
     }
   }
 
+  //构建初始化
   public void testCreateEmptyWithClass() {
-    Multiset<Color> ms = EnumMultiset.create(ImmutableList.<Color>of(), Color.class);
+    //Multiset<Color> ms = EnumMultiset.create(ImmutableList.<Color>of(), Color.class);
+    Multiset<Color> ms = EnumMultiset.create(ImmutableList.<Color>of(Color.RED), Color.class);
     ms.add(Color.RED);
+    assertEquals(2, ms.count(Color.RED));
   }
 
+  //空列表参数 构造非法
   public void testCreateEmptyWithoutClassFails() {
     try {
       EnumMultiset.create(ImmutableList.<Color>of());
@@ -125,6 +132,7 @@ public class EnumMultisetTest extends TestCase {
     }
   }
 
+  //ToString 方法
   public void testToString() {
     Multiset<Color> ms = EnumMultiset.create(Color.class);
     ms.add(Color.BLUE, 3);
@@ -133,12 +141,14 @@ public class EnumMultisetTest extends TestCase {
     assertEquals("[BLUE x 3, RED x 2, YELLOW]", ms.toString());
   }
 
+  //测试序列化
   @GwtIncompatible // SerializableTester
   public void testSerializable() {
     Multiset<Color> ms = EnumMultiset.create(asList(Color.RED, Color.YELLOW, Color.RED));
     assertEquals(ms, SerializableTester.reserialize(ms));
   }
 
+  //转entrySet
   public void testEntrySet() {
     Multiset<Color> ms = EnumMultiset.create(Color.class);
     ms.add(Color.BLUE, 3);
