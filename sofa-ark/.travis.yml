@@ -1,0 +1,19 @@
+language: java
+sudo: false
+
+jdk:
+- oraclejdk8
+- openjdk7
+
+install:
+- mvn clean install -DskipTests=false -Dmaven.javadoc.skip=false -B -V
+
+script:
+- sh ./check_format.sh
+- cd sofa-ark-samples && mvn clean install
+- cd sample-ark-plugin && mvn clean install
+- cd ../sample-springboot-ark && mvn test
+- cd ../..
+
+after_success:
+- mvn clean test cobertura:cobertura coveralls:report
