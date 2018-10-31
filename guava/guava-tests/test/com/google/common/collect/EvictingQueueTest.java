@@ -33,6 +33,7 @@ import junit.framework.TestCase;
 @GwtCompatible(emulated = true)
 public class EvictingQueueTest extends TestCase {
 
+  //队列容量不能为副
   public void testCreateWithNegativeSize() throws Exception {
     try {
       EvictingQueue.create(-1);
@@ -41,6 +42,7 @@ public class EvictingQueueTest extends TestCase {
     }
   }
 
+  //容量为0时  直接返回 不增加
   public void testCreateWithZeroSize() throws Exception {
     EvictingQueue<String> queue = EvictingQueue.create(0);
     assertEquals(0, queue.size());
@@ -55,6 +57,7 @@ public class EvictingQueueTest extends TestCase {
     assertEquals(0, queue.size());
 
     try {
+      //返回一个元素
       queue.element();
       fail();
     } catch (NoSuchElementException expected) {
@@ -69,11 +72,13 @@ public class EvictingQueueTest extends TestCase {
     }
   }
 
+  //还剩空间
   public void testRemainingCapacity_maxSize0() {
     EvictingQueue<String> queue = EvictingQueue.create(0);
     assertEquals(0, queue.remainingCapacity());
   }
 
+  //还剩空间
   public void testRemainingCapacity_maxSize1() {
     EvictingQueue<String> queue = EvictingQueue.create(1);
     assertEquals(1, queue.remainingCapacity());
@@ -81,6 +86,7 @@ public class EvictingQueueTest extends TestCase {
     assertEquals(0, queue.remainingCapacity());
   }
 
+  //还剩的空间
   public void testRemainingCapacity_maxSize3() {
     EvictingQueue<String> queue = EvictingQueue.create(3);
     assertEquals(3, queue.remainingCapacity());
@@ -92,6 +98,7 @@ public class EvictingQueueTest extends TestCase {
     assertEquals(0, queue.remainingCapacity());
   }
 
+  //容量唯一的时候 操作后的空间大小
   public void testEvictingAfterOne() throws Exception {
     EvictingQueue<String> queue = EvictingQueue.create(1);
     assertEquals(0, queue.size());
@@ -114,6 +121,7 @@ public class EvictingQueueTest extends TestCase {
     assertEquals(1, queue.remainingCapacity());
   }
 
+  //空间为3时 操作后 空间大小
   public void testEvictingAfterThree() throws Exception {
     EvictingQueue<String> queue = EvictingQueue.create(3);
     assertEquals(0, queue.size());
@@ -138,6 +146,7 @@ public class EvictingQueueTest extends TestCase {
     assertEquals(1, queue.remainingCapacity());
   }
 
+  //
   public void testAddAll() throws Exception {
     EvictingQueue<String> queue = EvictingQueue.create(3);
     assertEquals(0, queue.size());
