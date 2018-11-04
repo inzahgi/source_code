@@ -72,7 +72,7 @@ public class FauxveridesTest extends TestCase {
    * ImmutableSorted{Set,Map}.copyOf(), whose type parameters we are unable to
    * restrict (see ImmutableSortedSetFauxverideShim).
    */
-  //
+  //immutableMap 不能排序
   public void testImmutableSortedMapCopyOfMap() {
     Map<Object, Object> original =
         ImmutableMap.of(new Object(), new Object(), new Object(), new Object());
@@ -81,9 +81,11 @@ public class FauxveridesTest extends TestCase {
       ImmutableSortedMap.copyOf(original);
       fail();
     } catch (ClassCastException expected) {
+      expected.printStackTrace();
     }
   }
 
+  //immutableSet 不能排序
   public void testImmutableSortedSetCopyOfIterable() {
     Set<Object> original = ImmutableSet.of(new Object(), new Object());
 
@@ -94,6 +96,7 @@ public class FauxveridesTest extends TestCase {
     }
   }
 
+  //immutableSortedSet 拷贝复制迭代器 异常
   public void testImmutableSortedSetCopyOfIterator() {
     Set<Object> original = ImmutableSet.of(new Object(), new Object());
 
@@ -104,6 +107,7 @@ public class FauxveridesTest extends TestCase {
     }
   }
 
+  //
   private void doHasAllFauxveridesTest(Class<?> descendant, Class<?> ancestor) {
     Set<MethodSignature> required = getAllRequiredToFauxveride(ancestor);
     Set<MethodSignature> found = getAllFauxveridden(descendant, ancestor);
