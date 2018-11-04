@@ -72,7 +72,7 @@ public class FauxveridesTest extends TestCase {
    * ImmutableSorted{Set,Map}.copyOf(), whose type parameters we are unable to
    * restrict (see ImmutableSortedSetFauxverideShim).
    */
-
+  //
   public void testImmutableSortedMapCopyOfMap() {
     Map<Object, Object> original =
         ImmutableMap.of(new Object(), new Object(), new Object(), new Object());

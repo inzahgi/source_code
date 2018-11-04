@@ -146,7 +146,7 @@ public class EvictingQueueTest extends TestCase {
     assertEquals(1, queue.remainingCapacity());
   }
 
-  //
+  //addAll 方法 测试空间大小
   public void testAddAll() throws Exception {
     EvictingQueue<String> queue = EvictingQueue.create(3);
     assertEquals(0, queue.size());
@@ -169,6 +169,7 @@ public class EvictingQueueTest extends TestCase {
     assertEquals(1, queue.remainingCapacity());
   }
 
+  //测试addAll 方法
   public void testAddAll_largeList() {
     final List<String> list = ImmutableList.of("one", "two", "three", "four", "five");
     List<String> misbehavingList =
@@ -196,6 +197,7 @@ public class EvictingQueueTest extends TestCase {
     assertTrue(queue.isEmpty());
   }
 
+  //空指针测试
   @GwtIncompatible // NullPointerTester
   public void testNullPointerExceptions() {
     NullPointerTester tester = new NullPointerTester();
@@ -207,6 +209,7 @@ public class EvictingQueueTest extends TestCase {
     tester.testAllPublicInstanceMethods(queue);
   }
 
+  //序列化测试
   public void testSerialization() {
     EvictingQueue<String> original = EvictingQueue.create(5);
     original.add("one");
