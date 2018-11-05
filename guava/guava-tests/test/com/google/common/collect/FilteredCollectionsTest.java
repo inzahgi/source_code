@@ -71,6 +71,7 @@ public class FilteredCollectionsTest extends TestCase {
 
     abstract C filter(C elements, Predicate<? super Integer> predicate);
 
+    //forEach 和迭代器相等
     public void testIterationOrderPreserved() {
       for (List<Integer> contents : SAMPLE_INPUTS) {
         C unfiltered = createUnfiltered(contents);
@@ -87,6 +88,7 @@ public class FilteredCollectionsTest extends TestCase {
       }
     }
 
+    //forEach
     public void testForEach() {
       for (List<Integer> contents : SAMPLE_INPUTS) {
         C unfiltered = createUnfiltered(contents);
