@@ -107,6 +107,7 @@ public class FilteredCollectionsTest extends TestCase {
   public abstract static class AbstractFilteredCollectionTest<C extends Collection<Integer>>
       extends AbstractFilteredIterableTest<C> {
 
+    //过滤后添加和 添加后过滤相比较
     public void testReadsThroughAdd() {
       for (List<Integer> contents : SAMPLE_INPUTS) {
         C unfiltered = createUnfiltered(contents);
