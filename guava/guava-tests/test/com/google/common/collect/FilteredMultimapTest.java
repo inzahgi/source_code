@@ -53,6 +53,7 @@ public class FilteredMultimapTest extends TestCase {
         }
       };
 
+  //Multimap 过滤指定键
   public void testFilterKeys() {
     Multimap<String, Integer> unfiltered = HashMultimap.create();
     unfiltered.put("foo", 55556);

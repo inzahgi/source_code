@@ -226,6 +226,7 @@ public class FilteredCollectionsTest extends TestCase {
     }
   }
 
+  //先过滤再添加 和先添加再过滤 相等
   public abstract static class AbstractFilteredSetTest<C extends Set<Integer>>
       extends AbstractFilteredCollectionTest<C> {
     public void testEqualsAndHashCode() {
@@ -243,6 +244,7 @@ public class FilteredCollectionsTest extends TestCase {
     }
   }
 
+  //
   public abstract static class AbstractFilteredSortedSetTest<C extends SortedSet<Integer>>
       extends AbstractFilteredSetTest<C> {
     public void testFirst() {
