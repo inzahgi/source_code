@@ -107,13 +107,15 @@ public class FilteredCollectionsTest extends TestCase {
   public abstract static class AbstractFilteredCollectionTest<C extends Collection<Integer>>
       extends AbstractFilteredIterableTest<C> {
 
-    //过滤后添加和 添加后过滤相比较
+    //过滤后添加和 添加后过滤相比较  设置过滤方法后 再添加也会过滤掉
     public void testReadsThroughAdd() {
       for (List<Integer> contents : SAMPLE_INPUTS) {
+        //先过滤后添加
         C unfiltered = createUnfiltered(contents);
         C filterThenAdd = filter(unfiltered, EVEN);
         unfiltered.add(4);
 
+        //先添加 后过滤
         List<Integer> target = Lists.newArrayList(contents);
         target.add(4);
         C addThenFilter = filter(createUnfiltered(target), EVEN);
@@ -125,11 +127,14 @@ public class FilteredCollectionsTest extends TestCase {
     public void testAdd() {
       for (List<Integer> contents : SAMPLE_INPUTS) {
         for (int toAdd = 0; toAdd < 10; toAdd++) {
+          //未过滤直接添加
           boolean expectedResult = createUnfiltered(contents).add(toAdd);
-
+          //已过滤
           C filtered = filter(createUnfiltered(contents), EVEN);
           try {
+            //过滤后可以添加元素
             assertEquals(expectedResult, filtered.add(toAdd));
+            //判断过滤器 是否起作用
             assertTrue(EVEN.apply(toAdd));
           } catch (IllegalArgumentException e) {
             assertFalse(EVEN.apply(toAdd));
@@ -138,6 +143,7 @@ public class FilteredCollectionsTest extends TestCase {
       }
     }
 
+    //过滤器能应用的  都能够直接移除
     public void testRemove() {
       for (List<Integer> contents : SAMPLE_INPUTS) {
         for (int toRemove = 0; toRemove < 10; toRemove++) {
@@ -148,6 +154,7 @@ public class FilteredCollectionsTest extends TestCase {
       }
     }
 
+    //过滤器能应用的 都能包含
     public void testContains() {
       for (List<Integer> contents : SAMPLE_INPUTS) {
         for (int i = 0; i < 10; i++) {
@@ -158,12 +165,14 @@ public class FilteredCollectionsTest extends TestCase {
       }
     }
 
+    //测试包含不同类型时  返回false
     public void testContainsOnDifferentType() {
       for (List<Integer> contents : SAMPLE_INPUTS) {
         assertFalse(filter(createUnfiltered(contents), EVEN).contains(new Object()));
       }
     }
 
+    //
     public void testAddAllFailsAtomically() {
       ImmutableList<Integer> toAdd = ImmutableList.of(2, 4, 3);
       for (List<Integer> contents : SAMPLE_INPUTS) {
