@@ -71,6 +71,7 @@ public class FilteredMultimapTest extends TestCase {
         }
       };
 
+  //根据值过滤
   public void testFilterValues() {
     Multimap<String, Integer> unfiltered = HashMultimap.create();
     unfiltered.put("foo", 55556);
@@ -81,6 +82,7 @@ public class FilteredMultimapTest extends TestCase {
     assertTrue(filtered.containsEntry("badkey", 1));
   }
 
+  //分别按key和value过滤
   public void testFilterFiltered() {
     Multimap<String, Integer> unfiltered = HashMultimap.create();
     unfiltered.put("foo", 55556);
