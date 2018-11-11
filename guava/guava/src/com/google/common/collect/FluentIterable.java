@@ -134,6 +134,8 @@ public abstract class FluentIterable<E> implements Iterable<E> {
    *
    * <p><b>{@code Stream} equivalent:</b> {@link Collection#stream} if {@code iterable} is a {@link
    * Collection}; {@link Streams#stream(Iterable)} otherwise.
+   *
+   * 包装返回 fluent iterable 类型
    */
   public static <E> FluentIterable<E> from(final Iterable<E> iterable) {
     return (iterable instanceof FluentIterable)

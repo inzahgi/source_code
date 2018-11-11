@@ -60,11 +60,13 @@ public class FluentIterableTest extends TestCase {
     tester.testAllPublicStaticMethods(FluentIterable.class);
   }
 
+  //添加元素
   public void testFromArrayAndAppend() {
     FluentIterable<TimeUnit> units =
         FluentIterable.from(TimeUnit.values()).append(TimeUnit.SECONDS);
   }
 
+  //删除元素
   public void testFromArrayAndIteratorRemove() {
     FluentIterable<TimeUnit> units = FluentIterable.from(TimeUnit.values());
     try {
@@ -74,6 +76,8 @@ public class FluentIterableTest extends TestCase {
     }
   }
 
+
+  //返回迭代器
   public void testFrom() {
     assertEquals(
         ImmutableList.of(1, 2, 3, 4),
@@ -86,10 +90,12 @@ public class FluentIterableTest extends TestCase {
     assertSame(iterable, FluentIterable.from(iterable));
   }
 
+  //of方法初始化生成
   public void testOf() {
     assertEquals(ImmutableList.of(1, 2, 3, 4), Lists.newArrayList(FluentIterable.of(1, 2, 3, 4)));
   }
 
+  //from 返回迭代器
   public void testFromArray() {
     assertEquals(
         ImmutableList.of("1", "2", "3", "4"),
