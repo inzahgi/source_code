@@ -102,10 +102,12 @@ public class FluentIterableTest extends TestCase {
         Lists.newArrayList(FluentIterable.from(new Object[] {"1", "2", "3", "4"})));
   }
 
+  //生成空容器
   public void testOf_empty() {
     assertEquals(ImmutableList.of(), Lists.newArrayList(FluentIterable.of()));
   }
 
+  //测试添加元素和concat合并
   // Exhaustive tests are in IteratorsTest. These are copied from IterablesTest.
   public void testConcatIterable() {
     List<Integer> list1 = newArrayList(1);
@@ -127,6 +129,7 @@ public class FluentIterableTest extends TestCase {
     assertEquals("[1, 2, 3, 4]", result.toString());
   }
 
+  //组合列表
   public void testConcatVarargs() {
     List<Integer> list1 = newArrayList(1);
     List<Integer> list2 = newArrayList(4);
@@ -139,6 +142,7 @@ public class FluentIterableTest extends TestCase {
     assertEquals("[1, 4, 7, 8, 9, 10]", result.toString());
   }
 
+  //空指针异常
   public void testConcatNullPointerException() {
     List<Integer> list1 = newArrayList(1);
     List<Integer> list2 = newArrayList(4);
@@ -150,6 +154,7 @@ public class FluentIterableTest extends TestCase {
     }
   }
 
+  //重复组合
   public void testConcatPeformingFiniteCycle() {
     Iterable<Integer> iterable = asList(1, 2, 3);
     int n = 4;
@@ -217,6 +222,7 @@ public class FluentIterableTest extends TestCase {
     assertEquals(2, FluentIterable.from(iterable).size());
   }
 
+  //不可迭代 变可迭代
   public void testSize_collectionDoesntIterate() {
     List<Integer> nums = asList(1, 2, 3, 4, 5);
     List<Integer> collection =
@@ -229,6 +235,7 @@ public class FluentIterableTest extends TestCase {
     assertEquals(5, FluentIterable.from(collection).size());
   }
 
+  //
   public void testContains_nullSetYes() {
     Iterable<String> set = Sets.newHashSet("a", null, "b");
     assertTrue(FluentIterable.from(set).contains(null));
