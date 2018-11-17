@@ -288,6 +288,7 @@ public class FluentIterableTest extends TestCase {
         "[yam, bam, jam, ham]", FluentIterable.from(asList("yam", "bam", "jam", "ham")).toString());
   }
 
+
   public void testCycle() {
     FluentIterable<String> cycle = FluentIterable.from(asList("a", "b")).cycle();
 
@@ -321,6 +322,7 @@ public class FluentIterableTest extends TestCase {
     assertFalse(cycle.iterator().hasNext());
   }
 
+  //append 方法
   public void testAppend() {
     FluentIterable<Integer> result =
         FluentIterable.<Integer>from(asList(1, 2, 3)).append(Lists.newArrayList(4, 5, 6));
@@ -332,18 +334,21 @@ public class FluentIterableTest extends TestCase {
     assertEquals("[1, 2, 3, 4, 5, 6]", result.toString());
   }
 
+  //空容器 添加元素
   public void testAppend_toEmpty() {
     FluentIterable<Integer> result =
         FluentIterable.<Integer>of().append(Lists.newArrayList(1, 2, 3));
     assertEquals(asList(1, 2, 3), Lists.newArrayList(result));
   }
 
+  //添加空列表
   public void testAppend_emptyList() {
     FluentIterable<Integer> result =
         FluentIterable.<Integer>from(asList(1, 2, 3)).append(Lists.<Integer>newArrayList());
     assertEquals(asList(1, 2, 3), Lists.newArrayList(result));
   }
 
+  //添加null列表报错
   public void testAppend_nullPointerException() {
     try {
       FluentIterable<Integer> unused =
@@ -387,6 +392,7 @@ public class FluentIterableTest extends TestCase {
     assertThat(blist).containsExactly(hasBoth).inOrder();
   }
 
+  //判断是否任意匹配
   public void testAnyMatch() {
     ArrayList<String> list = Lists.newArrayList();
     FluentIterable<String> iterable = FluentIterable.<String>from(list);
@@ -399,6 +405,7 @@ public class FluentIterableTest extends TestCase {
     assertTrue(iterable.anyMatch(predicate));
   }
 
+  //判断全匹配
   public void testAllMatch() {
     List<String> list = Lists.newArrayList();
     FluentIterable<String> iterable = FluentIterable.<String>from(list);
@@ -411,6 +418,7 @@ public class FluentIterableTest extends TestCase {
     assertFalse(iterable.allMatch(predicate));
   }
 
+  //返回首个匹配项
   public void testFirstMatch() {
     FluentIterable<String> iterable = FluentIterable.from(Lists.newArrayList("cool", "pants"));
     assertThat(iterable.firstMatch(Predicates.equalTo("cool"))).hasValue("cool");
@@ -426,6 +434,7 @@ public class FluentIterableTest extends TestCase {
     }
   }
 
+  //流式转换
   public void testTransformWith() {
     List<String> input = asList("1", "2", "3");
     Iterable<Integer> iterable = FluentIterable.from(input).transform(new IntegerValueOfFunction());
@@ -435,6 +444,7 @@ public class FluentIterableTest extends TestCase {
     assertEquals("[1, 2, 3]", iterable.toString());
   }
 
+  //流式转换时 报异常  lazy转换
   public void testTransformWith_poorlyBehavedTransform() {
     List<String> input = asList("1", null, "3");
     Iterable<Integer> iterable = FluentIterable.from(input).transform(new IntegerValueOfFunction());
@@ -456,6 +466,7 @@ public class FluentIterableTest extends TestCase {
     }
   }
 
+  //整型转字符串 转字符串
   public void testTransformWith_nullFriendlyTransform() {
     List<Integer> input = asList(1, 2, null, 3);
     Iterable<String> result = FluentIterable.from(input).transform(new StringValueOfFunction());
@@ -472,6 +483,7 @@ public class FluentIterableTest extends TestCase {
     }
   }
 
+  //
   public void testTransformAndConcat() {
     List<Integer> input = asList(1, 2, 3);
     Iterable<String> result =
