@@ -483,7 +483,7 @@ public class FluentIterableTest extends TestCase {
     }
   }
 
-  //
+  //传入重复函数
   public void testTransformAndConcat() {
     List<Integer> input = asList(1, 2, 3);
     Iterable<String> result =
@@ -500,6 +500,7 @@ public class FluentIterableTest extends TestCase {
     }
   }
 
+  //
   public void testTransformAndConcat_wildcardFunctionGenerics() {
     List<Integer> input = asList(1, 2, 3);
     FluentIterable<String> unused =
@@ -864,14 +865,17 @@ public class FluentIterableTest extends TestCase {
     }
   }
 
+  //
   public void testUniqueIndex_nullKey() {
     try {
-      fluent(1, 2, 3).uniqueIndex(Functions.constant(null));
+      fluent(1, 2, 3).uniqueIndex(Functions.constant(1));
+      //fluent(1, 2, 3).uniqueIndex(Functions.constant(null));
       fail();
     } catch (NullPointerException expected) {
     }
   }
 
+  //uniqueIndex 为null报异常
   public void testUniqueIndex_nullValue() {
     try {
       ImmutableMap<Object, Integer> unused =
@@ -888,20 +892,24 @@ public class FluentIterableTest extends TestCase {
     }
   }
 
+  //复制列表
   public void testCopyInto_List() {
     assertThat(fluent(1, 3, 5).copyInto(Lists.newArrayList(1, 2)))
         .containsExactly(1, 2, 1, 3, 5)
         .inOrder();
   }
 
+  //复制去重
   public void testCopyInto_Set() {
     assertThat(fluent(1, 3, 5).copyInto(Sets.newHashSet(1, 2))).containsExactly(1, 2, 3, 5);
   }
 
+  //复制去重
   public void testCopyInto_SetAllDuplicates() {
     assertThat(fluent(1, 3, 5).copyInto(Sets.newHashSet(1, 2, 3, 5))).containsExactly(1, 2, 3, 5);
   }
 
+  //copyInto  复制列表
   public void testCopyInto_NonCollection() {
     final ArrayList<Integer> list = Lists.newArrayList(1, 2, 3);
 
@@ -919,20 +927,24 @@ public class FluentIterableTest extends TestCase {
         .inOrder();
   }
 
+  //连接所有元素
   public void testJoin() {
     assertEquals("2,1,3,4", fluent(2, 1, 3, 4).join(Joiner.on(",")));
   }
 
+  //连接空元素
   public void testJoin_empty() {
     assertEquals("", fluent().join(Joiner.on(",")));
   }
 
+  //获取指定序列索引
   public void testGet() {
     assertEquals("a", FluentIterable.from(Lists.newArrayList("a", "b", "c")).get(0));
     assertEquals("b", FluentIterable.from(Lists.newArrayList("a", "b", "c")).get(1));
     assertEquals("c", FluentIterable.from(Lists.newArrayList("a", "b", "c")).get(2));
   }
 
+  //fluentIterable 超出范围 异常
   public void testGet_outOfBounds() {
     try {
       FluentIterable.from(Lists.newArrayList("a", "b", "c")).get(-1);
@@ -952,6 +964,7 @@ public class FluentIterableTest extends TestCase {
    * overkill when nearly all Streams are produced using well-tested JDK calls. So, we cheat and
    * just test that the toArray() contents are as expected.
    */
+  // 转换为stream
   public void testStream() {
     assertThat(FluentIterable.of().stream()).isEmpty();
     assertThat(FluentIterable.of("a").stream()).containsExactly("a");
