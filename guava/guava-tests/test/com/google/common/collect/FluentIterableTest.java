@@ -34,6 +34,7 @@ import com.google.common.testing.NullPointerTester;
 import com.google.common.truth.IterableSubject;
 import com.google.common.truth.Truth;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Iterator;
@@ -565,26 +566,31 @@ public class FluentIterableTest extends TestCase {
     assertThat(FluentIterable.from(list).last()).isAbsent();
   }
 
+  //有序集合 取last
   public void testLast_sortedSet() {
     SortedSet<String> sortedSet = ImmutableSortedSet.of("b", "c", "a");
     assertThat(FluentIterable.from(sortedSet).last()).hasValue("c");
   }
 
+  //空有序 取last报错
   public void testLast_emptySortedSet() {
     SortedSet<String> sortedSet = ImmutableSortedSet.of();
     assertThat(FluentIterable.from(sortedSet).last()).isAbsent();
   }
 
+  //取最后一个
   public void testLast_iterable() {
     Set<String> set = ImmutableSet.of("a", "b", "c");
     assertThat(FluentIterable.from(set).last()).hasValue("c");
   }
 
+  //空set取last报错
   public void testLast_emptyIterable() {
     Set<String> set = Sets.newHashSet();
     assertThat(FluentIterable.from(set).last()).isAbsent();
   }
 
+  //skip过set
   public void testSkip_simple() {
     Collection<String> set = ImmutableSet.of("a", "b", "c", "d", "e");
     assertEquals(
@@ -592,6 +598,7 @@ public class FluentIterableTest extends TestCase {
     assertEquals("[c, d, e]", FluentIterable.from(set).skip(2).toString());
   }
 
+  //skip过list
   public void testSkip_simpleList() {
     Collection<String> list = Lists.newArrayList("a", "b", "c", "d", "e");
     assertEquals(
@@ -599,22 +606,26 @@ public class FluentIterableTest extends TestCase {
     assertEquals("[c, d, e]", FluentIterable.from(list).skip(2).toString());
   }
 
+  //skip过set本身大小后 依旧返回空迭代器
   public void testSkip_pastEnd() {
     Collection<String> set = ImmutableSet.of("a", "b");
     assertEquals(Collections.emptyList(), Lists.newArrayList(FluentIterable.from(set).skip(20)));
   }
 
+  //skip过其本身长度后 依旧返回空迭代器
   public void testSkip_pastEndList() {
     Collection<String> list = Lists.newArrayList("a", "b");
     assertEquals(Collections.emptyList(), Lists.newArrayList(FluentIterable.from(list).skip(20)));
   }
 
+  //skip后转list
   public void testSkip_skipNone() {
     Collection<String> set = ImmutableSet.of("a", "b");
     assertEquals(
         Lists.newArrayList("a", "b"), Lists.newArrayList(FluentIterable.from(set).skip(0)));
   }
 
+  //skip后转list
   public void testSkip_skipNoneList() {
     Collection<String> list = Lists.newArrayList("a", "b");
     assertEquals(
@@ -636,6 +647,7 @@ public class FluentIterableTest extends TestCase {
     }.test();
   }
 
+  //
   public void testSkip_iteratorList() throws Exception {
     new IteratorTester<Integer>(
         5,
@@ -649,6 +661,7 @@ public class FluentIterableTest extends TestCase {
     }.test();
   }
 
+  //skip获取视图后调用迭代器
   public void testSkip_nonStructurallyModifiedList() throws Exception {
     List<String> list = Lists.newArrayList("a", "b", "c");
     FluentIterable<String> tail = FluentIterable.from(list).skip(1);
@@ -659,6 +672,7 @@ public class FluentIterableTest extends TestCase {
     assertFalse(tailIterator.hasNext());
   }
 
+  //集合 跳过第一个后的视图 跟着其后变化。
   public void testSkip_structurallyModifiedSkipSome() throws Exception {
     Collection<String> set = Sets.newLinkedHashSet();
     Collections.addAll(set, "a", "b", "c");
@@ -668,6 +682,7 @@ public class FluentIterableTest extends TestCase {
     assertThat(tail).containsExactly("c", "X", "Y", "Z").inOrder();
   }
 
+  //skip获取从第二位开始的视图  当原始list有变化后  视图跟着变  lazy取值
   public void testSkip_structurallyModifiedSkipSomeList() throws Exception {
     List<String> list = Lists.newArrayList("a", "b", "c");
     FluentIterable<String> tail = FluentIterable.from(list).skip(1);
@@ -676,6 +691,7 @@ public class FluentIterableTest extends TestCase {
     assertThat(tail).containsExactly("Y", "Z", "a").inOrder();
   }
 
+  //skip后是视图 为lazy取值
   public void testSkip_structurallyModifiedSkipAll() throws Exception {
     Collection<String> set = Sets.newLinkedHashSet();
     Collections.addAll(set, "a", "b", "c");
@@ -685,6 +701,7 @@ public class FluentIterableTest extends TestCase {
     assertFalse(tail.iterator().hasNext());
   }
 
+  //skip整个list后 生成空list
   public void testSkip_structurallyModifiedSkipAllList() throws Exception {
     List<String> list = Lists.newArrayList("a", "b", "c");
     FluentIterable<String> tail = FluentIterable.from(list).skip(2);
@@ -692,6 +709,7 @@ public class FluentIterableTest extends TestCase {
     assertThat(tail).isEmpty();
   }
 
+  //skip参数错误
   public void testSkip_illegalArgument() {
     try {
       FluentIterable.from(asList("a", "b", "c")).skip(-1);
@@ -700,6 +718,7 @@ public class FluentIterableTest extends TestCase {
     }
   }
 
+  //获取指定数量
   public void testLimit() {
     Iterable<String> iterable = Lists.newArrayList("foo", "bar", "baz");
     FluentIterable<String> limited = FluentIterable.from(iterable).limit(2);
@@ -709,6 +728,7 @@ public class FluentIterableTest extends TestCase {
     assertEquals("[foo, bar]", limited.toString());
   }
 
+  //limit参数非法
   public void testLimit_illegalArgument() {
     try {
       FluentIterable<String> unused =
@@ -718,63 +738,76 @@ public class FluentIterableTest extends TestCase {
     }
   }
 
+  //判断是否为空
   public void testIsEmpty() {
     assertTrue(FluentIterable.<String>from(Collections.<String>emptyList()).isEmpty());
     assertFalse(FluentIterable.<String>from(Lists.newArrayList("foo")).isEmpty());
   }
 
+  //转list
   public void testToList() {
     assertEquals(Lists.newArrayList(1, 2, 3, 4), fluent(1, 2, 3, 4).toList());
   }
 
+  //转空list
   public void testToList_empty() {
     assertTrue(fluent().toList().isEmpty());
   }
 
+  //自带comparator 转有序list
   public void testToSortedList_withComparator() {
     assertEquals(
         Lists.newArrayList(4, 3, 2, 1),
         fluent(4, 1, 3, 2).toSortedList(Ordering.<Integer>natural().reverse()));
   }
 
+  //转包含重复的有序list
   public void testToSortedList_withDuplicates() {
     assertEquals(
         Lists.newArrayList(4, 3, 1, 1),
         fluent(1, 4, 1, 3).toSortedList(Ordering.<Integer>natural().reverse()));
   }
 
+  //转set
   public void testToSet() {
     assertThat(fluent(1, 2, 3, 4).toSet()).containsExactly(1, 2, 3, 4).inOrder();
   }
 
+  //转set去重
   public void testToSet_removeDuplicates() {
     assertThat(fluent(1, 2, 1, 2).toSet()).containsExactly(1, 2).inOrder();
   }
 
+  //转空集合
   public void testToSet_empty() {
     assertTrue(fluent().toSet().isEmpty());
   }
 
+  //转有序集合
   public void testToSortedSet() {
     assertThat(fluent(1, 4, 2, 3).toSortedSet(Ordering.<Integer>natural().reverse()))
         .containsExactly(4, 3, 2, 1)
         .inOrder();
   }
 
+  //转set去重
   public void testToSortedSet_removeDuplicates() {
     assertThat(fluent(1, 4, 1, 3).toSortedSet(Ordering.<Integer>natural().reverse()))
         .containsExactly(4, 3, 1)
         .inOrder();
   }
 
+  //转multiset
   public void testToMultiset() {
     assertThat(fluent(1, 2, 1, 3, 2, 4).toMultiset()).containsExactly(1, 1, 2, 2, 3, 4).inOrder();
   }
 
+  //转空multiset
   public void testToMultiset_empty() {
     assertThat(fluent().toMultiset()).isEmpty();
   }
 
+  //list转map
   public void testToMap() {
     assertThat(fluent(1, 2, 3).toMap(Functions.toStringFunction()).entrySet())
         .containsExactly(
@@ -782,6 +815,7 @@ public class FluentIterableTest extends TestCase {
         .inOrder();
   }
 
+  //转map 失败
   public void testToMap_nullKey() {
     try {
       fluent(1, null, 2).toMap(Functions.constant("foo"));
@@ -790,6 +824,7 @@ public class FluentIterableTest extends TestCase {
     }
   }
 
+  //转null失败
   public void testToMap_nullValue() {
     try {
       fluent(1, 2, 3).toMap(Functions.constant(null));
@@ -798,6 +833,7 @@ public class FluentIterableTest extends TestCase {
     }
   }
 
+  //生成对应的map
   public void testIndex() {
     ImmutableListMultimap<Integer, String> expected =
         ImmutableListMultimap.<Integer, String>builder()
@@ -817,6 +853,7 @@ public class FluentIterableTest extends TestCase {
     assertEquals(expected, index);
   }
 
+  //index方法不能为null
   public void testIndex_nullKey() {
     try {
       ImmutableListMultimap<Object, Integer> unused =
@@ -826,6 +863,7 @@ public class FluentIterableTest extends TestCase {
     }
   }
 
+  //index方法中 value不能为null
   public void testIndex_nullValue() {
     try {
       ImmutableListMultimap<String, Integer> unused =
@@ -835,6 +873,7 @@ public class FluentIterableTest extends TestCase {
     }
   }
 
+  //list 转对应的map
   public void testUniqueIndex() {
     ImmutableMap<Integer, String> expected = ImmutableMap.of(3, "two", 5, "three", 4, "four");
     ImmutableMap<Integer, String> index =
@@ -849,6 +888,7 @@ public class FluentIterableTest extends TestCase {
     assertEquals(expected, index);
   }
 
+  //list生成对应map 不能有重复
   public void testUniqueIndex_duplicateKey() {
     try {
       ImmutableMap<Integer, String> unused =
@@ -865,11 +905,10 @@ public class FluentIterableTest extends TestCase {
     }
   }
 
-  //
+  //生成对应map
   public void testUniqueIndex_nullKey() {
     try {
-      fluent(1, 2, 3).uniqueIndex(Functions.constant(1));
-      //fluent(1, 2, 3).uniqueIndex(Functions.constant(null));
+      fluent(1, 2, 3).uniqueIndex(Functions.constant(null));
       fail();
     } catch (NullPointerException expected) {
     }
