@@ -200,6 +200,7 @@ public class ForwardingListTest extends TestCase {
             });
   }
 
+  //包装类 与原list 相等
   public void testEquals() {
     List<String> list1 = ImmutableList.of("one");
     List<String> list2 = ImmutableList.of("two");

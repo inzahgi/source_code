@@ -41,6 +41,7 @@ public class ForwardingMultimapTest extends TestCase {
             });
   }
 
+  //包装类 与原始类相等
   public void testEquals() {
     Multimap<Integer, String> map1 = ImmutableMultimap.of(1, "one");
     Multimap<Integer, String> map2 = ImmutableMultimap.of(2, "two");
