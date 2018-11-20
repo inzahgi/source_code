@@ -292,6 +292,7 @@ public class ForwardingMapTest extends TestCase {
     verifyNoMoreInteractions(map);
   }
 
+  //标准装饰器map与原始map 对key为null 一致
   public void testToStringWithNullKeys() throws Exception {
     Map<String, String> hashmap = Maps.newHashMap();
     hashmap.put("foo", "bar");
@@ -305,6 +306,7 @@ public class ForwardingMapTest extends TestCase {
     assertEquals(hashmap.toString(), forwardingMap.toString());
   }
 
+  //标准装饰器map与原始map 对value为null 一致
   public void testToStringWithNullValues() throws Exception {
     Map<String, String> hashmap = Maps.newHashMap();
     hashmap.put("foo", "bar");

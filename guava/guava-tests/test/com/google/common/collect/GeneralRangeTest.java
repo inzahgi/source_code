@@ -36,10 +36,13 @@ public class GeneralRangeTest extends TestCase {
 
   private static final List<Integer> IN_ORDER_VALUES = Arrays.asList(null, 1, 2, 3, 4, 5);
 
+  //区域范围错误
   public void testCreateEmptyRangeFails() {
+    int i= 0;
     for (BoundType lboundType : BoundType.values()) {
       for (BoundType uboundType : BoundType.values()) {
         try {
+          System.out.println(i++);
           GeneralRange.range(ORDERING, 4, lboundType, 2, uboundType);
           fail("Expected IAE");
         } catch (IllegalArgumentException expected) {
@@ -48,6 +51,7 @@ public class GeneralRangeTest extends TestCase {
     }
   }
 
+  //上下边界相等的 双开范围错误
   public void testCreateEmptyRangeOpenOpenFails() {
     for (Integer i : IN_ORDER_VALUES) {
       try {
@@ -58,6 +62,7 @@ public class GeneralRangeTest extends TestCase {
     }
   }
 
+  //上下边界相等的  半闭半开区间  不包含任何元素
   public void testCreateEmptyRangeClosedOpenSucceeds() {
     for (Integer i : IN_ORDER_VALUES) {
       GeneralRange<Integer> range = GeneralRange.range(ORDERING, i, CLOSED, i, OPEN);
@@ -67,6 +72,7 @@ public class GeneralRangeTest extends TestCase {
     }
   }
 
+  //上下边界相等   半开半闭区间   不包含任何元素
   public void testCreateEmptyRangeOpenClosedSucceeds() {
     for (Integer i : IN_ORDER_VALUES) {
       GeneralRange<Integer> range = GeneralRange.range(ORDERING, i, OPEN, i, CLOSED);
@@ -76,6 +82,7 @@ public class GeneralRangeTest extends TestCase {
     }
   }
 
+  //上下边界 双闭区间 包含该元素
   public void testCreateSingletonRangeSucceeds() {
     for (Integer i : IN_ORDER_VALUES) {
       GeneralRange<Integer> range = GeneralRange.range(ORDERING, i, CLOSED, i, CLOSED);
@@ -85,6 +92,7 @@ public class GeneralRangeTest extends TestCase {
     }
   }
 
+  // 闭区间 包含该元素
   public void testSingletonRange() {
     GeneralRange<Integer> range = GeneralRange.range(ORDERING, 3, CLOSED, 3, CLOSED);
     for (Integer i : IN_ORDER_VALUES) {
@@ -92,6 +100,7 @@ public class GeneralRangeTest extends TestCase {
     }
   }
 
+  //
   public void testLowerRange() {
     for (BoundType lBoundType : BoundType.values()) {
       GeneralRange<Integer> range = GeneralRange.downTo(ORDERING, 3, lBoundType);
