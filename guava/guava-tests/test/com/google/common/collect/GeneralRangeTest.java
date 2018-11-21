@@ -100,7 +100,7 @@ public class GeneralRangeTest extends TestCase {
     }
   }
 
-  //
+  //包含下边界内容
   public void testLowerRange() {
     for (BoundType lBoundType : BoundType.values()) {
       GeneralRange<Integer> range = GeneralRange.downTo(ORDERING, 3, lBoundType);
@@ -116,6 +116,7 @@ public class GeneralRangeTest extends TestCase {
     }
   }
 
+  //包含上边界
   public void testUpperRange() {
     for (BoundType lBoundType : BoundType.values()) {
       GeneralRange<Integer> range = GeneralRange.upTo(ORDERING, 3, lBoundType);
@@ -131,6 +132,7 @@ public class GeneralRangeTest extends TestCase {
     }
   }
 
+  //自带比较器和常用比较器
   public void testDoublyBoundedAgainstRange() {
     for (BoundType lboundType : BoundType.values()) {
       for (BoundType uboundType : BoundType.values()) {
@@ -143,6 +145,7 @@ public class GeneralRangeTest extends TestCase {
     }
   }
 
+  //范围取交集 相等
   public void testIntersectAgainstMatchingEndpointsRange() {
     GeneralRange<Integer> range = GeneralRange.range(ORDERING, 2, CLOSED, 4, OPEN);
     assertEquals(
@@ -150,9 +153,11 @@ public class GeneralRangeTest extends TestCase {
         range.intersect(GeneralRange.range(ORDERING, 2, OPEN, 4, CLOSED)));
   }
 
+  //半闭半开 范围取交集
   public void testIntersectAgainstBiggerRange() {
     GeneralRange<Integer> range = GeneralRange.range(ORDERING, 2, CLOSED, 4, OPEN);
 
+    //下边界为空 求交集
     assertEquals(
         GeneralRange.range(ORDERING, 2, CLOSED, 4, OPEN),
         range.intersect(GeneralRange.range(ORDERING, null, OPEN, 5, CLOSED)));
@@ -166,6 +171,7 @@ public class GeneralRangeTest extends TestCase {
         range.intersect(GeneralRange.range(ORDERING, 1, OPEN, 4, OPEN)));
   }
 
+  //更小的区间 求交集
   public void testIntersectAgainstSmallerRange() {
     GeneralRange<Integer> range = GeneralRange.range(ORDERING, 2, OPEN, 4, OPEN);
     assertEquals(
@@ -173,6 +179,7 @@ public class GeneralRangeTest extends TestCase {
         range.intersect(GeneralRange.range(ORDERING, 3, CLOSED, 4, CLOSED)));
   }
 
+  //更大的区间 求交集
   public void testIntersectOverlappingRange() {
     GeneralRange<Integer> range = GeneralRange.range(ORDERING, 2, OPEN, 4, CLOSED);
     assertEquals(
@@ -183,16 +190,19 @@ public class GeneralRangeTest extends TestCase {
         range.intersect(GeneralRange.range(ORDERING, 1, OPEN, 3, OPEN)));
   }
 
+  //交集为空
   public void testIntersectNonOverlappingRange() {
     GeneralRange<Integer> range = GeneralRange.range(ORDERING, 2, OPEN, 4, CLOSED);
     assertTrue(range.intersect(GeneralRange.range(ORDERING, 5, CLOSED, 6, CLOSED)).isEmpty());
     assertTrue(range.intersect(GeneralRange.range(ORDERING, 1, OPEN, 2, OPEN)).isEmpty());
   }
 
+  //全集 相等
   public void testFromRangeAll() {
     assertEquals(GeneralRange.all(Ordering.natural()), GeneralRange.from(Range.all()));
   }
 
+  //generalRange 单边界相等
   public void testFromRangeOneEnd() {
     for (BoundType endpointType : BoundType.values()) {
       assertEquals(
@@ -205,6 +215,7 @@ public class GeneralRangeTest extends TestCase {
     }
   }
 
+  //generalRange  from 双边界生成方式相等
   public void testFromRangeTwoEnds() {
     for (BoundType lowerType : BoundType.values()) {
       for (BoundType upperType : BoundType.values()) {
@@ -215,6 +226,7 @@ public class GeneralRangeTest extends TestCase {
     }
   }
 
+  //比较器反转  和 范围反转 相对等
   public void testReverse() {
     assertEquals(GeneralRange.all(ORDERING.reverse()), GeneralRange.all(ORDERING).reverse());
     assertEquals(

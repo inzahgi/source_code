@@ -41,6 +41,7 @@ public class HashBasedTableTest extends AbstractTableTest {
     return table;
   }
 
+  //table put方法
   public void testIterationOrder() {
     Table<String, String, String> table = HashBasedTable.create();
     for (int i = 0; i < 5; i++) {
@@ -51,6 +52,7 @@ public class HashBasedTableTest extends AbstractTableTest {
     assertThat(table.values()).containsExactly("v0", "v1", "v2", "v3", "v4").inOrder();
   }
 
+  //初始化table大小
   public void testCreateWithValidSizes() {
     Table<String, Integer, Character> table1 = HashBasedTable.create(100, 20);
     table1.put("foo", 1, 'a');
@@ -69,6 +71,7 @@ public class HashBasedTableTest extends AbstractTableTest {
     assertEquals((Character) 'a', table4.get("foo", 1));
   }
 
+  //初始化 大小错误
   public void testCreateWithInvalidSizes() {
     try {
       HashBasedTable.create(100, -5);
@@ -83,6 +86,7 @@ public class HashBasedTableTest extends AbstractTableTest {
     }
   }
 
+  //复制拷贝
   public void testCreateCopy() {
     Table<String, Integer, Character> original =
         create("foo", 1, 'a', "bar", 1, 'b', "foo", 3, 'c');
