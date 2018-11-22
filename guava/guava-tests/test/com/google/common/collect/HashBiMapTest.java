@@ -72,6 +72,7 @@ public class HashBiMapTest extends TestCase {
     return suite;
   }
 
+  //BiMap 反转
   public void testMapConstructor() {
     /* Test with non-empty Map. */
     Map<String, String> map =
@@ -86,6 +87,7 @@ public class HashBiMapTest extends TestCase {
 
   private static final int N = 1000;
 
+  //测试反转
   public void testBashIt() throws Exception {
     BiMap<Integer, Integer> bimap = HashBiMap.create(N);
     BiMap<Integer, Integer> inverse = bimap.inverse();
@@ -118,6 +120,7 @@ public class HashBiMapTest extends TestCase {
     }
   }
 
+  //迭代器删除
   public void testBiMapEntrySetIteratorRemove() {
     BiMap<Integer, String> map = HashBiMap.create();
     map.put(1, "one");
@@ -131,6 +134,7 @@ public class HashBiMapTest extends TestCase {
     assertTrue(map.isEmpty());
   }
 
+  //顺序插入
   public void testInsertionOrder() {
     BiMap<String, Integer> map = HashBiMap.create();
     map.put("foo", 1);
@@ -144,6 +148,7 @@ public class HashBiMapTest extends TestCase {
         .inOrder();
   }
 
+  //删除第一个元素后 其余顺序不变
   public void testInsertionOrderAfterRemoveFirst() {
     BiMap<String, Integer> map = HashBiMap.create();
     map.put("foo", 1);
@@ -156,6 +161,7 @@ public class HashBiMapTest extends TestCase {
         .inOrder();
   }
 
+  //插入后  删除中间元素
   public void testInsertionOrderAfterRemoveMiddle() {
     BiMap<String, Integer> map = HashBiMap.create();
     map.put("foo", 1);
@@ -168,6 +174,7 @@ public class HashBiMapTest extends TestCase {
         .inOrder();
   }
 
+  //插入后 删除最后元素
   public void testInsertionOrderAfterRemoveLast() {
     BiMap<String, Integer> map = HashBiMap.create();
     map.put("foo", 1);
@@ -180,6 +187,7 @@ public class HashBiMapTest extends TestCase {
         .inOrder();
   }
 
+  //强制插入
   public void testInsertionOrderAfterForcePut() {
     BiMap<String, Integer> map = HashBiMap.create();
     map.put("foo", 1);
@@ -192,6 +200,7 @@ public class HashBiMapTest extends TestCase {
         .inOrder();
   }
 
+  //逆转map强制插入
   public void testInsertionOrderAfterInverseForcePut() {
     BiMap<String, Integer> map = HashBiMap.create();
     map.put("foo", 1);
@@ -204,6 +213,7 @@ public class HashBiMapTest extends TestCase {
         .inOrder();
   }
 
+  //转 entry
   public void testInverseInsertionOrderAfterInverse() {
     BiMap<String, Integer> map = HashBiMap.create();
     map.put("bar", 2);
@@ -214,11 +224,13 @@ public class HashBiMapTest extends TestCase {
         .inOrder();
   }
 
+  //逆转 强制添加
   public void testInverseInsertionOrderAfterInverseForcePut() {
     BiMap<String, Integer> map = HashBiMap.create();
     map.put("foo", 1);
     map.put("bar", 2);
     map.put("quux", 3);
+    
 
     map.inverse().forcePut(1, "quux");
     assertThat(map.inverse().entrySet())
