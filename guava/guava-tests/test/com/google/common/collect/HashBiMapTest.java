@@ -230,7 +230,7 @@ public class HashBiMapTest extends TestCase {
     map.put("foo", 1);
     map.put("bar", 2);
     map.put("quux", 3);
-    
+
 
     map.inverse().forcePut(1, "quux");
     assertThat(map.inverse().entrySet())
@@ -238,6 +238,7 @@ public class HashBiMapTest extends TestCase {
         .inOrder();
   }
 
+  //强制插入相同key或者value后
   public void testInverseInsertionOrderAfterInverseForcePutPresentKey() {
     BiMap<String, Integer> map = HashBiMap.create();
     map.put("foo", 1);
@@ -254,6 +255,7 @@ public class HashBiMapTest extends TestCase {
         .inOrder();
   }
 
+  //
   public void testInverseEntrySetValueNewKey() {
     BiMap<Integer, String> map = HashBiMap.create();
     map.put(1, "a");
