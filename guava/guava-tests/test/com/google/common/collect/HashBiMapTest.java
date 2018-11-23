@@ -255,7 +255,7 @@ public class HashBiMapTest extends TestCase {
         .inOrder();
   }
 
-  //
+  //通过迭代器直接操作entry
   public void testInverseEntrySetValueNewKey() {
     BiMap<Integer, String> map = HashBiMap.create();
     map.put(1, "a");
