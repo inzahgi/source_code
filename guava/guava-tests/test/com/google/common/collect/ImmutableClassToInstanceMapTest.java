@@ -74,12 +74,14 @@ public class ImmutableClassToInstanceMapTest extends TestCase {
     return suite;
   }
 
+  //静态生成空map
   public void testSerialization_empty() {
     assertSame(
         ImmutableClassToInstanceMap.of(),
         SerializableTester.reserialize(ImmutableClassToInstanceMap.of()));
   }
 
+  //拷贝复制生成空map
   public void testCopyOf_map_empty() {
     Map<Class<?>, Object> in = Collections.emptyMap();
     ClassToInstanceMap<Object> map = ImmutableClassToInstanceMap.copyOf(in);
@@ -88,10 +90,12 @@ public class ImmutableClassToInstanceMapTest extends TestCase {
     assertSame(map, ImmutableClassToInstanceMap.copyOf(map));
   }
 
+  //获取空map个数
   public void testOf_zero() {
     assertTrue(ImmutableClassToInstanceMap.of().isEmpty());
   }
 
+  //获取个数
   public void testOf_one() {
     ImmutableClassToInstanceMap<Number> map = ImmutableClassToInstanceMap.of(int.class, 1);
     assertEquals(1, map.size());

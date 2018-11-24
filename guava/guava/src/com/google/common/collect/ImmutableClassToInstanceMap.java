@@ -32,6 +32,7 @@ import org.checkerframework.checker.nullness.qual.Nullable;
  * @author Kevin Bourrillion
  * @since 2.0
  */
+// Map<Class<? extends B>, B>
 @GwtIncompatible
 public final class ImmutableClassToInstanceMap<B> extends ForwardingMap<Class<? extends B>, B>
     implements ClassToInstanceMap<B>, Serializable {

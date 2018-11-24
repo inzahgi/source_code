@@ -222,6 +222,7 @@ public class ImmutableBiMapTest extends TestCase {
       assertMapEquals(map, "one", 1);
     }
 
+    //builder模式
     public void testBuilder() {
       ImmutableBiMap<String, Integer> map =
           ImmutableBiMap.<String, Integer>builder()
@@ -235,6 +236,7 @@ public class ImmutableBiMapTest extends TestCase {
       assertMapEquals(map.inverse(), 1, "one", 2, "two", 3, "three", 4, "four", 5, "five");
     }
 
+    //固定容量初始化
     @GwtIncompatible
     public void testBuilderExactlySizedReusesArray() {
       ImmutableBiMap.Builder<Integer, Integer> builder = ImmutableBiMap.builderWithExpectedSize(10);
@@ -250,6 +252,7 @@ public class ImmutableBiMapTest extends TestCase {
       assertSame(builderArray, mapInternalArray);
     }
 
+    //带按值排序的初始化
     public void testBuilder_orderEntriesByValue() {
       ImmutableBiMap<String, Integer> map =
           ImmutableBiMap.<String, Integer>builder()
@@ -264,6 +267,7 @@ public class ImmutableBiMapTest extends TestCase {
       assertMapEquals(map.inverse(), 1, "one", 2, "two", 3, "three", 4, "four", 5, "five");
     }
 
+    //固定容量 带按值排序的创建
     public void testBuilder_orderEntriesByValueAfterExactSizeBuild() {
       ImmutableBiMap.Builder<String, Integer> builder =
           new ImmutableBiMap.Builder<String, Integer>(2).put("four", 4).put("one", 1);
@@ -274,6 +278,7 @@ public class ImmutableBiMapTest extends TestCase {
       assertMapEquals(valueOrdered, "one", 1, "four", 4);
     }
 
+    //重复设置两次排序错误
     public void testBuilder_orderEntriesByValue_usedTwiceFails() {
       ImmutableBiMap.Builder<String, Integer> builder =
           new Builder<String, Integer>().orderEntriesByValue(Ordering.natural());
@@ -284,12 +289,14 @@ public class ImmutableBiMapTest extends TestCase {
       }
     }
 
+    //空拷贝复制 putAll
     public void testBuilderPutAllWithEmptyMap() {
       ImmutableBiMap<String, Integer> map =
           new Builder<String, Integer>().putAll(Collections.<String, Integer>emptyMap()).build();
       assertEquals(Collections.<String, Integer>emptyMap(), map);
     }
 
+    //拷贝复制 putAll
     public void testBuilderPutAll() {
       Map<String, Integer> toPut = new LinkedHashMap<>();
       toPut.put("one", 1);
@@ -305,6 +312,7 @@ public class ImmutableBiMapTest extends TestCase {
       assertMapEquals(map.inverse(), 1, "one", 2, "two", 3, "three", 4, "four", 5, "five");
     }
 
+    //builder复用
     public void testBuilderReuse() {
       Builder<String, Integer> builder = new Builder<>();
       ImmutableBiMap<String, Integer> mapOne = builder.put("one", 1).put("two", 2).build();
@@ -316,6 +324,7 @@ public class ImmutableBiMapTest extends TestCase {
       assertMapEquals(mapTwo.inverse(), 1, "one", 2, "two", 3, "three", 4, "four");
     }
 
+    //builder 不能放
     public void testBuilderPutNullKey() {
       Builder<String, Integer> builder = new Builder<>();
       try {
@@ -325,6 +334,7 @@ public class ImmutableBiMapTest extends TestCase {
       }
     }
 
+    //builder 值不能为空
     public void testBuilderPutNullValue() {
       Builder<String, Integer> builder = new Builder<>();
       try {
@@ -334,6 +344,7 @@ public class ImmutableBiMapTest extends TestCase {
       }
     }
 
+    //拷贝复制 null key的map错误
     public void testBuilderPutNullKeyViaPutAll() {
       Builder<String, Integer> builder = new Builder<>();
       try {
@@ -343,6 +354,7 @@ public class ImmutableBiMapTest extends TestCase {
       }
     }
 
+    //拷贝复制 null value的map错误
     public void testBuilderPutNullValueViaPutAll() {
       Builder<String, Integer> builder = new Builder<>();
       try {
@@ -352,6 +364,7 @@ public class ImmutableBiMapTest extends TestCase {
       }
     }
 
+    //重复key错误
     public void testPuttingTheSameKeyTwiceThrowsOnBuild() {
       Builder<String, Integer> builder =
           new Builder<String, Integer>()
@@ -366,6 +379,7 @@ public class ImmutableBiMapTest extends TestCase {
       }
     }
 
+    //静态初始化
     public void testOf() {
       assertMapEquals(ImmutableBiMap.of("one", 1), "one", 1);
       assertMapEquals(ImmutableBiMap.of("one", 1).inverse(), 1, "one");
@@ -427,6 +441,7 @@ public class ImmutableBiMapTest extends TestCase {
           "five");
     }
 
+    //静态of方法 key为null错误
     public void testOfNullKey() {
       try {
         ImmutableBiMap.of(null, 1);
@@ -441,6 +456,7 @@ public class ImmutableBiMapTest extends TestCase {
       }
     }
 
+    //of方法 value不能为空
     public void testOfNullValue() {
       try {
         ImmutableBiMap.of("one", null);
@@ -455,6 +471,7 @@ public class ImmutableBiMapTest extends TestCase {
       }
     }
 
+    //of方法 key重复错误
     public void testOfWithDuplicateKey() {
       try {
         ImmutableBiMap.of("one", 1, "one", 1);
@@ -464,6 +481,7 @@ public class ImmutableBiMapTest extends TestCase {
       }
     }
 
+    //copyOf 拷贝复制
     public void testCopyOfEmptyMap() {
       ImmutableBiMap<String, Integer> copy =
           ImmutableBiMap.copyOf(Collections.<String, Integer>emptyMap());
@@ -472,6 +490,7 @@ public class ImmutableBiMapTest extends TestCase {
       assertSame(ImmutableBiMap.of(), copy);
     }
 
+    // copyOf 拷贝复制单个map
     public void testCopyOfSingletonMap() {
       ImmutableBiMap<String, Integer> copy =
           ImmutableBiMap.copyOf(Collections.singletonMap("one", 1));
@@ -479,6 +498,7 @@ public class ImmutableBiMapTest extends TestCase {
       assertSame(copy, ImmutableBiMap.copyOf(copy));
     }
 
+    //copyOf 拷贝复制
     public void testCopyOf() {
       Map<String, Integer> original = new LinkedHashMap<>();
       original.put("one", 1);
@@ -490,12 +510,14 @@ public class ImmutableBiMapTest extends TestCase {
       assertSame(copy, ImmutableBiMap.copyOf(copy));
     }
 
+    //
     public void testEmpty() {
       ImmutableBiMap<String, Integer> bimap = ImmutableBiMap.of();
       assertEquals(Collections.<String, Integer>emptyMap(), bimap);
       assertEquals(Collections.<String, Integer>emptyMap(), bimap.inverse());
     }
 
+    // 对hashMap 拷贝复制
     public void testFromHashMap() {
       Map<String, Integer> hashMap = Maps.newLinkedHashMap();
       hashMap.put("one", 1);
@@ -506,6 +528,7 @@ public class ImmutableBiMapTest extends TestCase {
       assertMapEquals(bimap.inverse(), 1, "one", 2, "two");
     }
 
+    //对immutableMap拷贝复制
     public void testFromImmutableMap() {
       ImmutableBiMap<String, Integer> bimap =
           ImmutableBiMap.copyOf(
@@ -520,6 +543,7 @@ public class ImmutableBiMapTest extends TestCase {
       assertMapEquals(bimap.inverse(), 1, "one", 2, "two", 3, "three", 4, "four", 5, "five");
     }
 
+    // value重复异常
     public void testDuplicateValues() {
       ImmutableMap<String, Integer> map =
           new ImmutableMap.Builder<String, Integer>()
@@ -537,6 +561,7 @@ public class ImmutableBiMapTest extends TestCase {
       }
     }
 
+    //传入lambda函数动态生成key value
     public void testToImmutableBiMap() {
       Collector<Entry<String, Integer>, ?, ImmutableBiMap<String, Integer>> collector =
           ImmutableBiMap.toImmutableBiMap(Entry::getKey, Entry::getValue);
@@ -552,6 +577,7 @@ public class ImmutableBiMapTest extends TestCase {
               mapEntry("three", 3));
     }
 
+    //collector 方法不能有重复key
     public void testToImmutableBiMap_exceptionOnDuplicateKey() {
       Collector<Entry<String, Integer>, ?, ImmutableBiMap<String, Integer>> collector =
           ImmutableBiMap.toImmutableBiMap(Entry::getKey, Entry::getValue);
@@ -565,6 +591,7 @@ public class ImmutableBiMapTest extends TestCase {
 
   public static class BiMapSpecificTests extends TestCase {
 
+    //强制添加
     public void testForcePut() {
       BiMap<String, Integer> bimap = ImmutableBiMap.copyOf(ImmutableMap.of("one", 1, "two", 2));
       try {
@@ -574,6 +601,7 @@ public class ImmutableBiMapTest extends TestCase {
       }
     }
 
+    //转keySet
     public void testKeySet() {
       ImmutableBiMap<String, Integer> bimap =
           ImmutableBiMap.copyOf(ImmutableMap.of("one", 1, "two", 2, "three", 3, "four", 4));
@@ -582,6 +610,7 @@ public class ImmutableBiMapTest extends TestCase {
       assertThat(keys).containsExactly("one", "two", "three", "four").inOrder();
     }
 
+    //转value Set
     public void testValues() {
       ImmutableBiMap<String, Integer> bimap =
           ImmutableBiMap.copyOf(ImmutableMap.of("one", 1, "two", 2, "three", 3, "four", 4));
@@ -590,6 +619,7 @@ public class ImmutableBiMapTest extends TestCase {
       assertThat(values).containsExactly(1, 2, 3, 4).inOrder();
     }
 
+    //多重逆转
     public void testDoubleInverse() {
       ImmutableBiMap<String, Integer> bimap =
           ImmutableBiMap.copyOf(ImmutableMap.of("one", 1, "two", 2));

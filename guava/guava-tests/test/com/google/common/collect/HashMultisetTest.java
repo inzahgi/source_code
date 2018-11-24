@@ -68,6 +68,7 @@ public class HashMultisetTest extends TestCase {
     };
   }
 
+  //静态创建
   public void testCreate() {
     Multiset<String> multiset = HashMultiset.create();
     multiset.add("foo", 2);
@@ -76,6 +77,7 @@ public class HashMultisetTest extends TestCase {
     assertEquals(2, multiset.count("foo"));
   }
 
+  //带初始容量的创建
   public void testCreateWithSize() {
     Multiset<String> multiset = HashMultiset.create(50);
     multiset.add("foo", 2);
@@ -84,6 +86,7 @@ public class HashMultisetTest extends TestCase {
     assertEquals(2, multiset.count("foo"));
   }
 
+  //静态创建
   public void testCreateFromIterable() {
     Multiset<String> multiset = HashMultiset.create(Arrays.asList("foo", "bar", "foo"));
     assertEquals(3, multiset.size());

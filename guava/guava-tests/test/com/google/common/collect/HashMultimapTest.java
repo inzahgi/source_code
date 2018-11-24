@@ -70,6 +70,7 @@ public class HashMultimapTest extends TestCase {
    * The behavior of toString() is tested by TreeMultimap, which shares a
    * lot of code with HashMultimap and has deterministic iteration order.
    */
+  //创建重复key
   public void testCreate() {
     HashMultimap<String, Integer> multimap = HashMultimap.create();
     multimap.put("foo", 1);
@@ -79,6 +80,7 @@ public class HashMultimapTest extends TestCase {
     assertEquals(2, multimap.expectedValuesPerKey);
   }
 
+  //拷贝复制
   public void testCreateFromMultimap() {
     HashMultimap<String, Integer> multimap = HashMultimap.create();
     multimap.put("foo", 1);
@@ -89,6 +91,7 @@ public class HashMultimapTest extends TestCase {
     assertEquals(2, copy.expectedValuesPerKey);
   }
 
+  //容量初始化
   public void testCreateFromSizes() {
     HashMultimap<String, Integer> multimap = HashMultimap.create(20, 15);
     multimap.put("foo", 1);
@@ -98,6 +101,7 @@ public class HashMultimapTest extends TestCase {
     assertEquals(15, multimap.expectedValuesPerKey);
   }
 
+  //初始化参数错误
   public void testCreateFromIllegalSizes() {
     try {
       HashMultimap.create(-20, 15);
@@ -112,6 +116,7 @@ public class HashMultimapTest extends TestCase {
     }
   }
 
+  //空 hashMultiMap 与 listMultimap 相等
   public void testEmptyMultimapsEqual() {
     Multimap<String, Integer> setMultimap = HashMultimap.create();
     Multimap<String, Integer> listMultimap = ArrayListMultimap.create();
