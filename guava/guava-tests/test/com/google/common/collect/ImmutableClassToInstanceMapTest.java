@@ -101,6 +101,7 @@ public class ImmutableClassToInstanceMapTest extends TestCase {
     assertEquals(1, map.size());
   }
 
+  //拷贝复制
   public void testCopyOf_map_valid() {
     Map<Class<? extends Number>, Number> in = Maps.newHashMap();
     in.put(Number.class, 0);
@@ -117,6 +118,7 @@ public class ImmutableClassToInstanceMapTest extends TestCase {
     assertSame(map, ImmutableClassToInstanceMap.copyOf(map));
   }
 
+  // key or value 不能为null
   public void testCopyOf_map_nulls() {
     Map<Class<? extends Number>, Number> nullKey = Collections.singletonMap(null, (Number) 1.0);
     try {
@@ -134,12 +136,14 @@ public class ImmutableClassToInstanceMapTest extends TestCase {
     }
   }
 
+  //空拷贝复制
   public void testCopyOf_imap_empty() {
     Map<Class<?>, Object> in = Collections.emptyMap();
     ClassToInstanceMap<Object> map = ImmutableClassToInstanceMap.copyOf(in);
     assertTrue(map.isEmpty());
   }
 
+  //
   public void testCopyOf_imap_valid() {
     ImmutableMap<Class<? extends Number>, ? extends Number> in =
         ImmutableMap.of(Number.class, 0, Double.class, Math.PI);
@@ -153,6 +157,7 @@ public class ImmutableClassToInstanceMapTest extends TestCase {
     assertEquals(Math.PI, pi, 0.0);
   }
 
+  //
   public void testPrimitiveAndWrapper() {
     ImmutableClassToInstanceMap<Number> ictim =
         new ImmutableClassToInstanceMap.Builder<Number>()

@@ -93,6 +93,7 @@ public class ImmutableEnumMapTest extends TestCase {
     assertEquals(ImmutableMap.of(), map);
   }
 
+  //排序
   public void testImmutableEnumMapOrdering() {
     ImmutableMap<AnEnum, String> map =
         Maps.immutableEnumMap(ImmutableMap.of(AnEnum.C, "c", AnEnum.A, "a", AnEnum.E, "e"));
@@ -105,6 +106,7 @@ public class ImmutableEnumMapTest extends TestCase {
         .inOrder();
   }
 
+  //传入函数 动态生成
   public void testToImmutableEnumMap() {
     Collector<Entry<AnEnum, Integer>, ?, ImmutableMap<AnEnum, Integer>> collector =
         Maps.toImmutableEnumMap(Entry::getKey, Entry::getValue);
@@ -118,6 +120,7 @@ public class ImmutableEnumMapTest extends TestCase {
             mapEntry(AnEnum.E, 3));
   }
 
+  //不能重复
   public void testToImmutableMap_exceptionOnDuplicateKey() {
     Collector<Entry<AnEnum, Integer>, ?, ImmutableMap<AnEnum, Integer>> collector =
         Maps.toImmutableEnumMap(Entry::getKey, Entry::getValue);
@@ -128,6 +131,7 @@ public class ImmutableEnumMapTest extends TestCase {
     }
   }
 
+  //合并
   public void testToImmutableMapMerging() {
     Collector<Entry<AnEnum, Integer>, ?, ImmutableMap<AnEnum, Integer>> collector =
         Maps.toImmutableEnumMap(Entry::getKey, Entry::getValue, Integer::sum);
