@@ -86,12 +86,14 @@ public class ImmutableListMultimapTest extends TestCase {
     return suite;
   }
 
+  //builder 模式 get后value的值与 list相比较
   public void testBuilder_withImmutableEntry() {
     ImmutableListMultimap<String, Integer> multimap =
         new Builder<String, Integer>().put(Maps.immutableEntry("one", 1)).build();
     assertEquals(Arrays.asList(1), multimap.get("one"));
   }
 
+  //key 不能为null
   public void testBuilder_withImmutableEntryAndNullContents() {
     Builder<String, Integer> builder = new Builder<>();
     try {
@@ -110,6 +112,7 @@ public class ImmutableListMultimapTest extends TestCase {
     String string;
   }
 
+  //builder 为深拷贝复制 添加后不会随后来修改
   public void testBuilder_withMutableEntry() {
     ImmutableListMultimap.Builder<String, Integer> builder = new Builder<>();
     final StringHolder holder = new StringHolder();
@@ -132,6 +135,7 @@ public class ImmutableListMultimapTest extends TestCase {
     assertEquals(Arrays.asList(1), builder.build().get("one"));
   }
 
+  //
   public void testBuilderPutAllIterable() {
     ImmutableListMultimap.Builder<String, Integer> builder = ImmutableListMultimap.builder();
     builder.putAll("foo", Arrays.asList(1, 2, 3));
