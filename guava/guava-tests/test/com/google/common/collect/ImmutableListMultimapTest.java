@@ -135,7 +135,7 @@ public class ImmutableListMultimapTest extends TestCase {
     assertEquals(Arrays.asList(1), builder.build().get("one"));
   }
 
-  //
+  //builder 的 putAll 添加 迭代器接口
   public void testBuilderPutAllIterable() {
     ImmutableListMultimap.Builder<String, Integer> builder = ImmutableListMultimap.builder();
     builder.putAll("foo", Arrays.asList(1, 2, 3));
@@ -147,6 +147,7 @@ public class ImmutableListMultimapTest extends TestCase {
     assertEquals(7, multimap.size());
   }
 
+  //添加单个key 所有参数
   public void testBuilderPutAllVarargs() {
     ImmutableListMultimap.Builder<String, Integer> builder = ImmutableListMultimap.builder();
     builder.putAll("foo", 1, 2, 3);
@@ -158,6 +159,7 @@ public class ImmutableListMultimapTest extends TestCase {
     assertEquals(7, multimap.size());
   }
 
+  //多次put
   public void testBuilderPutAllMultimap() {
     Multimap<String, Integer> toPut = LinkedListMultimap.create();
     toPut.put("foo", 1);
@@ -177,6 +179,7 @@ public class ImmutableListMultimapTest extends TestCase {
     assertEquals(7, multimap.size());
   }
 
+  //put 重复key  合并value
   public void testBuilderPutAllWithDuplicates() {
     ImmutableListMultimap.Builder<String, Integer> builder = ImmutableListMultimap.builder();
     builder.putAll("foo", 1, 2, 3);
@@ -188,6 +191,7 @@ public class ImmutableListMultimapTest extends TestCase {
     assertEquals(8, multimap.size());
   }
 
+  //putAll  添加重复value 和重复的key
   public void testBuilderPutWithDuplicates() {
     ImmutableListMultimap.Builder<String, Integer> builder = ImmutableListMultimap.builder();
     builder.putAll("foo", 1, 2, 3);
@@ -199,6 +203,7 @@ public class ImmutableListMultimapTest extends TestCase {
     assertEquals(6, multimap.size());
   }
 
+  //多重复key putAll
   public void testBuilderPutAllMultimapWithDuplicates() {
     Multimap<String, Integer> toPut = LinkedListMultimap.create();
     toPut.put("foo", 1);
@@ -220,6 +225,7 @@ public class ImmutableListMultimapTest extends TestCase {
     assertEquals(9, multimap.size());
   }
 
+  //null key 报错
   public void testBuilderPutNullKey() {
     Multimap<String, Integer> toPut = LinkedListMultimap.create();
     toPut.put("foo", null);
@@ -246,6 +252,7 @@ public class ImmutableListMultimapTest extends TestCase {
     }
   }
 
+  //null value报错
   public void testBuilderPutNullValue() {
     Multimap<String, Integer> toPut = LinkedListMultimap.create();
     toPut.put(null, 1);
@@ -272,6 +279,7 @@ public class ImmutableListMultimapTest extends TestCase {
     }
   }
 
+  //builder设置排序后  之后添加的也会排序 value也会按key顺序排列
   public void testBuilderOrderKeysBy() {
     ImmutableListMultimap.Builder<String, Integer> builder = ImmutableListMultimap.builder();
     builder.put("b", 3);
@@ -288,6 +296,7 @@ public class ImmutableListMultimapTest extends TestCase {
     assertThat(multimap.get("b")).containsExactly(3, 6).inOrder();
   }
 
+  //
   public void testBuilderOrderKeysByDuplicates() {
     ImmutableListMultimap.Builder<String, Integer> builder = ImmutableListMultimap.builder();
     builder.put("bb", 3);
@@ -310,6 +319,7 @@ public class ImmutableListMultimapTest extends TestCase {
     assertThat(multimap.get("bb")).containsExactly(3, 6).inOrder();
   }
 
+  //按value排序 key也会按value排
   public void testBuilderOrderValuesBy() {
     ImmutableListMultimap.Builder<String, Integer> builder = ImmutableListMultimap.builder();
     builder.put("b", 3);
