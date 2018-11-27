@@ -296,7 +296,7 @@ public class ImmutableListMultimapTest extends TestCase {
     assertThat(multimap.get("b")).containsExactly(3, 6).inOrder();
   }
 
-  //
+  //builder 添加重复key
   public void testBuilderOrderKeysByDuplicates() {
     ImmutableListMultimap.Builder<String, Integer> builder = ImmutableListMultimap.builder();
     builder.put("bb", 3);
@@ -336,6 +336,7 @@ public class ImmutableListMultimapTest extends TestCase {
     assertThat(multimap.get("b")).containsExactly(6, 3).inOrder();
   }
 
+  //根据value和key 排序
   public void testBuilderOrderKeysAndValuesBy() {
     ImmutableListMultimap.Builder<String, Integer> builder = ImmutableListMultimap.builder();
     builder.put("b", 3);
@@ -495,6 +496,7 @@ public class ImmutableListMultimapTest extends TestCase {
     UnmodifiableCollectionTests.assertMultimapIsUnmodifiable(multimap, "bar", 2);
   }
 
+  //测试相等
   public void testMultimapEquals() {
     Multimap<String, Integer> multimap = createMultimap();
     Multimap<String, Integer> arrayListMultimap = ArrayListMultimap.create();
@@ -528,6 +530,7 @@ public class ImmutableListMultimapTest extends TestCase {
         .testEquals();
   }
 
+  //of静态方法
   public void testOf() {
     assertMultimapEquals(ImmutableListMultimap.of("one", 1), "one", 1);
     assertMultimapEquals(ImmutableListMultimap.of("one", 1, "two", 2), "one", 1, "two", 2);
@@ -557,6 +560,7 @@ public class ImmutableListMultimapTest extends TestCase {
         5);
   }
 
+  //key 和 value 逆转
   public void testInverse() {
     assertEquals(
         ImmutableListMultimap.<Integer, String>of(),
@@ -573,6 +577,7 @@ public class ImmutableListMultimapTest extends TestCase {
         ImmutableListMultimap.of("foo", 'f', "foo", 'o', "foo", 'o').inverse());
   }
 
+  //测试多次逆转
   public void testInverseMinimizesWork() {
     ImmutableListMultimap<String, Character> multimap =
         ImmutableListMultimap.<String, Character>builder()
