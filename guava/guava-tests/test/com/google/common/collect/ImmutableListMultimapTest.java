@@ -354,6 +354,7 @@ public class ImmutableListMultimapTest extends TestCase {
     assertThat(multimap.get("b")).containsExactly(6, 3).inOrder();
   }
 
+  //拷贝复制
   public void testCopyOf() {
     ArrayListMultimap<String, Integer> input = ArrayListMultimap.create();
     input.put("foo", 1);
@@ -364,6 +365,7 @@ public class ImmutableListMultimapTest extends TestCase {
     assertEquals(input, multimap);
   }
 
+  //拷贝复制有重复 key
   public void testCopyOfWithDuplicates() {
     ArrayListMultimap<String, Integer> input = ArrayListMultimap.create();
     input.put("foo", 1);
@@ -375,6 +377,7 @@ public class ImmutableListMultimapTest extends TestCase {
     assertEquals(input, multimap);
   }
 
+  //拷贝复制空 map
   public void testCopyOfEmpty() {
     ArrayListMultimap<String, Integer> input = ArrayListMultimap.create();
     Multimap<String, Integer> multimap = ImmutableListMultimap.copyOf(input);
@@ -382,6 +385,7 @@ public class ImmutableListMultimapTest extends TestCase {
     assertEquals(input, multimap);
   }
 
+  //拷贝复制 immutableListMap
   public void testCopyOfImmutableListMultimap() {
     Multimap<String, Integer> multimap = createMultimap();
     assertSame(multimap, ImmutableListMultimap.copyOf(multimap));
@@ -407,6 +411,7 @@ public class ImmutableListMultimapTest extends TestCase {
     }
   }
 
+  //传入函数生成map
   public void testToImmutableListMultimap() {
     Collector<Entry<String, Integer>, ?, ImmutableListMultimap<String, Integer>> collector =
         ImmutableListMultimap.toImmutableListMultimap(Entry::getKey, Entry::getValue);
@@ -424,6 +429,7 @@ public class ImmutableListMultimapTest extends TestCase {
             mapEntry("c", 4));
   }
 
+  //按keyputAlll
   public void testFlatteningToImmutableListMultimap() {
     Collector<String, ?, ImmutableListMultimap<Character, Character>> collector =
         ImmutableListMultimap.flatteningToImmutableListMultimap(
@@ -446,6 +452,7 @@ public class ImmutableListMultimapTest extends TestCase {
         .expectCollects(filled, "banana", "apple", "carrot", "asparagus", "cherry");
   }
 
+  //测试空map读
   public void testEmptyMultimapReads() {
     Multimap<String, Integer> multimap = ImmutableListMultimap.of();
     assertFalse(multimap.containsKey("foo"));
@@ -463,6 +470,7 @@ public class ImmutableListMultimapTest extends TestCase {
     assertEquals("{}", multimap.toString());
   }
 
+  //测试空map写
   public void testEmptyMultimapWrites() {
     Multimap<String, Integer> multimap = ImmutableListMultimap.of();
     UnmodifiableCollectionTests.assertMultimapIsUnmodifiable(multimap, "foo", 1);
@@ -476,6 +484,7 @@ public class ImmutableListMultimapTest extends TestCase {
         .build();
   }
 
+  //测试读
   public void testMultimapReads() {
     Multimap<String, Integer> multimap = createMultimap();
     assertTrue(multimap.containsKey("foo"));
@@ -491,6 +500,7 @@ public class ImmutableListMultimapTest extends TestCase {
     assertEquals("{foo=[1, 3], bar=[2]}", multimap.toString());
   }
 
+  //测试写
   public void testMultimapWrites() {
     Multimap<String, Integer> multimap = createMultimap();
     UnmodifiableCollectionTests.assertMultimapIsUnmodifiable(multimap, "bar", 2);
