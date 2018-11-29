@@ -166,6 +166,7 @@ public class ImmutableMultisetTest extends TestCase {
     return suite;
   }
 
+
   public void testCreation_noArgs() {
     Multiset<String> multiset = ImmutableMultiset.of();
     assertTrue(multiset.isEmpty());
@@ -317,7 +318,9 @@ public class ImmutableMultisetTest extends TestCase {
     }
   }
 
+  //判断两个 multiset是否相等
   public void testToImmutableMultiset() {
+    //相等比较器
     BiPredicate<ImmutableMultiset<String>, ImmutableMultiset<String>> equivalence =
         (ms1, ms2) -> ms1.equals(ms2) && ms1.entrySet().asList().equals(ms2.entrySet().asList());
     CollectorTester.of(ImmutableMultiset.<String>toImmutableMultiset(), equivalence)
@@ -326,6 +329,7 @@ public class ImmutableMultisetTest extends TestCase {
             ImmutableMultiset.of("a", "a", "b", "c", "c", "c"), "a", "a", "b", "c", "c", "c");
   }
 
+  //immutableMultiset 传入函数初始化
   public void testToImmutableMultisetCountFunction() {
     BiPredicate<ImmutableMultiset<String>, ImmutableMultiset<String>> equivalence =
         (ms1, ms2) -> ms1.equals(ms2) && ms1.entrySet().asList().equals(ms2.entrySet().asList());
@@ -342,6 +346,7 @@ public class ImmutableMultisetTest extends TestCase {
             Multisets.immutableEntry("c", 3));
   }
 
+  //
   public void testToImmutableMultiset_duplicates() {
     class TypeWithDuplicates {
       final int a;
@@ -415,6 +420,7 @@ public class ImmutableMultisetTest extends TestCase {
     }
   }
 
+  //创建时 迭代器调用一次
   public void testCopyOf_plainIterable() {
     CountingIterable iterable = new CountingIterable();
     Multiset<String> multiset = ImmutableMultiset.copyOf(iterable);
@@ -422,6 +428,7 @@ public class ImmutableMultisetTest extends TestCase {
     assertEquals(1, iterable.count);
   }
 
+  //迭代器 拷贝复制 hashCode相等
   public void testCopyOf_hashMultiset() {
     Multiset<String> iterable = HashMultiset.create(asList("a", "b", "a"));
     Multiset<String> multiset = ImmutableMultiset.copyOf(iterable);
@@ -449,12 +456,14 @@ public class ImmutableMultisetTest extends TestCase {
     assertSame(c, ImmutableMultiset.copyOf(c));
   }
 
+  //builder 模式
   public void testBuilderAdd() {
     ImmutableMultiset<String> multiset =
         new ImmutableMultiset.Builder<String>().add("a").add("b").add("a").add("c").build();
     assertEquals(HashMultiset.create(asList("a", "b", "a", "c")), multiset);
   }
 
+  // builder方法 中addAll list
   public void testBuilderAddAll() {
     List<String> a = asList("a", "b");
     List<String> b = asList("c", "d");
@@ -463,6 +472,7 @@ public class ImmutableMultisetTest extends TestCase {
     assertEquals(HashMultiset.create(asList("a", "b", "c", "d")), multiset);
   }
 
+  //builder方法 addAll  multiset
   public void testBuilderAddAllHashMultiset() {
     Multiset<String> a = HashMultiset.create(asList("a", "b", "b"));
     Multiset<String> b = HashMultiset.create(asList("c", "b"));
@@ -471,6 +481,7 @@ public class ImmutableMultisetTest extends TestCase {
     assertEquals(HashMultiset.create(asList("a", "b", "b", "b", "c")), multiset);
   }
 
+  // builder方法 中addAll immutableMultiset
   public void testBuilderAddAllImmutableMultiset() {
     Multiset<String> a = ImmutableMultiset.of("a", "b", "b");
     Multiset<String> b = ImmutableMultiset.of("c", "b");

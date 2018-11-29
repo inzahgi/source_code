@@ -34,11 +34,13 @@ public class ImmutableMultimapAsMapImplementsMapTest
     super(false, false, false);
   }
 
+  //空元素转换为map
   @Override
   protected Map<String, Collection<Integer>> makeEmptyMap() {
     return ImmutableMultimap.<String, Integer>of().asMap();
   }
 
+  //转换为map
   @Override
   protected Map<String, Collection<Integer>> makePopulatedMap() {
     Multimap<String, Integer> delegate = HashMultimap.create();

@@ -336,7 +336,7 @@ public class ImmutableListMultimapTest extends TestCase {
     assertThat(multimap.get("b")).containsExactly(6, 3).inOrder();
   }
 
-  //根据value和key 排序
+  //同时按value和key排序  总体按key排序  单个key中value再按value排序
   public void testBuilderOrderKeysAndValuesBy() {
     ImmutableListMultimap.Builder<String, Integer> builder = ImmutableListMultimap.builder();
     builder.put("b", 3);
@@ -354,7 +354,7 @@ public class ImmutableListMultimapTest extends TestCase {
     assertThat(multimap.get("b")).containsExactly(6, 3).inOrder();
   }
 
-  //拷贝复制
+  //按拷贝复制
   public void testCopyOf() {
     ArrayListMultimap<String, Integer> input = ArrayListMultimap.create();
     input.put("foo", 1);
@@ -365,7 +365,7 @@ public class ImmutableListMultimapTest extends TestCase {
     assertEquals(input, multimap);
   }
 
-  //拷贝复制有重复 key
+  //拷贝复制重复 key
   public void testCopyOfWithDuplicates() {
     ArrayListMultimap<String, Integer> input = ArrayListMultimap.create();
     input.put("foo", 1);
