@@ -34,12 +34,14 @@ import junit.framework.TestCase;
 @GwtCompatible(emulated = true)
 public class ImmutableMultimapTest extends TestCase {
 
+  //利用entry生成map
   public void testBuilder_withImmutableEntry() {
     ImmutableMultimap<String, Integer> multimap =
         new Builder<String, Integer>().put(Maps.immutableEntry("one", 1)).build();
     assertEquals(Arrays.asList(1), multimap.get("one"));
   }
 
+  // immutableEntry key或者 value不能有null
   public void testBuilder_withImmutableEntryAndNullContents() {
     Builder<String, Integer> builder = new Builder<>();
     try {
@@ -58,6 +60,7 @@ public class ImmutableMultimapTest extends TestCase {
     String string;
   }
 
+  //builder 加入entry 拷贝复制
   public void testBuilder_withMutableEntry() {
     ImmutableMultimap.Builder<String, Integer> builder = new Builder<>();
     final StringHolder holder = new StringHolder();

@@ -1249,6 +1249,7 @@ public final class Maps {
    *     valueFunction} produces {@code null} for any key
    * @since 14.0
    */
+  //
   public static <K, V> ImmutableMap<K, V> toMap(
       Iterator<K> keys, Function<? super K, V> valueFunction) {
     checkNotNull(valueFunction);
@@ -1325,6 +1326,7 @@ public final class Maps {
    *     keyFunction} produces {@code null} for any value
    * @since 10.0
    */
+  //对传入值做独键索引
   @CanIgnoreReturnValue
   public static <K, V> ImmutableMap<K, V> uniqueIndex(
       Iterator<V> values, Function<? super V, K> keyFunction) {
@@ -1353,6 +1355,7 @@ public final class Maps {
    * @throws ClassCastException if any key in {@code Properties} is not a {@code String}
    * @throws NullPointerException if any key or value in {@code Properties} is null
    */
+  //从配置类生成map
   @GwtIncompatible // java.util.Properties
   public static ImmutableMap<String, String> fromProperties(Properties properties) {
     ImmutableMap.Builder<String, String> builder = ImmutableMap.builder();
