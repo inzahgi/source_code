@@ -644,6 +644,7 @@ public class ImmutableMultisetTest extends TestCase {
     UnmodifiableCollectionTests.assertMultisetIsUnmodifiable(multiset, "test");
   }
 
+  //asList 转换key 为list
   public void testAsList() {
     ImmutableMultiset<String> multiset = ImmutableMultiset.of("a", "a", "b", "b", "b");
     ImmutableList<String> list = multiset.asList();
@@ -652,6 +653,7 @@ public class ImmutableMultisetTest extends TestCase {
     assertEquals(4, list.lastIndexOf("b"));
   }
 
+  //
   @GwtIncompatible // SerializableTester
   public void testSerialization_asList() {
     ImmutableMultiset<String> multiset = ImmutableMultiset.of("a", "a", "b", "b", "b");
@@ -667,6 +669,7 @@ public class ImmutableMultisetTest extends TestCase {
         .testEquals();
   }
 
+  //builder 添加后 删除元素
   public void testIterationOrderThroughBuilderRemovals() {
     ImmutableMultiset.Builder<String> builder = ImmutableMultiset.builder();
     builder.addCopies("a", 2);
