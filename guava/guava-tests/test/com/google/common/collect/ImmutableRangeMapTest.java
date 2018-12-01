@@ -63,6 +63,7 @@ public class ImmutableRangeMapTest extends TestCase {
     RANGES = builder.build();
   }
 
+  //空范围异常
   public void testBuilderRejectsEmptyRanges() {
     for (int i = MIN_BOUND; i <= MAX_BOUND; i++) {
       ImmutableRangeMap.Builder<Integer, Integer> builder = ImmutableRangeMap.builder();
@@ -80,6 +81,7 @@ public class ImmutableRangeMapTest extends TestCase {
     }
   }
 
+  //builder 下 多段边界有越界或连接 异常
   public void testOverlapRejection() {
     for (Range<Integer> range1 : RANGES) {
       for (Range<Integer> range2 : RANGES) {
@@ -97,6 +99,7 @@ public class ImmutableRangeMapTest extends TestCase {
     }
   }
 
+  //按照范围取值 设定值
   public void testGet() {
     for (Range<Integer> range1 : RANGES) {
       for (Range<Integer> range2 : RANGES) {
@@ -119,6 +122,7 @@ public class ImmutableRangeMapTest extends TestCase {
     }
   }
 
+  //空范围段 取大范围异常
   public void testSpanEmpty() {
     try {
       ImmutableRangeMap.of().span();
@@ -127,6 +131,7 @@ public class ImmutableRangeMapTest extends TestCase {
     }
   }
 
+  //单个距离段展开
   public void testSpanSingleRange() {
     for (Range<Integer> range : RANGES) {
       RangeMap<Integer, Integer> rangemap =
@@ -135,6 +140,7 @@ public class ImmutableRangeMapTest extends TestCase {
     }
   }
 
+  //两端距离 按先后合并展开
   public void testSpanTwoRanges() {
     for (Range<Integer> range1 : RANGES) {
       for (Range<Integer> range2 : RANGES) {
@@ -147,6 +153,7 @@ public class ImmutableRangeMapTest extends TestCase {
     }
   }
 
+  //获取entry
   public void testGetEntry() {
     for (Range<Integer> range1 : RANGES) {
       for (Range<Integer> range2 : RANGES) {
@@ -169,6 +176,7 @@ public class ImmutableRangeMapTest extends TestCase {
     }
   }
 
+  //按顺序取分段
   public void testGetLargeRangeMap() {
     ImmutableRangeMap.Builder<Integer, Integer> builder = ImmutableRangeMap.builder();
     for (int i = 0; i < 100; i++) {
@@ -180,6 +188,7 @@ public class ImmutableRangeMapTest extends TestCase {
     }
   }
 
+  //原始范围段 和有序段比较
   @AndroidIncompatible // slow
   public void testAsMapOfRanges() {
     for (Range<Integer> range1 : RANGES) {
@@ -208,6 +217,7 @@ public class ImmutableRangeMapTest extends TestCase {
     }
   }
 
+  //求范围段交集
   public void testSubRangeMap() {
     for (Range<Integer> range1 : RANGES) {
       for (Range<Integer> range2 : RANGES) {
@@ -256,6 +266,7 @@ public class ImmutableRangeMapTest extends TestCase {
     SerializableTester.reserializeAndAssert(nonEmptyRangeMap);
   }
 
+  //传入函数生成
   public void testToImmutableRangeSet() {
     Range<Integer> rangeOne = Range.closedOpen(1, 5);
     Range<Integer> rangeTwo = Range.openClosed(6, 7);

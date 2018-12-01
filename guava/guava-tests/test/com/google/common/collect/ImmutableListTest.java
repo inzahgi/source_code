@@ -113,7 +113,7 @@ public class ImmutableListTest extends TestCase {
     return suite;
   }
 
-  public static class CreationTests extends TestCase
+  public static class CreationTests extends TestCase{
     public void testCreation_noArgs() {
       List<String> list = ImmutableList.of();
       assertEquals(Collections.emptyList(), list);
