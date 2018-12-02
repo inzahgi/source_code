@@ -93,6 +93,7 @@ public class ImmutableSetMultimapTest extends TestCase {
     assertEquals(ImmutableSet.of(1), multimap.get("one"));
   }
 
+  //key value 不能为null
   public void testBuilder_withImmutableEntryAndNullContents() {
     Builder<String, Integer> builder = new Builder<>();
     try {
@@ -111,6 +112,7 @@ public class ImmutableSetMultimapTest extends TestCase {
     String string;
   }
 
+  //深拷贝
   public void testBuilder_withMutableEntry() {
     ImmutableSetMultimap.Builder<String, Integer> builder = new Builder<>();
     final StringHolder holder = new StringHolder();
@@ -144,6 +146,7 @@ public class ImmutableSetMultimapTest extends TestCase {
     assertEquals(7, multimap.size());
   }
 
+  //合并value
   public void testBuilderPutAllVarargs() {
     ImmutableSetMultimap.Builder<String, Integer> builder = ImmutableSetMultimap.builder();
     builder.putAll("foo", 1, 2, 3);
@@ -155,6 +158,7 @@ public class ImmutableSetMultimapTest extends TestCase {
     assertEquals(7, multimap.size());
   }
 
+  //putAll
   public void testBuilderPutAllMultimap() {
     Multimap<String, Integer> toPut = LinkedListMultimap.create();
     toPut.put("foo", 1);
@@ -174,6 +178,7 @@ public class ImmutableSetMultimapTest extends TestCase {
     assertEquals(7, multimap.size());
   }
 
+  //
   public void testBuilderPutAllWithDuplicates() {
     ImmutableSetMultimap.Builder<String, Integer> builder = ImmutableSetMultimap.builder();
     builder.putAll("foo", 1, 2, 3);
