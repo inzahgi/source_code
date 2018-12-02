@@ -86,6 +86,7 @@ public class ImmutableSetMultimapTest extends TestCase {
     return suite;
   }
 
+  //builder生成
   public void testBuilder_withImmutableEntry() {
     ImmutableSetMultimap<String, Integer> multimap =
         new Builder<String, Integer>().put(Maps.immutableEntry("one", 1)).build();

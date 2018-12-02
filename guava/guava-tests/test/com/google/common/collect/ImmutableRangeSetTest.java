@@ -127,6 +127,7 @@ public class ImmutableRangeSetTest extends AbstractRangeSetTest {
     return suite;
   }
 
+  //空范围集合
   public void testEmpty() {
     ImmutableRangeSet<Integer> rangeSet = ImmutableRangeSet.of();
 
@@ -139,7 +140,9 @@ public class ImmutableRangeSetTest extends AbstractRangeSetTest {
     assertTrue(rangeSet.isEmpty());
   }
 
+  //范围全集 集合
   public void testAll() {
+    //包含全集范围 集合
     ImmutableRangeSet<Integer> rangeSet = ImmutableRangeSet.all();
 
     assertThat(rangeSet.asRanges()).contains(Range.<Integer>all());
@@ -151,6 +154,7 @@ public class ImmutableRangeSetTest extends AbstractRangeSetTest {
     assertEquals(ImmutableRangeSet.<Integer>of(), rangeSet.complement());
   }
 
+  //单边范围集合
   public void testSingleBoundedRange() {
     ImmutableRangeSet<Integer> rangeSet = ImmutableRangeSet.of(Range.closedOpen(1, 5));
 
@@ -178,6 +182,7 @@ public class ImmutableRangeSetTest extends AbstractRangeSetTest {
     assertEquals(expectedComplement, rangeSet.complement());
   }
 
+  //单边界 下边界范围
   public void testSingleBoundedBelowRange() {
     ImmutableRangeSet<Integer> rangeSet = ImmutableRangeSet.of(Range.greaterThan(2));
 
@@ -201,6 +206,7 @@ public class ImmutableRangeSetTest extends AbstractRangeSetTest {
     assertEquals(ImmutableRangeSet.of(Range.atMost(2)), rangeSet.complement());
   }
 
+  //单边界 上边界范围
   public void testSingleBoundedAboveRange() {
     ImmutableRangeSet<Integer> rangeSet = ImmutableRangeSet.of(Range.atMost(3));
 
@@ -225,6 +231,7 @@ public class ImmutableRangeSetTest extends AbstractRangeSetTest {
     assertEquals(ImmutableRangeSet.of(Range.greaterThan(3)), rangeSet.complement());
   }
 
+  //
   public void testMultipleBoundedRanges() {
     ImmutableRangeSet<Integer> rangeSet =
         ImmutableRangeSet.<Integer>builder()
@@ -242,6 +249,7 @@ public class ImmutableRangeSetTest extends AbstractRangeSetTest {
     assertTrue(rangeSet.intersects(Range.greaterThan(5)));
     assertFalse(rangeSet.intersects(Range.greaterThan(8)));
 
+    //完全包含的时候 边界相近
     assertTrue(rangeSet.encloses(Range.closed(1, 2)));
     assertTrue(rangeSet.encloses(Range.open(5, 8)));
     assertFalse(rangeSet.encloses(Range.closed(1, 8)));
