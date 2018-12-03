@@ -565,7 +565,7 @@ public class ImmutableSortedMapTest extends TestCase {
       assertSame(Ordering.natural(), copy.comparator());
     }
 
-    //待比较器的拷贝复制
+    //相同 比较器的 拷贝复制
     public void testCopyOfExplicitComparator() {
       Comparator<String> comparator = Ordering.natural().reverse();
       Map<String, Integer> original = new LinkedHashMap<>();
@@ -579,7 +579,7 @@ public class ImmutableSortedMapTest extends TestCase {
       assertSame(comparator, copy.comparator());
     }
 
-    //
+    // copy of  不同比较器
     public void testCopyOfImmutableSortedSetDifferentComparator() {
       Comparator<String> comparator = Ordering.natural().reverse();
       Map<String, Integer> original = ImmutableSortedMap.of("one", 1, "two", 2, "three", 3);
@@ -589,6 +589,7 @@ public class ImmutableSortedMapTest extends TestCase {
       assertSame(comparator, copy.comparator());
     }
 
+    //带比较器的拷贝复制
     public void testCopyOfSortedNatural() {
       SortedMap<String, Integer> original = Maps.newTreeMap();
       original.put("one", 1);
@@ -601,6 +602,7 @@ public class ImmutableSortedMapTest extends TestCase {
       assertSame(Ordering.natural(), copy.comparator());
     }
 
+    //带外置比较器 拷贝复制
     public void testCopyOfSortedExplicit() {
       Comparator<String> comparator = Ordering.natural().reverse();
       SortedMap<String, Integer> original = Maps.newTreeMap(comparator);
@@ -648,6 +650,7 @@ public class ImmutableSortedMapTest extends TestCase {
       }
     }
 
+    //
     public void testImmutableMapCopyOfImmutableSortedMap() {
       IntegerDiv10 three = new IntegerDiv10(3);
       IntegerDiv10 eleven = new IntegerDiv10(11);
