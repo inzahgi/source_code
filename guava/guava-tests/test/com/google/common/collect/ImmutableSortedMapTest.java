@@ -302,12 +302,14 @@ public class ImmutableSortedMapTest extends TestCase {
       assertEquals(Collections.<String, Integer>emptyMap(), map);
     }
 
+    //单个entry builder生成
     public void testSingletonBuilder() {
       ImmutableSortedMap<String, Integer> map =
           ImmutableSortedMap.<String, Integer>naturalOrder().put("one", 1).build();
       assertMapEquals(map, "one", 1);
     }
 
+    //多entry builder 默认降序
     public void testBuilder() {
       ImmutableSortedMap<String, Integer> map =
           ImmutableSortedMap.<String, Integer>naturalOrder()
@@ -320,6 +322,7 @@ public class ImmutableSortedMapTest extends TestCase {
       assertMapEquals(map, "five", 5, "four", 4, "one", 1, "three", 3, "two", 2);
     }
 
+    //
     public void testBuilder_orderEntriesByValueFails() {
       ImmutableSortedMap.Builder<String, Integer> builder = ImmutableSortedMap.naturalOrder();
       try {
@@ -329,6 +332,7 @@ public class ImmutableSortedMapTest extends TestCase {
       }
     }
 
+    //直接由entry生成
     public void testBuilder_withImmutableEntry() {
       ImmutableSortedMap<String, Integer> map =
           ImmutableSortedMap.<String, Integer>naturalOrder()
@@ -337,6 +341,7 @@ public class ImmutableSortedMapTest extends TestCase {
       assertMapEquals(map, "one", 1);
     }
 
+    //key value  can not null
     public void testBuilder_withImmutableEntryAndNullContents() {
       Builder<String, Integer> builder = ImmutableSortedMap.naturalOrder();
       try {
@@ -355,6 +360,7 @@ public class ImmutableSortedMapTest extends TestCase {
       String string;
     }
 
+    //外部变量 变化 不可见
     public void testBuilder_withMutableEntry() {
       ImmutableSortedMap.Builder<String, Integer> builder = ImmutableSortedMap.naturalOrder();
       final StringHolder holder = new StringHolder();
@@ -377,6 +383,7 @@ public class ImmutableSortedMapTest extends TestCase {
       assertMapEquals(builder.build(), "one", 1);
     }
 
+    // builder with empty map
     public void testBuilderPutAllWithEmptyMap() {
       ImmutableSortedMap<String, Integer> map =
           ImmutableSortedMap.<String, Integer>naturalOrder()
@@ -402,6 +409,7 @@ public class ImmutableSortedMapTest extends TestCase {
       assertMapEquals(map, "five", 5, "four", 4, "one", 1, "three", 3, "two", 2);
     }
 
+    //builder 复用
     public void testBuilderReuse() {
       Builder<String, Integer> builder = ImmutableSortedMap.naturalOrder();
       ImmutableSortedMap<String, Integer> mapOne = builder.put("one", 1).put("two", 2).build();
@@ -410,6 +418,7 @@ public class ImmutableSortedMapTest extends TestCase {
       assertMapEquals(mapOne, "one", 1, "two", 2);
       assertMapEquals(mapTwo, "four", 4, "one", 1, "three", 3, "two", 2);
     }
+
 
     public void testBuilderPutNullKey() {
       Builder<String, Integer> builder = ImmutableSortedMap.naturalOrder();
@@ -447,6 +456,7 @@ public class ImmutableSortedMapTest extends TestCase {
       }
     }
 
+    //key 重复异常
     public void testPuttingTheSameKeyTwiceThrowsOnBuild() {
       Builder<String, Integer> builder =
           ImmutableSortedMap.<String, Integer>naturalOrder()
@@ -460,6 +470,7 @@ public class ImmutableSortedMapTest extends TestCase {
       }
     }
 
+    //of 静态方法生成
     public void testOf() {
       assertMapEquals(ImmutableSortedMap.of("one", 1), "one", 1);
       assertMapEquals(ImmutableSortedMap.of("one", 1, "two", 2), "one", 1, "two", 2);
@@ -554,6 +565,7 @@ public class ImmutableSortedMapTest extends TestCase {
       assertSame(Ordering.natural(), copy.comparator());
     }
 
+    //待比较器的拷贝复制
     public void testCopyOfExplicitComparator() {
       Comparator<String> comparator = Ordering.natural().reverse();
       Map<String, Integer> original = new LinkedHashMap<>();
@@ -567,6 +579,7 @@ public class ImmutableSortedMapTest extends TestCase {
       assertSame(comparator, copy.comparator());
     }
 
+    //
     public void testCopyOfImmutableSortedSetDifferentComparator() {
       Comparator<String> comparator = Ordering.natural().reverse();
       Map<String, Integer> original = ImmutableSortedMap.of("one", 1, "two", 2, "three", 3);
