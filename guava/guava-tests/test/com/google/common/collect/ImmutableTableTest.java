@@ -63,6 +63,7 @@ public class ImmutableTableTest extends AbstractTableReadTest {
             Tables.immutableCell("three", "tres", 3));
   }
 
+  //of 时存在重复行列
   public void testToImmutableTableConflict() {
     Collector<Cell<String, String, Integer>, ?, ImmutableTable<String, String, Integer>> collector =
         ImmutableTable.toImmutableTable(Cell::getRowKey, Cell::getColumnKey, Cell::getValue);
@@ -114,6 +115,7 @@ public class ImmutableTableTest extends AbstractTableReadTest {
     }
   }
 
+  //合并 value
   public void testToImmutableTableMerging() {
     Collector<Cell<String, String, Integer>, ?, ImmutableTable<String, String, Integer>> collector =
         ImmutableTable.toImmutableTable(
@@ -193,6 +195,7 @@ public class ImmutableTableTest extends AbstractTableReadTest {
     }
   }
 
+  //builder  方法 可以复用
   public void testBuilder() {
     ImmutableTable.Builder<Character, Integer, String> builder = new ImmutableTable.Builder<>();
     assertEquals(ImmutableTable.of(), builder.build());
@@ -207,6 +210,7 @@ public class ImmutableTableTest extends AbstractTableReadTest {
     assertEquals(expectedTable, builder.putAll(otherTable).build());
   }
 
+  //builder with cell
   public void testBuilder_withImmutableCell() {
     ImmutableTable.Builder<Character, Integer, String> builder = new ImmutableTable.Builder<>();
     assertEquals(
