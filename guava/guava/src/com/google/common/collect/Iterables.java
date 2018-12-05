@@ -59,6 +59,9 @@ import org.checkerframework.checker.nullness.qual.Nullable;
  * "https://github.com/google/guava/wiki/CollectionUtilitiesExplained#iterables"> {@code
  * Iterables}</a>.
  *
+ *
+ * 迭代器功能的接口类
+ *
  * @author Kevin Bourrillion
  * @author Jared Levy
  * @since 2.0

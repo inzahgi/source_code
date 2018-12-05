@@ -60,6 +60,8 @@ import org.checkerframework.checker.nullness.qual.Nullable;
  * "https://github.com/google/guava/wiki/CollectionUtilitiesExplained#iterables"> {@code
  * Iterators}</a>.
  *
+ *
+ * 迭代器 Iterables 的工具实现类
  * @author Kevin Bourrillion
  * @author Jared Levy
  * @since 2.0

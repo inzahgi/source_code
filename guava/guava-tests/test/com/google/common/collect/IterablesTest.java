@@ -57,6 +57,7 @@ import junit.framework.TestCase;
 @GwtCompatible(emulated = true)
 public class IterablesTest extends TestCase {
 
+  //获取迭代器 大小
   public void testSize0() {
     Iterable<String> iterable = Collections.emptySet();
     assertEquals(0, Iterables.size(iterable));
@@ -91,6 +92,7 @@ public class IterablesTest extends TestCase {
     assertEquals(5, Iterables.size(collection));
   }
 
+  //返回迭代器
   private static Iterable<String> iterable(String... elements) {
     final List<String> list = asList(elements);
     return new Iterable<String>() {
@@ -101,6 +103,7 @@ public class IterablesTest extends TestCase {
     };
   }
 
+  //迭代器包含 null
   public void test_contains_null_set_yes() {
     Iterable<String> set = Sets.newHashSet("a", null, "b");
     assertTrue(Iterables.contains(set, null));
@@ -121,6 +124,7 @@ public class IterablesTest extends TestCase {
     assertFalse(Iterables.contains(set, null));
   }
 
+  //迭代器包含非null元素
   public void test_contains_nonnull_set_yes() {
     Iterable<String> set = Sets.newHashSet("a", null, "b");
     assertTrue(Iterables.contains(set, "b"));
@@ -141,6 +145,7 @@ public class IterablesTest extends TestCase {
     assertFalse(Iterables.contains(set, "c"));
   }
 
+  //仅包含一个元素
   public void testGetOnlyElement_noDefault_valid() {
     Iterable<String> iterable = Collections.singletonList("foo");
     assertEquals("foo", Iterables.getOnlyElement(iterable));
@@ -164,6 +169,7 @@ public class IterablesTest extends TestCase {
     }
   }
 
+  //带默认值的获取惟一元素
   public void testGetOnlyElement_withDefault_singleton() {
     Iterable<String> iterable = Collections.singletonList("foo");
     assertEquals("foo", Iterables.getOnlyElement(iterable, "bar"));
@@ -188,6 +194,7 @@ public class IterablesTest extends TestCase {
     }
   }
 
+  // toArray
   @GwtIncompatible // Iterables.toArray(Iterable, Class)
   public void testToArrayEmpty() {
     Iterable<String> iterable = Collections.emptyList();
