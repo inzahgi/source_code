@@ -386,6 +386,7 @@ public class ImmutableTableTest extends AbstractTableReadTest {
     assertThat(copy.row('b').keySet()).containsExactly(1, 2).inOrder();
   }
 
+  //先row 后 col 排序
   public void testBuilder_orderRowsAndColumnsBy_sparse() {
     ImmutableTable.Builder<Character, Integer, String> builder = ImmutableTable.builder();
     builder.orderRowsBy(Ordering.natural());
@@ -409,6 +410,7 @@ public class ImmutableTableTest extends AbstractTableReadTest {
     assertThat(table.column(5).keySet()).containsExactly('e', 'x').inOrder();
   }
 
+  //row column 同时排序 按照先 row后col的顺序
   public void testBuilder_orderRowsAndColumnsBy_dense() {
     ImmutableTable.Builder<Character, Integer, String> builder = ImmutableTable.builder();
     builder.orderRowsBy(Ordering.natural());
@@ -431,6 +433,7 @@ public class ImmutableTableTest extends AbstractTableReadTest {
     assertThat(table.column(1).keySet()).containsExactly('a', 'b', 'c').inOrder();
   }
 
+  // row key  稀疏的情况下排序
   public void testBuilder_orderRowsBy_sparse() {
     ImmutableTable.Builder<Character, Integer, String> builder = ImmutableTable.builder();
     builder.orderRowsBy(Ordering.natural());
@@ -448,6 +451,7 @@ public class ImmutableTableTest extends AbstractTableReadTest {
     assertThat(table.column(5).keySet()).containsExactly('e', 'x').inOrder();
   }
 
+  // row key 分布稠密的情况 排序
   public void testBuilder_orderRowsBy_dense() {
     ImmutableTable.Builder<Character, Integer, String> builder = ImmutableTable.builder();
     builder.orderRowsBy(Ordering.natural());
@@ -464,6 +468,7 @@ public class ImmutableTableTest extends AbstractTableReadTest {
     assertThat(table.column(1).keySet()).containsExactly('a', 'b', 'c').inOrder();
   }
 
+  //column 稀疏情况下排序
   public void testBuilder_orderColumnsBy_sparse() {
     ImmutableTable.Builder<Character, Integer, String> builder = ImmutableTable.builder();
     builder.orderColumnsBy(Ordering.natural());
@@ -481,6 +486,7 @@ public class ImmutableTableTest extends AbstractTableReadTest {
     assertThat(table.row('c').keySet()).containsExactly(0, 3).inOrder();
   }
 
+  //指定column key 稠密情况下 排序
   public void testBuilder_orderColumnsBy_dense() {
     ImmutableTable.Builder<Character, Integer, String> builder = ImmutableTable.builder();
     builder.orderColumnsBy(Ordering.natural());
