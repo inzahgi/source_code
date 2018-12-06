@@ -217,6 +217,7 @@ public class IterablesTest extends TestCase {
     assertTrue(Arrays.equals(sourceArray, newArray));
   }
 
+  // any  任意一个符合
   public void testAny() {
     List<String> list = newArrayList();
     Predicate<String> predicate = Predicates.equalTo("pants");
@@ -228,6 +229,7 @@ public class IterablesTest extends TestCase {
     assertTrue(Iterables.any(list, predicate));
   }
 
+  // all 全部否要符合
   public void testAll() {
     List<String> list = newArrayList();
     Predicate<String> predicate = Predicates.equalTo("cool");
@@ -239,6 +241,7 @@ public class IterablesTest extends TestCase {
     assertFalse(Iterables.all(list, predicate));
   }
 
+  //找出相匹配的一个
   public void testFind() {
     Iterable<String> list = newArrayList("cool", "pants");
     assertEquals("cool", Iterables.find(list, Predicates.equalTo("cool")));
@@ -252,6 +255,7 @@ public class IterablesTest extends TestCase {
     assertCanIterateAgain(list);
   }
 
+
   public void testFind_withDefault() {
     Iterable<String> list = Lists.newArrayList("cool", "pants");
     assertEquals("cool", Iterables.find(list, Predicates.equalTo("cool"), "woot"));
@@ -262,6 +266,7 @@ public class IterablesTest extends TestCase {
     assertCanIterateAgain(list);
   }
 
+  //返回optional
   public void testTryFind() {
     Iterable<String> list = newArrayList("cool", "pants");
     assertThat(Iterables.tryFind(list, Predicates.equalTo("cool"))).hasValue("cool");
@@ -277,6 +282,7 @@ public class IterablesTest extends TestCase {
 
   private static class HasBoth extends TypeA implements TypeB {}
 
+  // filter class
   @GwtIncompatible // Iterables.filter(Iterable, Class)
   public void testFilterByType_iterator() throws Exception {
     HasBoth hasBoth = new HasBoth();
