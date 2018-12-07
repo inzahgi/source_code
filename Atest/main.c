@@ -31,6 +31,11 @@ Copyright 2018 Doron Nussbaum
 #include <unistd.h>
 #include <dirent.h>
 
+#include <errno.h>
+#include <sys/types.h>
+#include <sys/wait.h>
+
+
 /*************************************************************/
 // PROTYPES
 //
@@ -141,7 +146,29 @@ int main(int argc, char *argv[])
     }
 */
 
+    pid_t pid,pw;
+    int status;
+    pid = fork();
+    if(pid < 0){
+        puts("fork error");
+        exit(1);
+    }else if(pid == 0){
+        printf("this os chiled process, pid is %d\n", getpid());
+        sleep(5);
+        return 8;
+    }else{
+        pw = wait(&status);
+        printf("I catch a child process and this pid is %d return code is %d\n", pw, WEXITSTATUS(status));
+    }
+
     if (fd1 != NULL) fclose(fd1);
+
+
+
+
+
+
+
 
 	exit(0);
 }
