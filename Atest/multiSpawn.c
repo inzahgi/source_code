@@ -41,12 +41,16 @@ int is_dir_exist(const char*dir_path){
 }
 
 int morph(char *number){
-    if(execv("/home/inzahgi/xx/isPrime", number)<0){
+    //if(execv("/home/inzahgi/code/xx/isPrime", number)<0){
+    printf("line 36 number = %s$", number);
+    char *p[] = {"/home/inzahgi/code/xx/isPrime", number, NULL};
+    if(execv("/home/inzahgi/code/xx/isPrime", p)<0){
         perror("Error on execv");
                 return -1;
     }
     return -1;
 }
+
 
 
 
@@ -70,7 +74,7 @@ int main(int argc, char *argv[])
     }else if(judgeFileResultCode==-1){
          printf("文件不存在\n");
     }
-   
+
 
 
     fd1 = fopen(argv[1],"rb");
@@ -95,47 +99,61 @@ int main(int argc, char *argv[])
 			printf("开辟空间出错");
 			return -1;
 		}
-		fread(pos,sizeof(unsigned int),num,fd1);
-		for(int i = 0; i < num; i++)
-			printf("%u\n", pos[i]);
+
+
+		int cnt = 0;
+		for(cnt = 0; cnt < 10 && cnt < num; cnt++){
+            fread(pos,sizeof(unsigned int),num,fd1);
+            printf("%d----- %u\n", cnt, pos[cnt]);
+		}
 
     if (fd1 != NULL) fclose(fd1);
 
 
-    unsigned int res_array[10];
-    unsigned 
-
-    for(int i = 0; i< 10; i++){
-
-
-    }
-
-        char s[10]; 
-        sprintf(s,"%d",pos[i]);
 
 
 
 
-
-
-    pid_t pid,pw;
+    //pid_t pid;
+    pid_t pw[cnt];
     int status;
-    pid = fork();
-    if(pid < 0){
-        puts("fork error");
-        exit(1);
-    }else if(pid == 0){
-        printf("this os chiled process, pid is %d\n", getpid());
-        sleep(5);
-        return morph(s);
-    }else{
-        pw = wait(&status);
-        int isPrime = WEXITSTATUS(status);
-        printf("I catch a child process and this pid is %d return code is %d\n", pw, isPrime);
+    for(int i = 0; i< cnt; i++){
+        pid_t pid = fork();
+        if(pid < 0){
+            puts("fork error");
+            exit(-1);
+        }else if(pid == 0){
+            printf("this os chiled process, pid is %d\n", getpid());
+            sleep(5);
+            char s[10];
+            sprintf(s,"%d",pos[i]);
+            return morph(s);
+        }else{
+            //printf("the child pid = %d\n", pid);
+            pw[i] = pid;
+            //springf(pw[])
+        }
     }
 
+    for(int i=0; i< cnt; i++){
+        pid_t cpid = waitpid(-1, &status, 0);
+        printf("line = 137  cpid = %u  pw = %u\n", cpid, pw[i]);
 
-	free(pos);     //释放内存
+        int isPrime = WEXITSTATUS(status);
+        unsigned int inputNum = 0;
+
+        for(int j = 0; j< cnt;j++){
+        printf("line = 141  cpid = %u  pw = %u\n", cpid, pw[j]);
+            if(cpid == pw[j]){
+                inputNum = pos[j];
+                break;
+            }
+        }
+
+        printf("I catch a child process and this pid is %d.  input num = %u return code is %d\n", cpid, inputNum, isPrime);
+    }
+    free(pos);     //释放内存
 	exit(0);
 }
+
 
