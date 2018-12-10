@@ -82,6 +82,7 @@ public class LinkedHashMultisetTest extends TestCase {
     };
   }
 
+  //create size 0
   public void testCreate() {
     Multiset<String> multiset = LinkedHashMultiset.create();
     multiset.add("foo", 2);
@@ -91,6 +92,7 @@ public class LinkedHashMultisetTest extends TestCase {
     assertEquals("[foo x 2, bar]", multiset.toString());
   }
 
+  //create size 50
   public void testCreateWithSize() {
     Multiset<String> multiset = LinkedHashMultiset.create(50);
     multiset.add("foo", 2);
@@ -100,6 +102,7 @@ public class LinkedHashMultisetTest extends TestCase {
     assertEquals("[foo x 2, bar]", multiset.toString());
   }
 
+  // create from iterable
   public void testCreateFromIterable() {
     Multiset<String> multiset = LinkedHashMultiset.create(Arrays.asList("foo", "bar", "foo"));
     assertEquals(3, multiset.size());
@@ -116,6 +119,7 @@ public class LinkedHashMultisetTest extends TestCase {
     assertEquals("[a x 3, c, b x 2]", ms.toString());
   }
 
+  //remove
   public void testLosesPlaceInLine() throws Exception {
     Multiset<String> ms = LinkedHashMultiset.create();
     ms.add("a");

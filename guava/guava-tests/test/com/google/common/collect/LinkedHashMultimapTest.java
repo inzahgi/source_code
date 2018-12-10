@@ -111,6 +111,7 @@ public class LinkedHashMultimapTest extends TestCase {
     return multimap;
   }
 
+  //entry 包含了插入的顺序
   public void testToString() {
     Multimap<String, Integer> multimap = LinkedHashMultimap.create();
     multimap.put("foo", 3);
@@ -121,16 +122,19 @@ public class LinkedHashMultimapTest extends TestCase {
     assertEquals("{foo=[3, -1, 2, 4, 1], bar=[1, 2, 3]}", multimap.toString());
   }
 
+  //readonly测试
   public void testOrderingReadOnly() {
     Multimap<String, Integer> multimap = initializeMultimap5();
     assertOrderingReadOnly(multimap);
   }
 
+  //unmodifiable 测试
   public void testOrderingUnmodifiable() {
     Multimap<String, Integer> multimap = initializeMultimap5();
     assertOrderingReadOnly(Multimaps.unmodifiableMultimap(multimap));
   }
 
+  //同步
   public void testOrderingSynchronized() {
     Multimap<String, Integer> multimap = initializeMultimap5();
     assertOrderingReadOnly(Multimaps.synchronizedMultimap(multimap));
@@ -187,6 +191,7 @@ public class LinkedHashMultimapTest extends TestCase {
     assertThat(entry.getValue()).contains(2);
   }
 
+  // remove
   public void testOrderingUpdates() {
     Multimap<String, Integer> multimap = initializeMultimap5();
 
@@ -202,6 +207,7 @@ public class LinkedHashMultimapTest extends TestCase {
     assertThat(multimap.keySet()).containsExactly("cow", "bar").inOrder();
   }
 
+  //包含null 的key和value
   public void testToStringNullExact() {
     Multimap<String, Integer> multimap = LinkedHashMultimap.create();
 
@@ -225,6 +231,7 @@ public class LinkedHashMultimapTest extends TestCase {
         multimap.toString());
   }
 
+  //
   public void testPutMultimapOrdered() {
     Multimap<String, Integer> multimap = LinkedHashMultimap.create();
     multimap.putAll(initializeMultimap5());
