@@ -322,7 +322,7 @@ public class LinkedListMultimapTest extends TestCase {
     assertEquals("{foo=[2]}", map.toString());
   }
 
-  //
+  // update
   public void testEntriesAfterMultimapUpdate() {
     ListMultimap<String, Integer> multimap = create();
     multimap.put("foo", 2);
