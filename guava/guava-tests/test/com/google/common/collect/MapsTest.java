@@ -80,6 +80,7 @@ public class MapsTest extends TestCase {
     assertEquals(Collections.emptyMap(), map);
   }
 
+  //tree copy to hashMap
   public void testHashMapWithInitialMap() {
     Map<String, Integer> original = new TreeMap<>();
     original.put("a", 1);
@@ -89,6 +90,7 @@ public class MapsTest extends TestCase {
     assertEquals(original, map);
   }
 
+  // key  extend
   public void testHashMapGeneralizesTypes() {
     Map<String, Integer> original = new TreeMap<>();
     original.put("a", 1);
