@@ -75,11 +75,13 @@ public class MapsTest extends TestCase {
 
   private static final Comparator<Integer> SOME_COMPARATOR = Collections.reverseOrder();
 
+  // empty map
   public void testHashMap() {
     HashMap<Integer, Integer> map = Maps.newHashMap();
     assertEquals(Collections.emptyMap(), map);
   }
 
+  // copy treeMap to hashMap
   public void testHashMapWithInitialMap() {
     Map<String, Integer> original = new TreeMap<>();
     original.put("a", 1);
@@ -89,6 +91,7 @@ public class MapsTest extends TestCase {
     assertEquals(original, map);
   }
 
+  // key and value  transfer to super object
   public void testHashMapGeneralizesTypes() {
     Map<String, Integer> original = new TreeMap<>();
     original.put("a", 1);
@@ -178,6 +181,7 @@ public class MapsTest extends TestCase {
     return table == null ? 0 : table.length;
   }
 
+  // init capacity
   public void testCapacityForLargeSizes() {
     int[] largeExpectedSizes =
         new int[] {
@@ -195,6 +199,7 @@ public class MapsTest extends TestCase {
     }
   }
 
+  //empty linkedHashMap
   public void testLinkedHashMap() {
     LinkedHashMap<Integer, Integer> map = Maps.newLinkedHashMap();
     assertEquals(Collections.emptyMap(), map);
@@ -235,6 +240,7 @@ public class MapsTest extends TestCase {
     assertFalse(iter.hasNext());
   }
 
+  // copy to
   public void testLinkedHashMapGeneralizesTypes() {
     Map<String, Integer> original = new LinkedHashMap<>();
     original.put("a", 1);
@@ -244,6 +250,7 @@ public class MapsTest extends TestCase {
     assertEquals(original, map);
   }
 
+  //
   public void testIdentityHashMap() {
     IdentityHashMap<Integer, Integer> map = Maps.newIdentityHashMap();
     assertEquals(Collections.emptyMap(), map);
@@ -260,6 +267,7 @@ public class MapsTest extends TestCase {
     assertNull(map.comparator());
   }
 
+  //treeMap key and value order
   public void testTreeMapDerived() {
     TreeMap<Derived, Integer> map = Maps.newTreeMap();
     assertEquals(Collections.emptyMap(), map);
@@ -270,6 +278,7 @@ public class MapsTest extends TestCase {
     assertNull(map.comparator());
   }
 
+  //
   public void testTreeMapNonGeneric() {
     TreeMap<LegacyComparable, Integer> map = Maps.newTreeMap();
     assertEquals(Collections.emptyMap(), map);
