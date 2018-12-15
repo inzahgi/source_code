@@ -278,7 +278,7 @@ public class MapsTest extends TestCase {
     assertNull(map.comparator());
   }
 
-  //
+  //order by key
   public void testTreeMapNonGeneric() {
     TreeMap<LegacyComparable, Integer> map = Maps.newTreeMap();
     assertEquals(Collections.emptyMap(), map);
@@ -291,12 +291,14 @@ public class MapsTest extends TestCase {
     assertNull(map.comparator());
   }
 
+  // treeMap with comparator
   public void testTreeMapWithComparator() {
     TreeMap<Integer, Integer> map = Maps.newTreeMap(SOME_COMPARATOR);
     assertEquals(Collections.emptyMap(), map);
     assertSame(SOME_COMPARATOR, map.comparator());
   }
 
+  //copy to   same comparator
   public void testTreeMapWithInitialMap() {
     SortedMap<Integer, Integer> map = Maps.newTreeMap();
     map.put(5, 10);
@@ -311,6 +313,7 @@ public class MapsTest extends TestCase {
     SOME_INSTANCE
   }
 
+  // enumMap
   public void testEnumMap() {
     EnumMap<SomeEnum, Integer> map = Maps.newEnumMap(SomeEnum.class);
     assertEquals(Collections.emptyMap(), map);
@@ -326,6 +329,7 @@ public class MapsTest extends TestCase {
     }
   }
 
+  // copy to
   public void testEnumMapWithInitialEnumMap() {
     EnumMap<SomeEnum, Integer> original = Maps.newEnumMap(SomeEnum.class);
     original.put(SomeEnum.SOME_INSTANCE, 0);
@@ -333,6 +337,7 @@ public class MapsTest extends TestCase {
     assertEquals(original, copy);
   }
 
+  //
   public void testEnumMapWithInitialEmptyEnumMap() {
     EnumMap<SomeEnum, Integer> original = Maps.newEnumMap(SomeEnum.class);
     EnumMap<SomeEnum, Integer> copy = Maps.newEnumMap(original);
@@ -380,6 +385,7 @@ public class MapsTest extends TestCase {
   private static final Map<Integer, Integer> EMPTY = Collections.emptyMap();
   private static final Map<Integer, Integer> SINGLETON = Collections.singletonMap(1, 2);
 
+  // map find different
   public void testMapDifferenceEmptyEmpty() {
     MapDifference<Integer, Integer> diff = Maps.difference(EMPTY, EMPTY);
     assertTrue(diff.areEqual());
@@ -443,6 +449,7 @@ public class MapsTest extends TestCase {
         diff2.toString());
   }
 
+  //差集 相等
   public void testMapDifferenceEquals() {
     Map<Integer, String> left = ImmutableMap.of(1, "a", 2, "b", 3, "c", 4, "d", 5, "e");
     Map<Integer, String> right = ImmutableMap.of(1, "a", 3, "f", 5, "g", 6, "z");
