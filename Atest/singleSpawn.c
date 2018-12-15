@@ -41,12 +41,16 @@ int is_dir_exist(const char*dir_path){
 }
 
 int morph(char *number){
-    if(execv("/home/inzahgi/xx/isPrime", number)<0){
+    //if(execv("/home/inzahgi/code/xx/isPrime", number)<0){
+    printf("line 36 number = %s$", number);
+    char *p[] = {"/home/inzahgi/code/xx/testPrime", number, NULL};
+    if(execv("/home/inzahgi/code/xx/testPrime", p)<0){
         perror("Error on execv");
                 return -1;
     }
     return -1;
 }
+
 
 
 
@@ -70,7 +74,7 @@ int main(int argc, char *argv[])
     }else if(judgeFileResultCode==-1){
          printf("文件不存在\n");
     }
-   
+
 
 
     fd1 = fopen(argv[1],"rb");
@@ -101,8 +105,8 @@ int main(int argc, char *argv[])
 
     if (fd1 != NULL) fclose(fd1);
 
-        char s[10]; 
-        sprintf(s,"%d",pos[i]);
+        char s[10];
+        sprintf(s,"%d",pos[0]+1);
 		free(pos);     //释放内存
 
 
@@ -126,4 +130,5 @@ int main(int argc, char *argv[])
 
 	exit(0);
 }
+
 

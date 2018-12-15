@@ -81,7 +81,11 @@ public class MapsTest extends TestCase {
     assertEquals(Collections.emptyMap(), map);
   }
 
+<<<<<<< HEAD
   // copy treeMap to hashMap
+=======
+  //tree copy to hashMap
+>>>>>>> 103d6c56033778d65dcd373e9af4f4a2f77ebef8
   public void testHashMapWithInitialMap() {
     Map<String, Integer> original = new TreeMap<>();
     original.put("a", 1);
@@ -91,7 +95,11 @@ public class MapsTest extends TestCase {
     assertEquals(original, map);
   }
 
+<<<<<<< HEAD
   // key and value  transfer to super object
+=======
+  // key  extend
+>>>>>>> 103d6c56033778d65dcd373e9af4f4a2f77ebef8
   public void testHashMapGeneralizesTypes() {
     Map<String, Integer> original = new TreeMap<>();
     original.put("a", 1);

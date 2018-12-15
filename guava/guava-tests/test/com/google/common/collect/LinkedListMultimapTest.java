@@ -91,6 +91,7 @@ public class LinkedListMultimapTest extends TestCase {
   }
 
   /** Confirm that get() returns a List that doesn't implement RandomAccess. */
+  //get list  can not RandomAccess
   public void testGetRandomAccess() {
     Multimap<String, Integer> multimap = create();
     multimap.put("foo", 1);
@@ -103,6 +104,7 @@ public class LinkedListMultimapTest extends TestCase {
    * Confirm that removeAll() returns a List that implements RandomAccess, even though get()
    * doesn't.
    */
+  // removeAll  key return list RandomAccess
   public void testRemoveAllRandomAccess() {
     Multimap<String, Integer> multimap = create();
     multimap.put("foo", 1);
@@ -115,6 +117,7 @@ public class LinkedListMultimapTest extends TestCase {
    * Confirm that replaceValues() returns a List that implements RandomAccess, even though get()
    * doesn't.
    */
+  //replaceValues value return list RandomAccess
   public void testReplaceValuesRandomAccess() {
     Multimap<String, Integer> multimap = create();
     multimap.put("foo", 1);
@@ -123,6 +126,7 @@ public class LinkedListMultimapTest extends TestCase {
     assertTrue(multimap.replaceValues("bar", Arrays.asList(2, 4)) instanceof RandomAccess);
   }
 
+  // create  拷贝复制
   public void testCreateFromMultimap() {
     Multimap<String, Integer> multimap = LinkedListMultimap.create();
     multimap.put("foo", 1);
@@ -133,6 +137,7 @@ public class LinkedListMultimapTest extends TestCase {
     assertThat(copy.entries()).containsExactlyElementsIn(multimap.entries()).inOrder();
   }
 
+  //create with size
   public void testCreateFromSize() {
     LinkedListMultimap<String, Integer> multimap = LinkedListMultimap.create(20);
     multimap.put("foo", 1);
@@ -149,6 +154,7 @@ public class LinkedListMultimapTest extends TestCase {
     }
   }
 
+  //get special collection and  after put
   public void testLinkedGetAdd() {
     LinkedListMultimap<String, Integer> map = create();
     map.put("bar", 1);
@@ -161,6 +167,7 @@ public class LinkedListMultimapTest extends TestCase {
     assertEquals("[bar=1, foo=2, foo=3, bar=4, foo=5]", map.entries().toString());
   }
 
+  // get list  and after insert
   public void testLinkedGetInsert() {
     ListMultimap<String, Integer> map = create();
     map.put("bar", 1);
@@ -173,6 +180,7 @@ public class LinkedListMultimapTest extends TestCase {
     assertEquals("[bar=1, foo=3, foo=2, bar=4, foo=5]", map.entries().toString());
   }
 
+  //
   public void testLinkedPutInOrder() {
     Multimap<String, Integer> map = create();
     map.put("foo", 1);
@@ -202,6 +210,7 @@ public class LinkedListMultimapTest extends TestCase {
     assertEquals("[bar=1, foo=2, bar=3]", src.entries().toString());
   }
 
+  // replaceValues
   public void testLinkedReplaceValues() {
     Multimap<String, Integer> map = create();
     map.put("bar", 1);
@@ -214,6 +223,7 @@ public class LinkedListMultimapTest extends TestCase {
     assertEquals("{bar=[1, 2], foo=[2]}", map.toString());
   }
 
+  // clear
   public void testLinkedClear() {
     ListMultimap<String, Integer> map = create();
     map.put("foo", 1);
@@ -230,6 +240,7 @@ public class LinkedListMultimapTest extends TestCase {
     assertEquals("{}", map.toString());
   }
 
+  // remove key
   public void testLinkedKeySet() {
     Multimap<String, Integer> map = create();
     map.put("bar", 1);
@@ -241,6 +252,7 @@ public class LinkedListMultimapTest extends TestCase {
     assertEquals("{foo=[2]}", map.toString());
   }
 
+  // 插入的entry 的顺序 不变
   public void testLinkedKeys() {
     Multimap<String, Integer> map = create();
     map.put("bar", 1);
@@ -253,6 +265,7 @@ public class LinkedListMultimapTest extends TestCase {
     assertEquals("{foo=[2], bar=[3, 4]}", map.toString());
   }
 
+  // remove value
   public void testLinkedValues() {
     Multimap<String, Integer> map = create();
     map.put("bar", 1);
@@ -264,6 +277,7 @@ public class LinkedListMultimapTest extends TestCase {
     assertEquals("{bar=[1, 3, 4]}", map.toString());
   }
 
+  // 操作entry迭代器 会改变结果
   public void testLinkedEntries() {
     Multimap<String, Integer> map = create();
     map.put("bar", 1);
@@ -285,6 +299,7 @@ public class LinkedListMultimapTest extends TestCase {
     assertEquals("{bar=[1], foo=[4]}", map.toString());
   }
 
+  // 操作map视图 改变结果
   public void testLinkedAsMapEntries() {
     Multimap<String, Integer> map = create();
     map.put("bar", 1);
@@ -307,6 +322,7 @@ public class LinkedListMultimapTest extends TestCase {
     assertEquals("{foo=[2]}", map.toString());
   }
 
+  // update
   public void testEntriesAfterMultimapUpdate() {
     ListMultimap<String, Integer> multimap = create();
     multimap.put("foo", 2);

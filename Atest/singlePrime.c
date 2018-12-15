@@ -32,7 +32,10 @@ int is_file_exist(const char*file_path){
 }
 
 int morph(char *number){
-    if(execv("/home/inzahgi/xx/isPrime", number)<0){
+    //if(execv("/home/inzahgi/code/xx/isPrime", number)<0){
+    printf("line 36 number = %s$", number);
+    char *p[] = {"/home/inzahgi/code/xx/testPrime", number, NULL};
+    if(execv("/home/inzahgi/code/xx/testPrime", p)<0){
         perror("Error on execv");
                 return -1;
     }
@@ -43,11 +46,10 @@ int morph(char *number){
 
 
 int main(int argc, char *argv[])
-
 {
 
     FILE *fd1;
-    unsigned int first_num = null;
+    unsigned int first_num;
 
 
 	if (argc < 2) {
@@ -63,7 +65,7 @@ int main(int argc, char *argv[])
     }else if(judgeFileResultCode==-1){
          printf("文件不存在\n");
     }
-   
+
 
 
     fd1 = fopen(argv[1],"rb");
@@ -91,32 +93,13 @@ int main(int argc, char *argv[])
 		fread(pos,sizeof(unsigned int),num,fd1);
 		for(int i = 0; i < num; i++)
 			printf("%u\n", pos[i]);
-		
 
-        char s[10]; 
-        sprintf(s,"%d",pos[i]);
+
+        char s[10];
+        sprintf(s,"%d",pos[0]);
         free(pos);     //释放内存
 
-        return morph(s)
+        return morph(s);
 
-/*
-    pid_t pid,pw;
-    int status;
-    pid = fork();
-    if(pid < 0){
-        puts("fork error");
-        exit(1);
-    }else if(pid == 0){
-        printf("this os chiled process, pid is %d\n", getpid());
-        sleep(5);
-        return 8;
-    }else{
-        pw = wait(&status);
-        printf("I catch a child process and this pid is %d return code is %d\n", pw, WEXITSTATUS(status));
-    }
-
-    if (fd1 != NULL) fclose(fd1);
-	exit(0);
-    */
 }
 
