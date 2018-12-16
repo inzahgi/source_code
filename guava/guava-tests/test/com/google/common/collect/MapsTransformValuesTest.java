@@ -102,6 +102,7 @@ public class MapsTransformValuesTest extends MapInterfaceTest<String, String> {
     assertMapsEqual(Maps.newHashMap(), map);
   }
 
+  // transform value
   public void testTransformSingletonMapEquality() {
     Map<String, String> map =
         Maps.transformValues(ImmutableMap.of("a", 1), Functions.toStringFunction());
@@ -110,12 +111,14 @@ public class MapsTransformValuesTest extends MapInterfaceTest<String, String> {
     assertEquals(expected.get("a"), map.get("a"));
   }
 
+  //transf  same
   public void testTransformIdentityFunctionEquality() {
     Map<String, Integer> underlying = ImmutableMap.of("a", 1);
     Map<String, Integer> map = Maps.transformValues(underlying, Functions.<Integer>identity());
     assertMapsEqual(underlying, map);
   }
 
+  //transfer  can not change immutable property
   public void testTransformPutEntryIsUnsupported() {
     Map<String, String> map =
         Maps.transformValues(ImmutableMap.of("a", 1), Functions.toStringFunction());
@@ -170,6 +173,7 @@ public class MapsTransformValuesTest extends MapInterfaceTest<String, String> {
     assertEquals(expected.containsKey("c"), map.containsKey("c"));
   }
 
+  // update underlying map
   public void testTransformReflectsUnderlyingMap() {
     Map<String, Integer> underlying = Maps.newHashMap();
     underlying.put("a", 1);

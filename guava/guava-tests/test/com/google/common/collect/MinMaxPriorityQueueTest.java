@@ -85,6 +85,7 @@ public class MinMaxPriorityQueueTest extends TestCase {
     checkNatural(queue);
   }
 
+  //create with comparator
   public void testCreation_comparator() {
     MinMaxPriorityQueue<Integer> queue = MinMaxPriorityQueue.orderedBy(SOME_COMPARATOR).create();
     assertEquals(11, queue.capacity());
@@ -92,6 +93,7 @@ public class MinMaxPriorityQueueTest extends TestCase {
     assertSame(SOME_COMPARATOR, queue.comparator());
   }
 
+  //create with size
   public void testCreation_expectedSize() {
     MinMaxPriorityQueue<Integer> queue = MinMaxPriorityQueue.expectedSize(8).create();
     assertEquals(8, queue.capacity());
@@ -107,6 +109,7 @@ public class MinMaxPriorityQueueTest extends TestCase {
     assertSame(SOME_COMPARATOR, queue.comparator());
   }
 
+  // create with max size
   public void testCreation_maximumSize() {
     MinMaxPriorityQueue<Integer> queue = MinMaxPriorityQueue.maximumSize(42).create();
     assertEquals(11, queue.capacity());
@@ -132,6 +135,7 @@ public class MinMaxPriorityQueueTest extends TestCase {
 
   private static final ImmutableList<Integer> NUMBERS = ImmutableList.of(4, 8, 15, 16, 23, 42);
 
+  //create with contents
   public void testCreation_withContents() {
     MinMaxPriorityQueue<Integer> queue = MinMaxPriorityQueue.create(NUMBERS);
     assertEquals(6, queue.size());
