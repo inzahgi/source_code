@@ -239,6 +239,7 @@ public class MinMaxPriorityQueueTest extends TestCase {
     assertIntact(mmHeap);
   }
 
+  //不超过 最小范围时  优先队列操作
   public void testSmall() {
     MinMaxPriorityQueue<Integer> mmHeap = MinMaxPriorityQueue.create();
     mmHeap.add(1);
@@ -259,6 +260,7 @@ public class MinMaxPriorityQueueTest extends TestCase {
     assertNull(mmHeap.pollLast());
   }
 
+  //出栈为空的时候
   public void testSmallMinHeap() {
     MinMaxPriorityQueue<Integer> mmHeap = MinMaxPriorityQueue.create();
     mmHeap.add(1);
@@ -277,9 +279,11 @@ public class MinMaxPriorityQueueTest extends TestCase {
     assertNull(mmHeap.poll());
   }
 
+  // remove
   public void testRemove() {
     MinMaxPriorityQueue<Integer> mmHeap = MinMaxPriorityQueue.create();
     mmHeap.addAll(Lists.newArrayList(1, 2, 3, 4, 47, 1, 5, 3, 0));
+    //是否安全初始化  默认 最小堆  szie  11
     assertTrue("Heap is not intact initally", mmHeap.isIntact());
     assertEquals(9, mmHeap.size());
     mmHeap.remove(5);
@@ -292,6 +296,7 @@ public class MinMaxPriorityQueueTest extends TestCase {
     assertTrue("Heap is not intact after removeAll()", mmHeap.isIntact());
   }
 
+  //
   public void testContains() {
     MinMaxPriorityQueue<Integer> mmHeap = MinMaxPriorityQueue.create();
     mmHeap.addAll(Lists.newArrayList(1, 1, 2));
@@ -312,6 +317,7 @@ public class MinMaxPriorityQueueTest extends TestCase {
     assertFalse("Heap does not contain anything", mmHeap.remove(2));
   }
 
+  // 迭代器 遍历
   public void testIteratorPastEndException() {
     MinMaxPriorityQueue<Integer> mmHeap = MinMaxPriorityQueue.create();
     mmHeap.addAll(Lists.newArrayList(1, 2));
@@ -326,6 +332,7 @@ public class MinMaxPriorityQueueTest extends TestCase {
     }
   }
 
+  // 中途修改原始数据 迭代器 报错
   public void testIteratorConcurrentModification() {
     MinMaxPriorityQueue<Integer> mmHeap = MinMaxPriorityQueue.create();
     mmHeap.addAll(Lists.newArrayList(1, 2, 3, 4));
@@ -341,6 +348,7 @@ public class MinMaxPriorityQueueTest extends TestCase {
     }
   }
 
+  //迭代器  遍历 赋值 删除
   /** Tests a failure caused by fix to childless uncle issue. */
   public void testIteratorRegressionChildlessUncle() {
     final ArrayList<Integer> initial = Lists.newArrayList(1, 15, 13, 8, 9, 10, 11, 14);
