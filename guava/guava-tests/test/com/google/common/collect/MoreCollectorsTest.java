@@ -31,14 +31,17 @@ import junit.framework.TestCase;
  */
 @GwtCompatible
 public class MoreCollectorsTest extends TestCase {
+  // empty  toOptional
   public void testToOptionalEmpty() {
     assertThat(Stream.empty().collect(MoreCollectors.toOptional())).isEmpty();
   }
 
+  //single  toOptional
   public void testToOptionalSingleton() {
     assertThat(Stream.of(1).collect(MoreCollectors.toOptional())).hasValue(1);
   }
 
+  // not null
   public void testToOptionalNull() {
     Stream<Object> stream = Stream.of((Object) null);
     try {
@@ -48,6 +51,7 @@ public class MoreCollectorsTest extends TestCase {
     }
   }
 
+  // toOptional not one
   public void testToOptionalMultiple() {
     try {
       Stream.of(1, 2).collect(MoreCollectors.toOptional());
@@ -57,6 +61,7 @@ public class MoreCollectorsTest extends TestCase {
     }
   }
 
+  // toOptional  can not toMany
   public void testToOptionalMany() {
     try {
       Stream.of(1, 2, 3, 4, 5, 6).collect(MoreCollectors.toOptional());
