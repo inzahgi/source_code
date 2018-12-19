@@ -83,6 +83,7 @@ public class MultimapsTest extends TestCase {
                     String::length, s -> s, MultimapBuilder.treeKeys().arrayListValues()::build));
   }
 
+  // collector to multimap
   public void testToMultimap() {
     Collector<Entry<String, Integer>, ?, TreeMultimap<String, Integer>> collector =
         Multimaps.toMultimap(Entry::getKey, Entry::getValue, TreeMultimap::create);
@@ -102,6 +103,7 @@ public class MultimapsTest extends TestCase {
             filled, mapEntry("a", 1), mapEntry("a", 2), mapEntry("b", 2), mapEntry("c", 3));
   }
 
+  //
   public void testFlatteningToMultimap() {
     Collector<String, ?, ListMultimap<Character, Character>> collector =
         Multimaps.flatteningToMultimap(

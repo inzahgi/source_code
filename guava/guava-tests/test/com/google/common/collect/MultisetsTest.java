@@ -274,6 +274,7 @@ public class MultisetsTest extends TestCase {
     assertThat(Multisets.copyHighestCountFirst(ImmutableMultiset.of())).isEmpty();
   }
 
+  // collector for count
   public void testToMultisetCountFunction() {
     BiPredicate<Multiset<String>, Multiset<String>> equivalence =
         (ms1, ms2) ->
