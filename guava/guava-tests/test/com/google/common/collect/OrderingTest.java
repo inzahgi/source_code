@@ -54,6 +54,7 @@ public class OrderingTest extends TestCase {
 
   private final Ordering<Number> numberOrdering = new NumberOrdering();
 
+  // all equal comparator
   public void testAllEqual() {
     Ordering<Object> comparator = Ordering.allEqual();
     assertSame(comparator, comparator.reverse());
@@ -101,6 +102,7 @@ public class OrderingTest extends TestCase {
         .inOrder();
   }
 
+  // can not null
   public void testNatural() {
     Ordering<Integer> comparator = Ordering.natural();
     Helpers.testComparator(comparator, Integer.MIN_VALUE, -1, 0, 1, Integer.MAX_VALUE);
@@ -123,6 +125,7 @@ public class OrderingTest extends TestCase {
     assertEquals("Ordering.natural()", comparator.toString());
   }
 
+  // copy from
   public void testFrom() {
     Ordering<String> caseInsensitiveOrdering = Ordering.from(String.CASE_INSENSITIVE_ORDER);
     assertEquals(0, caseInsensitiveOrdering.compare("A", "a"));

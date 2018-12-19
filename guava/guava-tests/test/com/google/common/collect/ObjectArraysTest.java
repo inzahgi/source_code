@@ -55,6 +55,7 @@ public class ObjectArraysTest extends TestCase {
     assertNull(array[0]);
   }
 
+  //二维数组
   @GwtIncompatible // ObjectArrays.newArray(Class, int)
   public void testNewArray_fromClass_OfArray() {
     String[][] array = ObjectArrays.newArray(String[].class, 1);
@@ -63,6 +64,7 @@ public class ObjectArraysTest extends TestCase {
     assertNull(array[0]);
   }
 
+  // copy array
   public void testNewArray_fromArray_Empty() {
     String[] in = new String[0];
     String[] empty = ObjectArrays.newArray(in, 0);
@@ -76,6 +78,7 @@ public class ObjectArraysTest extends TestCase {
     assertNull(array[0]);
   }
 
+  // copy tow-dim array
   public void testNewArray_fromArray_OfArray() {
     String[][] array = ObjectArrays.newArray(new String[0][0], 1);
     assertEquals(String[][].class, array.getClass());
@@ -83,6 +86,7 @@ public class ObjectArraysTest extends TestCase {
     assertNull(array[0]);
   }
 
+  // array  concat
   @GwtIncompatible // ObjectArrays.concat(Object[], Object[], Class)
   public void testConcatEmptyEmpty() {
     String[] result = ObjectArrays.concat(new String[0], new String[0], String.class);
@@ -90,6 +94,7 @@ public class ObjectArraysTest extends TestCase {
     assertThat(result).isEmpty();
   }
 
+  //
   @GwtIncompatible // ObjectArrays.concat(Object[], Object[], Class)
   public void testConcatEmptyNonempty() {
     String[] result = ObjectArrays.concat(new String[0], new String[] {"a", "b"}, String.class);
@@ -112,12 +117,14 @@ public class ObjectArraysTest extends TestCase {
     assertThat(result).asList().containsExactly("a", "b", "c", "d").inOrder();
   }
 
+  // concat  to  super class
   @GwtIncompatible // ObjectArrays.concat(Object[], Object[], Class)
   public void testConcatWithMoreGeneralType() {
     Serializable[] result = ObjectArrays.concat(new String[0], new String[0], Serializable.class);
     assertEquals(Serializable[].class, result.getClass());
   }
 
+  // same  toArray
   public void testToArrayImpl1() {
     doTestToArrayImpl1(Lists.<Integer>newArrayList());
     doTestToArrayImpl1(Lists.newArrayList(1));
