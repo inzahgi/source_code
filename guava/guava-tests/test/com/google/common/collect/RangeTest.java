@@ -66,6 +66,7 @@ public class RangeTest extends TestCase {
     }
   }
 
+  // 闭区间
   public void testClosed() {
     Range<Integer> range = Range.closed(5, 7);
     checkContains(range);

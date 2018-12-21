@@ -58,6 +58,7 @@ public class PeekingIteratorTest extends TestCase {
       this.master = master;
     }
 
+    // peek  iterator
     @Override
     protected Iterator<T> newTargetIterator() {
       // make copy from master to verify later

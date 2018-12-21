@@ -151,6 +151,7 @@ public class OrderingTest extends TestCase {
     reserializeAndAssert(c);
   }
 
+  // 排序比较器   没有序号的数字会产生异常
   public void testExplicit_one() {
     Comparator<Integer> c = Ordering.explicit(0);
     assertEquals(0, c.compare(0, 0));
@@ -183,6 +184,7 @@ public class OrderingTest extends TestCase {
     reserializeAndAssert(c);
   }
 
+  //按输入序号排序
   public void testExplicit_sortingExample() {
     Comparator<Integer> c = Ordering.explicit(2, 8, 6, 1, 7, 5, 3, 4, 0, 9);
     List<Integer> list = Arrays.asList(0, 3, 5, 6, 7, 8, 9);
@@ -191,6 +193,7 @@ public class OrderingTest extends TestCase {
     reserializeAndAssert(c);
   }
 
+  //  can  not duplicate
   public void testExplicit_withDuplicates() {
     try {
       Ordering.explicit(1, 2, 3, 4, 2);
@@ -447,6 +450,7 @@ public class OrderingTest extends TestCase {
     assertEquals(4, numberOrdering.binarySearch(ints, 7));
   }
 
+  //copy to array  and sorted
   public void testSortedCopy() {
     List<Integer> unsortedInts = Collections.unmodifiableList(Arrays.asList(5, 0, 3, null, 0, 9));
     List<Integer> sortedInts = numberOrdering.nullsLast().sortedCopy(unsortedInts);
@@ -456,6 +460,7 @@ public class OrderingTest extends TestCase {
         Collections.emptyList(), numberOrdering.sortedCopy(Collections.<Integer>emptyList()));
   }
 
+  // sortedCopy  to immutable
   public void testImmutableSortedCopy() {
     ImmutableList<Integer> unsortedInts = ImmutableList.of(5, 3, 0, 9, 3);
     ImmutableList<Integer> sortedInts = numberOrdering.immutableSortedCopy(unsortedInts);
@@ -473,6 +478,7 @@ public class OrderingTest extends TestCase {
     }
   }
 
+  //判断是否有序
   public void testIsOrdered() {
     assertFalse(numberOrdering.isOrdered(asList(5, 3, 0, 9)));
     assertFalse(numberOrdering.isOrdered(asList(0, 5, 3, 9)));
@@ -483,6 +489,7 @@ public class OrderingTest extends TestCase {
     assertTrue(numberOrdering.isOrdered(Collections.<Integer>emptyList()));
   }
 
+  //
   public void testIsStrictlyOrdered() {
     assertFalse(numberOrdering.isStrictlyOrdered(asList(5, 3, 0, 9)));
     assertFalse(numberOrdering.isStrictlyOrdered(asList(0, 5, 3, 9)));
