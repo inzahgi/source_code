@@ -127,6 +127,7 @@ public class ArrayDeque<E> extends AbstractCollection<E>
         int initialCapacity = MIN_INITIAL_CAPACITY;
         // Find the best power of two to hold elements.
         // Tests "<=" because arrays aren't kept full.
+        // 取容量接近2的幂次数
         if (numElements >= initialCapacity) {
             initialCapacity = numElements;
             initialCapacity |= (initialCapacity >>>  1);
@@ -155,7 +156,9 @@ public class ArrayDeque<E> extends AbstractCollection<E>
         if (newCapacity < 0)
             throw new IllegalStateException("Sorry, deque too big");
         Object[] a = new Object[newCapacity];
+        //将原始数组从head处到结尾的元素 拷贝至新数组上
         System.arraycopy(elements, p, a, 0, r);
+        //将原始数组从0处p个元素 的拷贝到新数组尾部
         System.arraycopy(elements, 0, a, r, p);
         elements = a;
         head = 0;
@@ -170,9 +173,11 @@ public class ArrayDeque<E> extends AbstractCollection<E>
      * @return its argument
      */
     private <T> T[] copyElements(T[] a) {
+        //当头部索引值小于尾部索引值时，直接按顺序拷贝
         if (head < tail) {
             System.arraycopy(elements, head, a, 0, size());
         } else if (head > tail) {
+            //当头部索引比尾部索引大时 分段拷贝 先拷贝头部索引到结尾  在拷贝0到尾部索引
             int headPortionLen = elements.length - head;
             System.arraycopy(elements, head, a, 0, headPortionLen);
             System.arraycopy(elements, 0, a, headPortionLen, tail);
