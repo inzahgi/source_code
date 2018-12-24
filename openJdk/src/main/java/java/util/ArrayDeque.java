@@ -231,7 +231,10 @@ public class ArrayDeque<E> extends AbstractCollection<E>
     public void addFirst(E e) {
         if (e == null)
             throw new NullPointerException();
+        // head的位置前移动一个 如果初始时 则会 到最后
+        // 如果head初始为0时  会直接定位到数组尾部 在反序增加
         elements[head = (head - 1) & (elements.length - 1)] = e;
+        //如果 head索引与tail索引相遇 则双倍扩容
         if (head == tail)
             doubleCapacity();
     }
@@ -248,6 +251,7 @@ public class ArrayDeque<E> extends AbstractCollection<E>
         if (e == null)
             throw new NullPointerException();
         elements[tail] = e;
+        //如果tail 的下一个位置和head重合 则扩容
         if ( (tail = (tail + 1) & (elements.length - 1)) == head)
             doubleCapacity();
     }
@@ -296,6 +300,7 @@ public class ArrayDeque<E> extends AbstractCollection<E>
         return x;
     }
 
+    //移除首位
     public E pollFirst() {
         int h = head;
         @SuppressWarnings("unchecked")
@@ -303,11 +308,13 @@ public class ArrayDeque<E> extends AbstractCollection<E>
         // Element is null if deque empty
         if (result == null)
             return null;
+        //当前head置空并后移一位
         elements[h] = null;     // Must null out slot
         head = (h + 1) & (elements.length - 1);
         return result;
     }
 
+    //移除最后一位
     public E pollLast() {
         int t = (tail - 1) & (elements.length - 1);
         @SuppressWarnings("unchecked")
