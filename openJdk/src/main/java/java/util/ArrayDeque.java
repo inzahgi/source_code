@@ -553,7 +553,13 @@ public class ArrayDeque<E> extends AbstractCollection<E>
         final int mask = elements.length - 1;
         final int h = head;
         final int t = tail;
+        //如果 head在i前面 为i向前移动h个数
+        //如果 head在i后面 为i向后移动h个数
+        //表示head与i相差的部分
         final int front = (i - h) & mask;
+        //如果 tail在i前面 为t向后移动i个数
+        //如果 tail在i后面 为t向前移动i个数
+        //表示tail与i相差得部分
         final int back  = (t - i) & mask;
 
         // Invariant: head <= i < tail mod circularity
@@ -561,10 +567,13 @@ public class ArrayDeque<E> extends AbstractCollection<E>
             throw new ConcurrentModificationException();
 
         // Optimize for least element motion
+        //离head比较近
         if (front < back) {
+            //当head在前面 head 向后挪动一格覆盖i
             if (h <= i) {
                 System.arraycopy(elements, h, elements, h + 1, front);
             } else { // Wrap around
+                //当tail在前  整体循环 挪动一格
                 System.arraycopy(elements, 0, elements, 1, i);
                 elements[0] = elements[mask];
                 System.arraycopy(elements, h, elements, h + 1, mask - h);
@@ -573,10 +582,13 @@ public class ArrayDeque<E> extends AbstractCollection<E>
             head = (h + 1) & mask;
             return false;
         } else {
+            //当tail 在head 前面
+            //i在 tail前面  直接将tail部分 前移动一个
             if (i < t) { // Copy the null tail as well
                 System.arraycopy(elements, i + 1, elements, i, back);
                 tail = t - 1;
             } else { // Wrap around
+                // i 在 head 部分 整体移一个
                 System.arraycopy(elements, i + 1, elements, i, mask - i);
                 elements[mask] = elements[0];
                 System.arraycopy(elements, 1, elements, 0, t);
