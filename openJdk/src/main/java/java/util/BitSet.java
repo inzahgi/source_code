@@ -69,7 +69,9 @@ public class BitSet implements Cloneable, java.io.Serializable {
      * The choice of word size is determined purely by performance concerns.
      */
     private final static int ADDRESS_BITS_PER_WORD = 6;
+    // set 64
     private final static int BITS_PER_WORD = 1 << ADDRESS_BITS_PER_WORD;
+    //  bit flag mask   0x3F
     private final static int BIT_INDEX_MASK = BITS_PER_WORD - 1;
 
     /* Used to shift left or right for a partial word mask */
@@ -108,6 +110,7 @@ public class BitSet implements Cloneable, java.io.Serializable {
     /**
      * Given a bit index, return word index containing it.
      */
+    // 除以64  得到在哪个字节
     private static int wordIndex(int bitIndex) {
         return bitIndex >> ADDRESS_BITS_PER_WORD;
     }
@@ -126,6 +129,7 @@ public class BitSet implements Cloneable, java.io.Serializable {
      * WARNING:This method assumes that the number of words actually in use is
      * less than or equal to the current value of wordsInUse!
      */
+    //统计使用了多少个字节
     private void recalculateWordsInUse() {
         // Traverse the bitset until a used word is found
         int i;
@@ -375,6 +379,7 @@ public class BitSet implements Cloneable, java.io.Serializable {
      * @throws IndexOutOfBoundsException if the specified index is negative
      * @since  1.4
      */
+    //反转指定位置的映射值
     public void flip(int bitIndex) {
         if (bitIndex < 0)
             throw new IndexOutOfBoundsException("bitIndex < 0: " + bitIndex);
@@ -382,6 +387,7 @@ public class BitSet implements Cloneable, java.io.Serializable {
         int wordIndex = wordIndex(bitIndex);
         expandTo(wordIndex);
 
+        //将1左移 到该为相应位 long型 循环位移 然后求异或 即同一求反
         words[wordIndex] ^= (1L << bitIndex);
 
         recalculateWordsInUse();

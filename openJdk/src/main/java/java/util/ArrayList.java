@@ -616,9 +616,11 @@ public class ArrayList<E> extends AbstractList<E>
      *          toIndex > size() ||
      *          toIndex < fromIndex})
      */
+    //半闭 半开
     protected void removeRange(int fromIndex, int toIndex) {
         modCount++;
         int numMoved = size - toIndex;
+        //将toIndex上的元素复制到fromIndex
         System.arraycopy(elementData, toIndex, elementData, fromIndex,
                          numMoved);
 
@@ -706,11 +708,13 @@ public class ArrayList<E> extends AbstractList<E>
         try {
             for (; r < size; r++)
                 if (c.contains(elementData[r]) == complement)
+                    //覆盖包含的元素
                     elementData[w++] = elementData[r];
         } finally {
             // Preserve behavioral compatibility with AbstractCollection,
             // even if c.contains() throws.
             if (r != size) {
+                //覆盖原始不要动数据
                 System.arraycopy(elementData, r,
                                  elementData, w,
                                  size - r);
@@ -1233,6 +1237,7 @@ public class ArrayList<E> extends AbstractList<E>
         @SuppressWarnings("unchecked")
         final E[] elementData = (E[]) this.elementData;
         final int size = this.size;
+        //forEach 期间不能修改数组
         for (int i=0; modCount == expectedModCount && i < size; i++) {
             action.accept(elementData[i]);
         }
