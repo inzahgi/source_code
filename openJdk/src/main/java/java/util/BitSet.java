@@ -417,13 +417,16 @@ public class BitSet implements Cloneable, java.io.Serializable {
         expandTo(endWordIndex);
 
         long firstWordMask = WORD_MASK << fromIndex;
+        // 负数补码(高位不变 取反 加一) 再无符号位移
         long lastWordMask  = WORD_MASK >>> -toIndex;
+        //同一个数组
         if (startWordIndex == endWordIndex) {
             // Case 1: One word
             words[startWordIndex] ^= (firstWordMask & lastWordMask);
         } else {
             // Case 2: Multiple words
             // Handle first word
+            //不同数组
             words[startWordIndex] ^= firstWordMask;
 
             // Handle intermediate words, if any
@@ -451,7 +454,7 @@ public class BitSet implements Cloneable, java.io.Serializable {
 
         int wordIndex = wordIndex(bitIndex);
         expandTo(wordIndex);
-
+        //相关位置 1
         words[wordIndex] |= (1L << bitIndex); // Restores invariants
 
         checkInvariants();
@@ -548,7 +551,7 @@ public class BitSet implements Cloneable, java.io.Serializable {
         int wordIndex = wordIndex(bitIndex);
         if (wordIndex >= wordsInUse)
             return;
-
+        //将标志位清0
         words[wordIndex] &= ~(1L << bitIndex);
 
         recalculateWordsInUse();
@@ -710,6 +713,7 @@ public class BitSet implements Cloneable, java.io.Serializable {
      * @throws IndexOutOfBoundsException if the specified index is negative
      * @since  1.4
      */
+    //重起点开始获取下一位标志索引
     public int nextSetBit(int fromIndex) {
         if (fromIndex < 0)
             throw new IndexOutOfBoundsException("fromIndex < 0: " + fromIndex);
@@ -719,14 +723,16 @@ public class BitSet implements Cloneable, java.io.Serializable {
         int u = wordIndex(fromIndex);
         if (u >= wordsInUse)
             return -1;
-
+        //获取当前数组中的标志位
         long word = words[u] & (WORD_MASK << fromIndex);
 
         while (true) {
+            //如果当前long字节不为0 表示还有1
             if (word != 0)
                 return (u * BITS_PER_WORD) + Long.numberOfTrailingZeros(word);
             if (++u == wordsInUse)
                 return -1;
+            //换下一个字节
             word = words[u];
         }
     }
@@ -751,7 +757,7 @@ public class BitSet implements Cloneable, java.io.Serializable {
         int u = wordIndex(fromIndex);
         if (u >= wordsInUse)
             return fromIndex;
-
+        //将该位清0
         long word = ~words[u] & (WORD_MASK << fromIndex);
 
         while (true) {
@@ -883,6 +889,7 @@ public class BitSet implements Cloneable, java.io.Serializable {
      *         the specified {@code BitSet}
      * @since  1.4
      */
+    //是否有交集
     public boolean intersects(BitSet set) {
         for (int i = Math.min(wordsInUse, set.wordsInUse) - 1; i >= 0; i--)
             if ((words[i] & set.words[i]) != 0)
@@ -896,6 +903,7 @@ public class BitSet implements Cloneable, java.io.Serializable {
      * @return the number of bits set to {@code true} in this {@code BitSet}
      * @since  1.4
      */
+    //基数统计
     public int cardinality() {
         int sum = 0;
         for (int i = 0; i < wordsInUse; i++)
@@ -915,7 +923,7 @@ public class BitSet implements Cloneable, java.io.Serializable {
     public void and(BitSet set) {
         if (this == set)
             return;
-
+        //当原本数组大于 输入 全部清0
         while (wordsInUse > set.wordsInUse)
             words[--wordsInUse] = 0;
 
@@ -1007,6 +1015,7 @@ public class BitSet implements Cloneable, java.io.Serializable {
      */
     public void andNot(BitSet set) {
         // Perform logical (a & !b) on words in common
+        // 标志位进行 同或  相同清0
         for (int i = Math.min(wordsInUse, set.wordsInUse) - 1; i >= 0; i--)
             words[i] &= ~set.words[i];
 
