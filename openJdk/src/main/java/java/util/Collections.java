@@ -226,11 +226,13 @@ public class Collections {
      */
     @SuppressWarnings({"unchecked", "rawtypes"})
     public static <T> void sort(List<T> list, Comparator<? super T> c) {
+        //拷贝复制一个新的数组
         Object[] a = list.toArray();
         Arrays.sort(a, (Comparator)c);
         ListIterator<T> i = list.listIterator();
         for (int j=0; j<a.length; j++) {
             i.next();
+            //重新赋值
             i.set((T)a[j]);
         }
     }

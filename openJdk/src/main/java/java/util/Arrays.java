@@ -1237,6 +1237,7 @@ public class Arrays {
      *         ordering of the array elements is found to violate the
      *         {@link Comparable} contract
      */
+    //老式采用 meregeSort 新式的采用 timSort
     public static void sort(Object[] a) {
         if (LegacyMergeSort.userRequested)
             legacyMergeSort(a);
@@ -4663,11 +4664,13 @@ public class Arrays {
      * @throws NullPointerException if the generator is null
      * @since 1.8
      */
+    //通过一个函数转化为另一个数组
     public static <T> void setAll(T[] array, IntFunction<? extends T> generator) {
         Objects.requireNonNull(generator);
         for (int i = 0; i < array.length; i++)
             array[i] = generator.apply(i);
     }
+
 
     /**
      * Set all elements of the specified array, in parallel, using the
