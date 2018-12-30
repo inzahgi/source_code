@@ -127,6 +127,7 @@ public final class Integer extends Number implements Comparable<Integer> {
      * @see     java.lang.Character#MAX_RADIX
      * @see     java.lang.Character#MIN_RADIX
      */
+    //转换为相应的进制
     public static String toString(int i, int radix) {
         if (radix < Character.MIN_RADIX || radix > Character.MAX_RADIX)
             radix = 10;

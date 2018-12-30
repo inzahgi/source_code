@@ -323,6 +323,7 @@ public class Collections {
      * Gets the ith element from the given list by repositioning the specified
      * list listIterator.
      */
+    //按索引号 在迭代器中取值
     private static <T> T get(ListIterator<? extends T> i, int index) {
         T obj = null;
         int pos = i.nextIndex();
@@ -373,6 +374,7 @@ public class Collections {
      *         or the search key is not mutually comparable with the
      *         elements of the list using this comparator.
      */
+    //自定义比较器的 二分搜索
     @SuppressWarnings("unchecked")
     public static <T> int binarySearch(List<? extends T> list, T key, Comparator<? super T> c) {
         if (c==null)
@@ -432,6 +434,7 @@ public class Collections {
      * @throws UnsupportedOperationException if the specified list or
      *         its list-iterator does not support the <tt>set</tt> operation.
      */
+    //反转方式为前后对换
     @SuppressWarnings({"rawtypes", "unchecked"})
     public static void reverse(List<?> list) {
         int size = list.size();
