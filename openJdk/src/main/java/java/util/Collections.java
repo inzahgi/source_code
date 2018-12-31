@@ -835,6 +835,7 @@ public class Collections {
      *         its list-iterator does not support the <tt>set</tt> operation.
      * @since 1.4
      */
+    //旋转 按范围循环移位
     public static void rotate(List<?> list, int distance) {
         if (list instanceof RandomAccess || list.size() < ROTATE_THRESHOLD)
             rotate1(list, distance);
@@ -959,6 +960,7 @@ public class Collections {
      *         is no such occurrence.
      * @since  1.4
      */
+    // 找出子串的起始位置
     public static int indexOfSubList(List<?> source, List<?> target) {
         int sourceSize = source.size();
         int targetSize = target.size();
@@ -1012,6 +1014,7 @@ public class Collections {
      *         is no such occurrence.
      * @since  1.4
      */
+    //找出子串的最后一个位置
     public static int lastIndexOfSubList(List<?> source, List<?> target) {
         int sourceSize = source.size();
         int targetSize = target.size();
