@@ -44,6 +44,7 @@ package java.util;
  * @version 2011.02.11 m765.827.12i:5\7pm
  * @since 1.7
  */
+//双堆快排
 final class DualPivotQuicksort {
 
     /**

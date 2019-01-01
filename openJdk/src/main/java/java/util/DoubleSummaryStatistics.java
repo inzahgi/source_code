@@ -60,6 +60,7 @@ import java.util.stream.Collector;
  * safe and efficient parallel execution.
  * @since 1.8
  */
+//统计double数特征
 public class DoubleSummaryStatistics implements DoubleConsumer {
     private long count;
     private double sum;

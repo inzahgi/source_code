@@ -1077,6 +1077,7 @@ public class Collections {
      *         returned.
      * @return an unmodifiable view of the specified collection.
      */
+    //包装一个内部类 写操作为异常
     public static <T> Collection<T> unmodifiableCollection(Collection<? extends T> c) {
         return new UnmodifiableCollection<>(c);
     }
