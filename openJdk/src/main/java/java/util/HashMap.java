@@ -335,6 +335,7 @@ public class HashMap<K,V> extends AbstractMap<K,V>
      */
     static final int hash(Object key) {
         int h;
+        //key 的hashcode 与其自生无符号右移16位做异或
         return (key == null) ? 0 : (h = key.hashCode()) ^ (h >>> 16);
     }
 
@@ -374,6 +375,7 @@ public class HashMap<K,V> extends AbstractMap<K,V>
     /**
      * Returns a power of two size for the given target capacity.
      */
+    //尽量取稍微大于输入数据2的幂次方
     static final int tableSizeFor(int cap) {
         int n = cap - 1;
         n |= n >>> 1;
@@ -453,6 +455,7 @@ public class HashMap<K,V> extends AbstractMap<K,V>
             throw new IllegalArgumentException("Illegal load factor: " +
                                                loadFactor);
         this.loadFactor = loadFactor;
+        //计算初始容量 近似2的幂
         this.threshold = tableSizeFor(initialCapacity);
     }
 
@@ -565,15 +568,22 @@ public class HashMap<K,V> extends AbstractMap<K,V>
      */
     final Node<K,V> getNode(int hash, Object key) {
         Node<K,V>[] tab; Node<K,V> first, e; int n; K k;
+        //table不等于null,table的长度大于0(即初始化后),hash映射后的bucket不为null(赋过值)
         if ((tab = table) != null && (n = tab.length) > 0 &&
             (first = tab[(n - 1) & hash]) != null) {
+            //bucket的hash与查找的hash相同并且bucket中的值与查找值 引用相同
+            // 或者当查找key不为null的情况下 等于bucket的值
             if (first.hash == hash && // always check first node
                 ((k = first.key) == key || (key != null && key.equals(k))))
                 return first;
+            //当bucket有多个值的情况下
             if ((e = first.next) != null) {
+                //如果bucket的为treeNode 按二叉树查找
                 if (first instanceof TreeNode)
                     return ((TreeNode<K,V>)first).getTreeNode(hash, key);
+                //否则的化遍历链表查找 元素
                 do {
+                    //按照引用地址 或者equal方法查找
                     if (e.hash == hash &&
                         ((k = e.key) == key || (key != null && key.equals(k))))
                         return e;
@@ -607,6 +617,7 @@ public class HashMap<K,V> extends AbstractMap<K,V>
      *         (A <tt>null</tt> return can also indicate that the map
      *         previously associated <tt>null</tt> with <tt>key</tt>.)
      */
+    //put方法默认 onlyifAbsent 为false  evict为true
     public V put(K key, V value) {
         return putVal(hash(key), key, value, false, true);
     }
@@ -624,8 +635,10 @@ public class HashMap<K,V> extends AbstractMap<K,V>
     final V putVal(int hash, K key, V value, boolean onlyIfAbsent,
                    boolean evict) {
         Node<K,V>[] tab; Node<K,V> p; int n, i;
+        //table 为null 或者 table的length为0  则调用resize方法 初始化table
         if ((tab = table) == null || (n = tab.length) == 0)
             n = (tab = resize()).length;
+        //获取hash映射的bucket 如果为null的
         if ((p = tab[i = (n - 1) & hash]) == null)
             tab[i] = newNode(hash, key, value, null);
         else {
@@ -674,21 +687,30 @@ public class HashMap<K,V> extends AbstractMap<K,V>
      * @return the table
      */
     final Node<K,V>[] resize() {
+        //保存旧table引用
         Node<K,V>[] oldTab = table;
+        //保存旧table的容量
         int oldCap = (oldTab == null) ? 0 : oldTab.length;
+        //保存旧的阈值
         int oldThr = threshold;
         int newCap, newThr = 0;
+        //当已经初始化后
         if (oldCap > 0) {
+            //旧的容量大于最大值 直接赋值Integer的最大值 2^31 -1
             if (oldCap >= MAXIMUM_CAPACITY) {
                 threshold = Integer.MAX_VALUE;
                 return oldTab;
             }
+            //将旧的容量 扩大一倍赋给新的容量 并且旧的容量大于初始的16时
             else if ((newCap = oldCap << 1) < MAXIMUM_CAPACITY &&
                      oldCap >= DEFAULT_INITIAL_CAPACITY)
+                //将旧的阈值也扩大一倍赋给新的阈值
                 newThr = oldThr << 1; // double threshold
         }
+        //当旧阈值大于0 即构造时指定了 但没有初始化table
         else if (oldThr > 0) // initial capacity was placed in threshold
             newCap = oldThr;
+        //默认初始化时 容量为16  阈值为 0.75*16 = 12
         else {               // zero initial threshold signifies using defaults
             newCap = DEFAULT_INITIAL_CAPACITY;
             newThr = (int)(DEFAULT_LOAD_FACTOR * DEFAULT_INITIAL_CAPACITY);
