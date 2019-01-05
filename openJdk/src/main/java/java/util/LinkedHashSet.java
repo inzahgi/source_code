@@ -114,7 +114,7 @@ package java.util;
  * @see     Hashtable
  * @since   1.4
  */
-
+//构造时 调用 父类构造函数时  有生成 linkedHashSet
 public class LinkedHashSet<E>
     extends HashSet<E>
     implements Set<E>, Cloneable, java.io.Serializable {

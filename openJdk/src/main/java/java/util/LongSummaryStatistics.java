@@ -63,6 +63,7 @@ import java.util.stream.Collector;
  * <p>This implementation does not check for overflow of the sum.
  * @since 1.8
  */
+//long 计算统计
 public class LongSummaryStatistics implements LongConsumer, IntConsumer {
     private long count;
     private long sum;

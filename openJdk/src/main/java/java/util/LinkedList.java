@@ -563,15 +563,17 @@ public class LinkedList<E>
     /**
      * Returns the (non-null) Node at the specified element index.
      */
+    //根据索引 查找链表的节点
     Node<E> node(int index) {
         // assert isElementIndex(index);
-
+        //当索引在前半部时 从表头找
         if (index < (size >> 1)) {
             Node<E> x = first;
             for (int i = 0; i < index; i++)
                 x = x.next;
             return x;
         } else {
+            //从表尾找
             Node<E> x = last;
             for (int i = size - 1; i > index; i--)
                 x = x.prev;
@@ -592,6 +594,7 @@ public class LinkedList<E>
      * @return the index of the first occurrence of the specified element in
      *         this list, or -1 if this list does not contain the element
      */
+    //根据value查找第一次出现的索引
     public int indexOf(Object o) {
         int index = 0;
         if (o == null) {
@@ -621,6 +624,7 @@ public class LinkedList<E>
      * @return the index of the last occurrence of the specified element in
      *         this list, or -1 if this list does not contain the element
      */
+    //根据索引查找最后一次出现的索引
     public int lastIndexOf(Object o) {
         int index = size;
         if (o == null) {
@@ -823,6 +827,7 @@ public class LinkedList<E>
      * @return {@code true} if the list contained the specified element
      * @since 1.6
      */
+    //删除最后一次
     public boolean removeLastOccurrence(Object o) {
         if (o == null) {
             for (Node<E> x = last; x != null; x = x.prev) {

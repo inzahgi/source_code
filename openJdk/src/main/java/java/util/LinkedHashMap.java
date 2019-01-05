@@ -231,22 +231,30 @@ public class LinkedHashMap<K,V>
     }
 
     // apply src's links to dst
+    //在链表中用dst替换 src
     private void transferLinks(LinkedHashMap.Entry<K,V> src,
                                LinkedHashMap.Entry<K,V> dst) {
+        //保存src 的前向引用
         LinkedHashMap.Entry<K,V> b = dst.before = src.before;
+        //保存src 的后向引用
         LinkedHashMap.Entry<K,V> a = dst.after = src.after;
+        // src没有前向引用 head直接保存dst
         if (b == null)
             head = dst;
         else
+            //否则将dst 替换原 src
             b.after = dst;
+        //如果 没有后续 节点
         if (a == null)
+            //设置tail为 dst
             tail = dst;
         else
+            //否则将src 替换为dst
             a.before = dst;
     }
 
     // overrides of HashMap hook methods
-
+    //清空所有数据
     void reinitialize() {
         super.reinitialize();
         head = tail = null;
@@ -280,6 +288,7 @@ public class LinkedHashMap<K,V>
         return t;
     }
 
+    //从链表中去掉节点
     void afterNodeRemoval(Node<K,V> e) { // unlink
         LinkedHashMap.Entry<K,V> p =
             (LinkedHashMap.Entry<K,V>)e, b = p.before, a = p.after;
@@ -294,34 +303,42 @@ public class LinkedHashMap<K,V>
             a.before = b;
     }
 
+    //当节点插入后 判断是否删除最老(头)的节点
     void afterNodeInsertion(boolean evict) { // possibly remove eldest
         LinkedHashMap.Entry<K,V> first;
+        //removeEldestEntry 默认false
         if (evict && (first = head) != null && removeEldestEntry(first)) {
             K key = first.key;
             removeNode(hash(key), key, null, false, true);
         }
     }
 
+    //
     void afterNodeAccess(Node<K,V> e) { // move node to last
         LinkedHashMap.Entry<K,V> last;
         if (accessOrder && (last = tail) != e) {
             LinkedHashMap.Entry<K,V> p =
                 (LinkedHashMap.Entry<K,V>)e, b = p.before, a = p.after;
             p.after = null;
+            //后一节点代替 该节点 连接前一节点
             if (b == null)
                 head = a;
             else
                 b.after = a;
+            //前一节点 代替 该节点 连接后一节点
             if (a != null)
                 a.before = b;
             else
                 last = b;
+            //链表没有初始化的话 初始化链表头
             if (last == null)
                 head = p;
             else {
+                //将节点 添加到链表尾
                 p.before = last;
                 last.after = p;
             }
+            //设置表尾为该节点
             tail = p;
             ++modCount;
         }
@@ -412,6 +429,7 @@ public class LinkedHashMap<K,V>
      *         specified value
      */
     public boolean containsValue(Object value) {
+        //遍历链表 查找value
         for (LinkedHashMap.Entry<K,V> e = head; e != null; e = e.after) {
             V v = e.value;
             if (v == value || (value != null && value.equals(v)))
@@ -439,6 +457,7 @@ public class LinkedHashMap<K,V>
         Node<K,V> e;
         if ((e = getNode(hash(key), key)) == null)
             return null;
+        //默认false  构造时决定
         if (accessOrder)
             afterNodeAccess(e);
         return e.value;
