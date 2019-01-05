@@ -136,6 +136,7 @@ import java.util.function.Consumer;
  * @since   1.4
  */
 
+//比较两key引用相等
 public class IdentityHashMap<K,V>
     extends AbstractMap<K,V>
     implements Map<K,V>, java.io.Serializable, Cloneable

@@ -391,25 +391,33 @@ public class Hashtable<K,V>
         Entry<?,?>[] oldMap = table;
 
         // overflow-conscious code
+        //新容量为 原始容量两倍+1
         int newCapacity = (oldCapacity << 1) + 1;
+        //如果新容量 超过最大值
         if (newCapacity - MAX_ARRAY_SIZE > 0) {
+            //当前容量 为最大值 直接返回
             if (oldCapacity == MAX_ARRAY_SIZE)
                 // Keep running with MAX_ARRAY_SIZE buckets
                 return;
+            //否则新容量赋最大值
             newCapacity = MAX_ARRAY_SIZE;
         }
+        //生成新的数组
         Entry<?,?>[] newMap = new Entry<?,?>[newCapacity];
 
         modCount++;
+        //计算阈值  为新容量*加载因子 与最大容量+1 之间的最小值
         threshold = (int)Math.min(newCapacity * loadFactor, MAX_ARRAY_SIZE + 1);
         table = newMap;
-
+        //反向遍历旧的数组
         for (int i = oldCapacity ; i-- > 0 ;) {
+            //遍历bucket中的链表 在重新计算hash对新容量的求余地址
             for (Entry<K,V> old = (Entry<K,V>)oldMap[i] ; old != null ; ) {
                 Entry<K,V> e = old;
                 old = old.next;
 
                 int index = (e.hash & 0x7FFFFFFF) % newCapacity;
+                //添加到该bucket的表头
                 e.next = (Entry<K,V>)newMap[index];
                 newMap[index] = e;
             }
@@ -420,6 +428,7 @@ public class Hashtable<K,V>
         modCount++;
 
         Entry<?,?> tab[] = table;
+        //bucket的数目超过阈值 则开始扩容 rehash
         if (count >= threshold) {
             // Rehash the table if the threshold is exceeded
             rehash();
@@ -465,6 +474,7 @@ public class Hashtable<K,V>
         int index = (hash & 0x7FFFFFFF) % tab.length;
         @SuppressWarnings("unchecked")
         Entry<K,V> entry = (Entry<K,V>)tab[index];
+        //遍历bucket 如果有相同的key 替换原始值
         for(; entry != null ; entry = entry.next) {
             if ((entry.hash == hash) && entry.key.equals(key)) {
                 V old = entry.value;
@@ -472,7 +482,7 @@ public class Hashtable<K,V>
                 return old;
             }
         }
-
+        //没有的话 添加新entry
         addEntry(hash, key, value, index);
         return null;
     }
@@ -492,12 +502,16 @@ public class Hashtable<K,V>
         int index = (hash & 0x7FFFFFFF) % tab.length;
         @SuppressWarnings("unchecked")
         Entry<K,V> e = (Entry<K,V>)tab[index];
+        //遍历bucket下的链表
         for(Entry<K,V> prev = null ; e != null ; prev = e, e = e.next) {
+            //找到相同key的节点
             if ((e.hash == hash) && e.key.equals(key)) {
                 modCount++;
+                //不是链表表头 前节点指向其后一个节点 即删除该节点
                 if (prev != null) {
                     prev.next = e.next;
                 } else {
+                    //是链表表头 直接用下一个节点当表头
                     tab[index] = e.next;
                 }
                 count--;
@@ -873,7 +887,9 @@ public class Hashtable<K,V>
         final int expectedModCount = modCount;
 
         Entry<?, ?>[] tab = table;
+        //遍历 tab
         for (Entry<?, ?> entry : tab) {
+            //遍历链表
             while (entry != null) {
                 action.accept((K)entry.key, (V)entry.value);
                 entry = entry.next;
@@ -887,6 +903,7 @@ public class Hashtable<K,V>
 
     @SuppressWarnings("unchecked")
     @Override
+    //与foreach 类似 不过传入函数后 计算结果会改写自生value
     public synchronized void replaceAll(BiFunction<? super K, ? super V, ? extends V> function) {
         Objects.requireNonNull(function);     // explicit check required in case
                                               // table is empty.
@@ -917,15 +934,17 @@ public class Hashtable<K,V>
         @SuppressWarnings("unchecked")
         Entry<K,V> entry = (Entry<K,V>)tab[index];
         for (; entry != null; entry = entry.next) {
+            //查找到有相同的key节点后
             if ((entry.hash == hash) && entry.key.equals(key)) {
                 V old = entry.value;
+                //该节点value为null 替换原始value  否则直接返回
                 if (old == null) {
                     entry.value = value;
                 }
                 return old;
             }
         }
-
+        //没有 该key的节点  添加新节点
         addEntry(hash, key, value, index);
         return null;
     }
@@ -955,6 +974,7 @@ public class Hashtable<K,V>
         return false;
     }
 
+    //key和oldvalue 都相等 在替换  并发时用
     @Override
     public synchronized boolean replace(K key, V oldValue, V newValue) {
         Objects.requireNonNull(oldValue);
@@ -977,6 +997,7 @@ public class Hashtable<K,V>
         return false;
     }
 
+    //只要key相同就替换
     @Override
     public synchronized V replace(K key, V value) {
         Objects.requireNonNull(value);
@@ -1005,12 +1026,13 @@ public class Hashtable<K,V>
         @SuppressWarnings("unchecked")
         Entry<K,V> e = (Entry<K,V>)tab[index];
         for (; e != null; e = e.next) {
+            //如果有相同的key节点 直接返回
             if (e.hash == hash && e.key.equals(key)) {
                 // Hashtable not accept null value
                 return e.value;
             }
         }
-
+        //否则用传入函数计算value 添加新节点
         V newValue = mappingFunction.apply(key);
         if (newValue != null) {
             addEntry(hash, key, newValue, index);
@@ -1029,8 +1051,11 @@ public class Hashtable<K,V>
         @SuppressWarnings("unchecked")
         Entry<K,V> e = (Entry<K,V>)tab[index];
         for (Entry<K,V> prev = null; e != null; prev = e, e = e.next) {
+            //找到key相同的节点
             if (e.hash == hash && e.key.equals(key)) {
+                //计算新value
                 V newValue = remappingFunction.apply(key, e.value);
+                //新的value为null  删除节点
                 if (newValue == null) {
                     modCount++;
                     if (prev != null) {
@@ -1040,6 +1065,7 @@ public class Hashtable<K,V>
                     }
                     count--;
                 } else {
+                    //否则替换原始value
                     e.value = newValue;
                 }
                 return newValue;
@@ -1058,8 +1084,11 @@ public class Hashtable<K,V>
         @SuppressWarnings("unchecked")
         Entry<K,V> e = (Entry<K,V>)tab[index];
         for (Entry<K,V> prev = null; e != null; prev = e, e = e.next) {
+            //找到相同的key
             if (e.hash == hash && Objects.equals(e.key, key)) {
+                //计算新value
                 V newValue = remappingFunction.apply(key, e.value);
+                //新value为null 删除节点
                 if (newValue == null) {
                     modCount++;
                     if (prev != null) {
@@ -1069,12 +1098,14 @@ public class Hashtable<K,V>
                     }
                     count--;
                 } else {
+                    //否则替换原始value
                     e.value = newValue;
                 }
                 return newValue;
             }
         }
 
+        //没有找到节点 则新增节点
         V newValue = remappingFunction.apply(key, null);
         if (newValue != null) {
             addEntry(hash, key, newValue, index);
@@ -1093,8 +1124,11 @@ public class Hashtable<K,V>
         @SuppressWarnings("unchecked")
         Entry<K,V> e = (Entry<K,V>)tab[index];
         for (Entry<K,V> prev = null; e != null; prev = e, e = e.next) {
+            //找到相同key的节点
             if (e.hash == hash && e.key.equals(key)) {
+                //利用原始value和输入value计算新value
                 V newValue = remappingFunction.apply(e.value, value);
+                //新value为null  删除节点
                 if (newValue == null) {
                     modCount++;
                     if (prev != null) {
@@ -1104,12 +1138,14 @@ public class Hashtable<K,V>
                     }
                     count--;
                 } else {
+                    //否则替换原始值
                     e.value = newValue;
                 }
                 return newValue;
             }
         }
 
+        //没有节点的话 新增节点
         if (value != null) {
             addEntry(hash, key, value, index);
         }

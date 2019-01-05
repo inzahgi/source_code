@@ -62,6 +62,7 @@ import java.util.stream.Collector;
  * <p>This implementation does not check for overflow of the sum.
  * @since 1.8
  */
+//整形统计
 public class IntSummaryStatistics implements IntConsumer {
     private long count;
     private long sum;
