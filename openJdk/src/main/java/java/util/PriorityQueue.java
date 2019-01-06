@@ -187,18 +187,26 @@ public class PriorityQueue<E> extends AbstractQueue<E>
      */
     @SuppressWarnings("unchecked")
     public PriorityQueue(Collection<? extends E> c) {
+        //当其时有序集合的时候
         if (c instanceof SortedSet<?>) {
             SortedSet<? extends E> ss = (SortedSet<? extends E>) c;
+            //复制比较器
             this.comparator = (Comparator<? super E>) ss.comparator();
+            //按集合的方式拷贝初始化
             initElementsFromCollection(ss);
         }
+        //如果是 优先队列
         else if (c instanceof PriorityQueue<?>) {
             PriorityQueue<? extends E> pq = (PriorityQueue<? extends E>) c;
+            //复制比较器
             this.comparator = (Comparator<? super E>) pq.comparator();
+            //拷贝复制 优先队列
             initFromPriorityQueue(pq);
         }
         else {
+            //默认 比较器为null
             this.comparator = null;
+            //按集合的方式初始化
             initFromCollection(c);
         }
     }
@@ -242,21 +250,28 @@ public class PriorityQueue<E> extends AbstractQueue<E>
         initElementsFromCollection(c);
     }
 
+    //拷贝复制优先队列
     private void initFromPriorityQueue(PriorityQueue<? extends E> c) {
+        //类型是优先队列  直接复制
         if (c.getClass() == PriorityQueue.class) {
             this.queue = c.toArray();
             this.size = c.size();
         } else {
+            //否则按集合方式增加
             initFromCollection(c);
         }
     }
 
+    //从集合中初始化
     private void initElementsFromCollection(Collection<? extends E> c) {
+        //拷贝数组
         Object[] a = c.toArray();
         // If c.toArray incorrectly doesn't return Object[], copy it.
+        //如果不是object类型 重新拷贝复制
         if (a.getClass() != Object[].class)
             a = Arrays.copyOf(a, a.length, Object[].class);
         int len = a.length;
+        // 判断是否有null元素
         if (len == 1 || this.comparator != null)
             for (int i = 0; i < len; i++)
                 if (a[i] == null)
@@ -335,12 +350,16 @@ public class PriorityQueue<E> extends AbstractQueue<E>
             throw new NullPointerException();
         modCount++;
         int i = size;
+        //判断是否需要扩容
         if (i >= queue.length)
             grow(i + 1);
+        //新的队列长度
         size = i + 1;
+        //队列首没有长度 则赋给队列首部
         if (i == 0)
             queue[0] = e;
         else
+            //计算相应的位移 并添加
             siftUp(i, e);
         return true;
     }
@@ -350,6 +369,7 @@ public class PriorityQueue<E> extends AbstractQueue<E>
         return (size == 0) ? null : (E) queue[0];
     }
 
+    //查找元素索引
     private int indexOf(Object o) {
         if (o != null) {
             for (int i = 0; i < size; i++)
@@ -371,10 +391,12 @@ public class PriorityQueue<E> extends AbstractQueue<E>
      * @return {@code true} if this queue changed as a result of the call
      */
     public boolean remove(Object o) {
+        //查找索引
         int i = indexOf(o);
         if (i == -1)
             return false;
         else {
+            //删除索引位置元素
             removeAt(i);
             return true;
         }
@@ -613,11 +635,14 @@ public class PriorityQueue<E> extends AbstractQueue<E>
         // assert i >= 0 && i < size;
         modCount++;
         int s = --size;
+        //最后一个元素 直接置null
         if (s == i) // removed last element
             queue[i] = null;
         else {
+            //非最后一个元素 先置null
             E moved = (E) queue[s];
             queue[s] = null;
+            //
             siftDown(i, moved);
             if (queue[i] == moved) {
                 siftUp(i, moved);
@@ -641,6 +666,7 @@ public class PriorityQueue<E> extends AbstractQueue<E>
      * @param x the item to insert
      */
     private void siftUp(int k, E x) {
+        //如果比较器不为null
         if (comparator != null)
             siftUpUsingComparator(k, x);
         else
@@ -648,29 +674,42 @@ public class PriorityQueue<E> extends AbstractQueue<E>
     }
 
     @SuppressWarnings("unchecked")
+    //待自定义比较器的  找到恰好大于新增元素的父节点 插入
     private void siftUpComparable(int k, E x) {
         Comparable<? super E> key = (Comparable<? super E>) x;
         while (k > 0) {
+            //找到父节点
             int parent = (k - 1) >>> 1;
             Object e = queue[parent];
+            //大于等于父节点退出循环
             if (key.compareTo((E) e) >= 0)
                 break;
             queue[k] = e;
+            //继续递归查找
             k = parent;
         }
+        //保存元素
         queue[k] = key;
     }
 
     @SuppressWarnings("unchecked")
+    //待自定义比较器的  找到恰好大于新增元素的父节点 插入
     private void siftUpUsingComparator(int k, E x) {
+        //k是添加入队列的序号 不是对列首部
         while (k > 0) {
+            //计算父节点索引
             int parent = (k - 1) >>> 1;
+            //取父节点
             Object e = queue[parent];
+            //该节点大等于父节点 跳出循环
             if (comparator.compare(x, (E) e) >= 0)
                 break;
+            //否则父节点保存到第k索引位置
             queue[k] = e;
+            //递归查找 祖父索引
             k = parent;
         }
+        //保存元素
         queue[k] = x;
     }
 
@@ -693,16 +732,23 @@ public class PriorityQueue<E> extends AbstractQueue<E>
     private void siftDownComparable(int k, E x) {
         Comparable<? super E> key = (Comparable<? super E>)x;
         int half = size >>> 1;        // loop while a non-leaf
+        //索引在前半部分
         while (k < half) {
+            //计算左子节点索引
             int child = (k << 1) + 1; // assume left child is least
             Object c = queue[child];
+            //计算右子节点
             int right = child + 1;
+            //右子节点不是最后的元素 且左节点大于右节点
             if (right < size &&
                 ((Comparable<? super E>) c).compareTo((E) queue[right]) > 0)
+                //右节点替换左节点
                 c = queue[child = right];
+            //待删除元素 小于左节点 退出
             if (key.compareTo((E) c) <= 0)
                 break;
             queue[k] = c;
+            //递归查找左子节点
             k = child;
         }
         queue[k] = key;
