@@ -113,6 +113,7 @@ public class AtomicBoolean implements java.io.Serializable {
      * @param update the new value
      * @return {@code true} if successful
      */
+    //特殊版本 可能会失败  不保证 happen-before
     public boolean weakCompareAndSet(boolean expect, boolean update) {
         int e = expect ? 1 : 0;
         int u = update ? 1 : 0;

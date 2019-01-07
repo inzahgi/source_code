@@ -639,13 +639,16 @@ public class PriorityQueue<E> extends AbstractQueue<E>
         if (s == i) // removed last element
             queue[i] = null;
         else {
-            //非最后一个元素 先置null
+            //非最后一个元素 先把保存最后一位元素到 moved 最后bucket置null
             E moved = (E) queue[s];
             queue[s] = null;
-            //
+            //以i为起点重新插入
             siftDown(i, moved);
+            //如果最后一位元素 插入到删除位bucket
             if (queue[i] == moved) {
+                //移动调整其到父节点
                 siftUp(i, moved);
+                //调整成功直接返回
                 if (queue[i] != moved)
                     return moved;
             }
@@ -729,6 +732,7 @@ public class PriorityQueue<E> extends AbstractQueue<E>
     }
 
     @SuppressWarnings("unchecked")
+    //带比较器将元素移到前面 从删除位置出发 递归找到一个比其大的左子节点
     private void siftDownComparable(int k, E x) {
         Comparable<? super E> key = (Comparable<? super E>)x;
         int half = size >>> 1;        // loop while a non-leaf
@@ -751,24 +755,33 @@ public class PriorityQueue<E> extends AbstractQueue<E>
             //递归查找左子节点
             k = child;
         }
+        //k在后半部分 直接赋值   2K > size 所以不用找
         queue[k] = key;
     }
 
     @SuppressWarnings("unchecked")
+    //带比较器将元素移到前面 从删除位置出发 递归找到一个比其大的左子节点
     private void siftDownUsingComparator(int k, E x) {
         int half = size >>> 1;
+        //索引在前半部分
         while (k < half) {
+            //计算左子节点索引
             int child = (k << 1) + 1;
             Object c = queue[child];
+            //计算右子节点索引
             int right = child + 1;
+            //右子节点不是最后的元素 且左节点大于右节点
             if (right < size &&
                 comparator.compare((E) c, (E) queue[right]) > 0)
                 c = queue[child = right];
+            //待删除元素 小于左节点 退出
             if (comparator.compare(x, (E) c) <= 0)
                 break;
             queue[k] = c;
+            //递归查找左子节点
             k = child;
         }
+        //k在后半部分 直接赋值   2K > size 所以不用找
         queue[k] = x;
     }
 
