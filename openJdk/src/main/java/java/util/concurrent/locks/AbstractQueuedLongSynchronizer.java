@@ -157,8 +157,10 @@ public abstract class AbstractQueuedLongSynchronizer
      */
     static final class Node {
         /** Marker to indicate a node is waiting in shared mode */
+        //共享锁的变量
         static final Node SHARED = new Node();
         /** Marker to indicate a node is waiting in exclusive mode */
+        //排他锁的变量
         static final Node EXCLUSIVE = null;
 
         /** waitStatus value to indicate thread has cancelled */
@@ -171,6 +173,7 @@ public abstract class AbstractQueuedLongSynchronizer
          * waitStatus value to indicate the next acquireShared should
          * unconditionally propagate
          */
+        //传播标志
         static final int PROPAGATE = -3;
 
         /**
@@ -241,6 +244,7 @@ public abstract class AbstractQueuedLongSynchronizer
          * The thread that enqueued this node.  Initialized on
          * construction and nulled out after use.
          */
+        //入队列时的线程引用
         volatile Thread thread;
 
         /**
@@ -253,6 +257,7 @@ public abstract class AbstractQueuedLongSynchronizer
          * we save a field by using special value to indicate shared
          * mode.
          */
+        //其他等待条件
         Node nextWaiter;
 
         /**
