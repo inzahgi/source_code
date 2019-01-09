@@ -136,6 +136,7 @@ public class LockSupport {
      * @param thread the thread to unpark, or {@code null}, in which case
      *        this operation has no effect
      */
+    //使得输入线程非阻塞
     public static void unpark(Thread thread) {
         if (thread != null)
             UNSAFE.unpark(thread);
@@ -169,6 +170,7 @@ public class LockSupport {
      *        thread parking
      * @since 1.6
      */
+    //使得当前线程阻塞
     public static void park(Object blocker) {
         Thread t = Thread.currentThread();
         setBlocker(t, blocker);
@@ -208,6 +210,7 @@ public class LockSupport {
      * @param nanos the maximum number of nanoseconds to wait
      * @since 1.6
      */
+    //带时间的阻塞
     public static void parkNanos(Object blocker, long nanos) {
         if (nanos > 0) {
             Thread t = Thread.currentThread();
