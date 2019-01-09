@@ -210,7 +210,7 @@ public class LockSupport {
      * @param nanos the maximum number of nanoseconds to wait
      * @since 1.6
      */
-    //带时间的阻塞
+    //带时间的阻塞 纳秒
     public static void parkNanos(Object blocker, long nanos) {
         if (nanos > 0) {
             Thread t = Thread.currentThread();
@@ -253,6 +253,7 @@ public class LockSupport {
      *        to wait until
      * @since 1.6
      */
+    //带时间阻塞 毫秒
     public static void parkUntil(Object blocker, long deadline) {
         Thread t = Thread.currentThread();
         setBlocker(t, blocker);
@@ -272,6 +273,7 @@ public class LockSupport {
      * @throws NullPointerException if argument is null
      * @since 1.6
      */
+    //返回被锁类
     public static Object getBlocker(Thread t) {
         if (t == null)
             throw new NullPointerException();
