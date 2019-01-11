@@ -257,7 +257,7 @@ public abstract class AbstractQueuedLongSynchronizer
          * we save a field by using special value to indicate shared
          * mode.
          */
-        //其他等待条件
+        //其他等待条件  存储Condition Queue中的后继节点
         Node nextWaiter;
 
         /**

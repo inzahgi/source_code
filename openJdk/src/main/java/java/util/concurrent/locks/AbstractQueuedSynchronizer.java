@@ -379,8 +379,10 @@ public abstract class AbstractQueuedSynchronizer
      */
     static final class Node {
         /** Marker to indicate a node is waiting in shared mode */
+        //共享模式时 共享锁的节点
         static final Node SHARED = new Node();
         /** Marker to indicate a node is waiting in exclusive mode */
+        //独占锁标志
         static final Node EXCLUSIVE = null;
 
         /** waitStatus value to indicate thread has cancelled */
@@ -412,7 +414,7 @@ public abstract class AbstractQueuedSynchronizer
          *               until transferred, at which time the status
          *               will be set to 0. (Use of this value here has
          *               nothing to do with the other uses of the
-         *               field, but simplifies mechanics.)
+         *     传播      field, but simplifies mechanics.)
          *   PROPAGATE:  A releaseShared should be propagated to other
          *               nodes. This is set (for head node only) in
          *               doReleaseShared to ensure propagation
@@ -480,6 +482,7 @@ public abstract class AbstractQueuedSynchronizer
         /**
          * Returns true if node is waiting in shared mode.
          */
+        //当nextWaiter 的节点  和共享标志位的引用相同 表示 共享锁
         final boolean isShared() {
             return nextWaiter == SHARED;
         }
@@ -491,6 +494,7 @@ public abstract class AbstractQueuedSynchronizer
          *
          * @return the predecessor of this node
          */
+        //返回前置节点
         final Node predecessor() throws NullPointerException {
             Node p = prev;
             if (p == null)
