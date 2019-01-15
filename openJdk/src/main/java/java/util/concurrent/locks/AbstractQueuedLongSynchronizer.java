@@ -257,7 +257,7 @@ public abstract class AbstractQueuedLongSynchronizer
          * we save a field by using special value to indicate shared
          * mode.
          */
-        //其他等待条件
+        //其他等待条件  存储Condition Queue中的后继节点
         Node nextWaiter;
 
         /**
@@ -385,6 +385,7 @@ public abstract class AbstractQueuedLongSynchronizer
      * @param mode Node.EXCLUSIVE for exclusive, Node.SHARED for shared
      * @return the new node
      */
+    //首先尝试直接添加到链表尾 否则再尝试常规添加方式
     private Node addWaiter(Node mode) {
         Node node = new Node(Thread.currentThread(), mode);
         // Try the fast path of enq; backup to full enq on failure
@@ -522,6 +523,7 @@ public abstract class AbstractQueuedLongSynchronizer
      *
      * @param node the node
      */
+    //取消获取锁等待  即移除队列
     private void cancelAcquire(Node node) {
         // Ignore if node doesn't exist
         if (node == null)
@@ -575,6 +577,7 @@ public abstract class AbstractQueuedLongSynchronizer
      * @param node the node
      * @return {@code true} if thread should block
      */
+    //获取失败后阻塞进程
     private static boolean shouldParkAfterFailedAcquire(Node pred, Node node) {
         int ws = pred.waitStatus;
         if (ws == Node.SIGNAL)

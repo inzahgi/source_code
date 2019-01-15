@@ -113,6 +113,7 @@ public class ReentrantLock implements Lock, java.io.Serializable {
      * into fair and nonfair versions below. Uses AQS state to
      * represent the number of holds on the lock.
      */
+    //同步锁的内部实现机制
     abstract static class Sync extends AbstractQueuedSynchronizer {
         private static final long serialVersionUID = -5179523762034025860L;
 
@@ -128,10 +129,17 @@ public class ReentrantLock implements Lock, java.io.Serializable {
          */
         final boolean nonfairTryAcquire(int acquires) {
             final Thread current = Thread.currentThread();
+<<<<<<< HEAD
             //获取节点状态
             int c = getState();
             //状态为0时设置独占锁
+=======
+            //获取当前节点的状态
+            int c = getState();
+            //node status 为0 表示节点 获取到锁
+>>>>>>> f1ecfd1523556a611b457ee8c23ce301c088eaa5
             if (c == 0) {
+                //设置获取标志
                 if (compareAndSetState(0, acquires)) {
                     setExclusiveOwnerThread(current);
                     return true;
