@@ -138,26 +138,32 @@ public class ReentrantLock implements Lock, java.io.Serializable {
                     setExclusiveOwnerThread(current);
                     return true;
                 }
-            }
+            }//如果之前获取独占锁是其本身
             else if (current == getExclusiveOwnerThread()) {
                 int nextc = c + acquires;
                 if (nextc < 0) // overflow
                     throw new Error("Maximum lock count exceeded");
+                //状态位加一
                 setState(nextc);
                 return true;
             }
             return false;
         }
-
+        //尝试释放锁
         protected final boolean tryRelease(int releases) {
+            //状态位减去相应值
             int c = getState() - releases;
+            //判断当前锁是否为当前线程所有
             if (Thread.currentThread() != getExclusiveOwnerThread())
                 throw new IllegalMonitorStateException();
             boolean free = false;
+            //如果状态位减为0 释放锁
             if (c == 0) {
                 free = true;
+                //设置独占变量为null
                 setExclusiveOwnerThread(null);
             }
+            //跟新状态的值
             setState(c);
             return free;
         }
