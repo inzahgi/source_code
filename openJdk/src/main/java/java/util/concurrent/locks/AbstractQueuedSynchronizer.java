@@ -863,7 +863,9 @@ public abstract class AbstractQueuedSynchronizer
         try {
             boolean interrupted = false;
             for (;;) {
+                //获取其前置节点
                 final Node p = node.predecessor();
+                //如果是队列首部  尝试获取锁 获取成功就设置当前的节点为队首
                 if (p == head && tryAcquire(arg)) {
                     setHead(node);
                     p.next = null; // help GC
@@ -1199,6 +1201,7 @@ public abstract class AbstractQueuedSynchronizer
      *        can represent anything you like.
      */
     public final void acquire(int arg) {
+        //先尝试再加一次锁   然后加入等待队列的尾部  在改变线程的等待状态 阻塞线程
         if (!tryAcquire(arg) &&
             acquireQueued(addWaiter(Node.EXCLUSIVE), arg))
             selfInterrupt();

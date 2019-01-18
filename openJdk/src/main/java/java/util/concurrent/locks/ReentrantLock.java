@@ -167,13 +167,13 @@ public class ReentrantLock implements Lock, java.io.Serializable {
             setState(c);
             return free;
         }
-
+        //锁的拥有线程是否为当前线程
         protected final boolean isHeldExclusively() {
             // While we must in general read state before owner,
             // we don't need to do so to check if current thread is owner
             return getExclusiveOwnerThread() == Thread.currentThread();
         }
-
+        //条件对象
         final ConditionObject newCondition() {
             return new ConditionObject();
         }
@@ -205,6 +205,7 @@ public class ReentrantLock implements Lock, java.io.Serializable {
     /**
      * Sync object for non-fair locks
      */
+    //非公平锁
     static final class NonfairSync extends Sync {
         private static final long serialVersionUID = 7316153563782823691L;
 
@@ -213,9 +214,10 @@ public class ReentrantLock implements Lock, java.io.Serializable {
          * acquire on failure.
          */
         final void lock() {
+            //尝试加锁  成功后设置锁的拥有线程
             if (compareAndSetState(0, 1))
                 setExclusiveOwnerThread(Thread.currentThread());
-            else
+            else//加入队列
                 acquire(1);
         }
 
