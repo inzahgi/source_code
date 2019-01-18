@@ -381,6 +381,7 @@ public class LockSupport {
      * Returns the pseudo-randomly initialized or updated secondary seed.
      * Copied from ThreadLocalRandom due to package access restrictions.
      */
+    //获取随机种子   random有线程安全问题
     static final int nextSecondarySeed() {
         int r;
         Thread t = Thread.currentThread();
