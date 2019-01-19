@@ -127,28 +127,20 @@ public class ReentrantLock implements Lock, java.io.Serializable {
          * Performs non-fair tryLock.  tryAcquire is implemented in
          * subclasses, but both need nonfair try for trylock method.
          */
+        //尝试获取非公平锁
         final boolean nonfairTryAcquire(int acquires) {
             final Thread current = Thread.currentThread();
-<<<<<<< HEAD
-            //获取节点状态
-            int c = getState();
-            //状态为0时设置独占锁
-=======
+
             //获取当前节点的状态
             int c = getState();
             //node status 为0 表示节点 获取到锁
->>>>>>> f1ecfd1523556a611b457ee8c23ce301c088eaa5
             if (c == 0) {
-                //设置获取标志
+                //设置获取标志 成功即为获取锁
                 if (compareAndSetState(0, acquires)) {
                     setExclusiveOwnerThread(current);
                     return true;
                 }
-<<<<<<< HEAD
-            }//如果之前获取独占锁是其本身
-=======
             }//独占线程和当前线程相同时
->>>>>>> 12062614f55df8b270656c124afcd454b9838ea2
             else if (current == getExclusiveOwnerThread()) {
                 int nextc = c + acquires;
                 if (nextc < 0) // overflow
@@ -253,13 +245,15 @@ public class ReentrantLock implements Lock, java.io.Serializable {
         protected final boolean tryAcquire(int acquires) {
             final Thread current = Thread.currentThread();
             int c = getState();
+            //如果当前的状态为0
             if (c == 0) {
+                //没有前序节点 将设置状态标志  设置线程独占
                 if (!hasQueuedPredecessors() &&
                     compareAndSetState(0, acquires)) {
                     setExclusiveOwnerThread(current);
                     return true;
                 }
-            }
+            }//当前线程为该锁的独占线程  增加state次数
             else if (current == getExclusiveOwnerThread()) {
                 int nextc = c + acquires;
                 if (nextc < 0)
@@ -353,6 +347,7 @@ public class ReentrantLock implements Lock, java.io.Serializable {
      *
      * @throws InterruptedException if the current thread is interrupted
      */
+    //当前线程尝试获取锁 直到被中断
     public void lockInterruptibly() throws InterruptedException {
         sync.acquireInterruptibly(1);
     }
