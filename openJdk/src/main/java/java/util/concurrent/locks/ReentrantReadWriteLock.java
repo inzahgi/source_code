@@ -295,6 +295,7 @@ public class ReentrantReadWriteLock
          * Initialized only in constructor and readObject.
          * Removed whenever a thread's read hold count drops to 0.
          */
+        //读锁重入次数
         private transient ThreadLocalHoldCounter readHolds;
 
         /**
@@ -311,6 +312,7 @@ public class ReentrantReadWriteLock
          * <p>Accessed via a benign data race; relies on the memory
          * model's final field and out-of-thin-air guarantees.
          */
+        //上一个线程保持的锁的数量
         private transient HoldCounter cachedHoldCounter;
 
         /**

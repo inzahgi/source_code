@@ -629,6 +629,7 @@ public class ReentrantLock implements Lock, java.io.Serializable {
      *
      * @return the owner, or {@code null} if not owned
      */
+    //获取当前锁的拥有线程
     protected Thread getOwner() {
         return sync.getOwner();
     }
@@ -643,6 +644,7 @@ public class ReentrantLock implements Lock, java.io.Serializable {
      * @return {@code true} if there may be other threads waiting to
      *         acquire the lock
      */
+    //是否有等待线程
     public final boolean hasQueuedThreads() {
         return sync.hasQueuedThreads();
     }
@@ -658,6 +660,7 @@ public class ReentrantLock implements Lock, java.io.Serializable {
      * @return {@code true} if the given thread is queued waiting for this lock
      * @throws NullPointerException if the thread is null
      */
+    //该线程是否再等待队列中
     public final boolean hasQueuedThread(Thread thread) {
         return sync.isQueued(thread);
     }
@@ -672,6 +675,7 @@ public class ReentrantLock implements Lock, java.io.Serializable {
      *
      * @return the estimated number of threads waiting for this lock
      */
+    //获取等待线程的长度
     public final int getQueueLength() {
         return sync.getQueueLength();
     }
@@ -687,6 +691,7 @@ public class ReentrantLock implements Lock, java.io.Serializable {
      *
      * @return the collection of threads
      */
+    //获取等待线程的集合
     protected Collection<Thread> getQueuedThreads() {
         return sync.getQueuedThreads();
     }
@@ -706,6 +711,7 @@ public class ReentrantLock implements Lock, java.io.Serializable {
      *         not associated with this lock
      * @throws NullPointerException if the condition is null
      */
+    //判断该等待条件下 是否有等待线程
     public boolean hasWaiters(Condition condition) {
         if (condition == null)
             throw new NullPointerException();
@@ -729,6 +735,7 @@ public class ReentrantLock implements Lock, java.io.Serializable {
      *         not associated with this lock
      * @throws NullPointerException if the condition is null
      */
+    //获取相等等待线程队列的长度
     public int getWaitQueueLength(Condition condition) {
         if (condition == null)
             throw new NullPointerException();
@@ -754,6 +761,7 @@ public class ReentrantLock implements Lock, java.io.Serializable {
      *         not associated with this lock
      * @throws NullPointerException if the condition is null
      */
+    //获取相同等待条件的线程
     protected Collection<Thread> getWaitingThreads(Condition condition) {
         if (condition == null)
             throw new NullPointerException();
