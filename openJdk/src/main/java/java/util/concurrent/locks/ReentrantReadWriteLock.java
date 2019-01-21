@@ -372,10 +372,11 @@ public class ReentrantReadWriteLock
             if (!isHeldExclusively())
                 throw new IllegalMonitorStateException();
             int nextc = getState() - releases;
+            //更新后 独占锁的数量 为0 可以释放锁
             boolean free = exclusiveCount(nextc) == 0;
             if (free)
-                setExclusiveOwnerThread(null);
-            setState(nextc);
+                setExclusiveOwnerThread(null);//设置独占线程为 null
+            setState(nextc);//设置锁的状态为 0
             return free;
         }
 
@@ -396,14 +397,16 @@ public class ReentrantReadWriteLock
             int w = exclusiveCount(c);
             if (c != 0) {
                 // (Note: if c != 0 and w == 0 then shared count != 0)
-                if (w == 0 || current != getExclusiveOwnerThread())
+                if (w == 0 || current != getExclusiveOwnerThread())//当前锁已被其他线程占有 未释放
                     return false;
-                if (w + exclusiveCount(acquires) > MAX_COUNT)
+                if (w + exclusiveCount(acquires) > MAX_COUNT) //超过锁的最大计数
                     throw new Error("Maximum lock count exceeded");
                 // Reentrant acquire
                 setState(c + acquires);
                 return true;
             }
+            //writerShouldBlock 非公平锁 直接false  公平锁 查看是否有前序节点
+            //
             if (writerShouldBlock() ||
                 !compareAndSetState(c, c + acquires))
                 return false;
