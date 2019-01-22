@@ -406,34 +406,42 @@ public class ReentrantReadWriteLock
                 return true;
             }
             //writerShouldBlock 非公平锁 直接false  公平锁 查看是否有前序节点
-            //
+            //增加锁锁的共享次数 失败
             if (writerShouldBlock() ||
                 !compareAndSetState(c, c + acquires))
                 return false;
+            //设置独占锁
             setExclusiveOwnerThread(current);
             return true;
         }
 
         protected final boolean tryReleaseShared(int unused) {
             Thread current = Thread.currentThread();
+            //当前线程为第一个读锁线程
             if (firstReader == current) {
                 // assert firstReaderHoldCount > 0;
+                //当第一个读锁线程只持有一个 时  直接置null
                 if (firstReaderHoldCount == 1)
                     firstReader = null;
                 else
+                    //否则递减一个
                     firstReaderHoldCount--;
-            } else {
+            } else {//当前线程不是第一个读线程时
                 HoldCounter rh = cachedHoldCounter;
+                //当缓存的之前锁重入计数器为null(之前没有共享锁) 或者缓存的tid与当前线程的tid不等
                 if (rh == null || rh.tid != getThreadId(current))
-                    rh = readHolds.get();
+                    rh = readHolds.get();//使用读锁的计数器
                 int count = rh.count;
+                //当基数等于1直接移除
                 if (count <= 1) {
                     readHolds.remove();
+                    //小于等于0时 报异常
                     if (count <= 0)
                         throw unmatchedUnlockException();
                 }
-                --rh.count;
+                --rh.count;//计数减一
             }
+            //设置锁状态
             for (;;) {
                 int c = getState();
                 int nextc = c - SHARED_UNIT;
