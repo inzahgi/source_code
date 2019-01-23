@@ -72,6 +72,7 @@ public enum TimeUnit {
     /**
      * Time unit representing one thousandth of a microsecond
      */
+    //纳秒
     NANOSECONDS {
         public long toNanos(long d)   { return d; }
         public long toMicros(long d)  { return d/(C1/C0); }
@@ -87,6 +88,7 @@ public enum TimeUnit {
     /**
      * Time unit representing one thousandth of a millisecond
      */
+    //微秒
     MICROSECONDS {
         public long toNanos(long d)   { return x(d, C1/C0, MAX/(C1/C0)); }
         public long toMicros(long d)  { return d; }
@@ -102,6 +104,7 @@ public enum TimeUnit {
     /**
      * Time unit representing one thousandth of a second
      */
+    //毫秒
     MILLISECONDS {
         public long toNanos(long d)   { return x(d, C2/C0, MAX/(C2/C0)); }
         public long toMicros(long d)  { return x(d, C2/C1, MAX/(C2/C1)); }
@@ -117,6 +120,7 @@ public enum TimeUnit {
     /**
      * Time unit representing one second
      */
+    //秒
     SECONDS {
         public long toNanos(long d)   { return x(d, C3/C0, MAX/(C3/C0)); }
         public long toMicros(long d)  { return x(d, C3/C1, MAX/(C3/C1)); }
@@ -132,6 +136,7 @@ public enum TimeUnit {
     /**
      * Time unit representing sixty seconds
      */
+    //分钟
     MINUTES {
         public long toNanos(long d)   { return x(d, C4/C0, MAX/(C4/C0)); }
         public long toMicros(long d)  { return x(d, C4/C1, MAX/(C4/C1)); }
@@ -147,6 +152,7 @@ public enum TimeUnit {
     /**
      * Time unit representing sixty minutes
      */
+    //小时
     HOURS {
         public long toNanos(long d)   { return x(d, C5/C0, MAX/(C5/C0)); }
         public long toMicros(long d)  { return x(d, C5/C1, MAX/(C5/C1)); }
@@ -162,6 +168,7 @@ public enum TimeUnit {
     /**
      * Time unit representing twenty four hours
      */
+    //天
     DAYS {
         public long toNanos(long d)   { return x(d, C6/C0, MAX/(C6/C0)); }
         public long toMicros(long d)  { return x(d, C6/C1, MAX/(C6/C1)); }
@@ -340,6 +347,7 @@ public enum TimeUnit {
      * or equal to zero, do not wait at all.
      * @throws InterruptedException if interrupted while waiting
      */
+    //带时间的阻塞  显示锁中使用
     public void timedWait(Object obj, long timeout)
             throws InterruptedException {
         if (timeout > 0) {
@@ -360,6 +368,7 @@ public enum TimeUnit {
      * or equal to zero, do not wait at all.
      * @throws InterruptedException if interrupted while waiting
      */
+    //带时间等待线程 回收
     public void timedJoin(Thread thread, long timeout)
             throws InterruptedException {
         if (timeout > 0) {
@@ -379,6 +388,7 @@ public enum TimeUnit {
      * or equal to zero, do not sleep at all.
      * @throws InterruptedException if interrupted while sleeping
      */
+    //线程睡眠
     public void sleep(long timeout) throws InterruptedException {
         if (timeout > 0) {
             long ms = toMillis(timeout);
