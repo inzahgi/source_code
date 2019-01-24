@@ -482,22 +482,24 @@ public class ReentrantReadWriteLock
                 return -1;
             //获取共享锁次数
             int r = sharedCount(c);
-            //
+            //是否可以获取读锁 而且读锁共享个数小于最大阈值 跟新锁状态成功时 修改计数
             if (!readerShouldBlock() &&
                 r < MAX_COUNT &&
                 compareAndSetState(c, c + SHARED_UNIT)) {
+                //共享数等于0时 将当前线程设置为首个读线程 并设置读计数为1
                 if (r == 0) {
                     firstReader = current;
                     firstReaderHoldCount = 1;
-                } else if (firstReader == current) {
+                } else if (firstReader == current) {//当前线程为首个读线程 计数加一
                     firstReaderHoldCount++;
                 } else {
                     HoldCounter rh = cachedHoldCounter;
+                    //当缓存计数器为null 或者 缓存计数器保存的tid不是当前线程的
                     if (rh == null || rh.tid != getThreadId(current))
-                        cachedHoldCounter = rh = readHolds.get();
-                    else if (rh.count == 0)
+                        cachedHoldCounter = rh = readHolds.get();//将读锁的计数赋给缓存计数器
+                    else if (rh.count == 0)//当缓存计数器为0时  设置其为读锁计数器
                         readHolds.set(rh);
-                    rh.count++;
+                    rh.count++;//缓存计数加一
                 }
                 return 1;
             }
@@ -508,6 +510,7 @@ public class ReentrantReadWriteLock
          * Full version of acquire for reads, that handles CAS misses
          * and reentrant reads not dealt with in tryAcquireShared.
          */
+        //尝试获取共享锁
         final int fullTryAcquireShared(Thread current) {
             /*
              * This code is in part redundant with that in
@@ -517,45 +520,56 @@ public class ReentrantReadWriteLock
              */
             HoldCounter rh = null;
             for (;;) {
+                //获取锁的状态
                 int c = getState();
+                //判断是否独占
                 if (exclusiveCount(c) != 0) {
+                    //如果不是当前线程独占 直接返回-1
                     if (getExclusiveOwnerThread() != current)
                         return -1;
                     // else we hold the exclusive lock; blocking here
                     // would cause deadlock.
-                } else if (readerShouldBlock()) {
+                } else if (readerShouldBlock()) {//获取读锁时是否阻塞
                     // Make sure we're not acquiring read lock reentrantly
-                    if (firstReader == current) {
+                    if (firstReader == current) {//当前线程不是首个读线程
                         // assert firstReaderHoldCount > 0;
                     } else {
-                        if (rh == null) {
+                        if (rh == null) {//计数器为null 时 保存当前缓存计数器引用
                             rh = cachedHoldCounter;
+                            //如果缓存计数器也为null 或者缓存计数器的tid不等于当前线程tid
                             if (rh == null || rh.tid != getThreadId(current)) {
+                                //缓存计数器保存读锁的引用
                                 rh = readHolds.get();
+                                //当计数为0时， 将读锁计数器从当前线程的threadLocal中移除
                                 if (rh.count == 0)
                                     readHolds.remove();
                             }
-                        }
+                        }//当缓存计数为0 时 直接返回-1
                         if (rh.count == 0)
                             return -1;
                     }
-                }
+                }//如果共享锁次数到了最大值 直接抛错误
                 if (sharedCount(c) == MAX_COUNT)
                     throw new Error("Maximum lock count exceeded");
+                //更新锁的状态
                 if (compareAndSetState(c, c + SHARED_UNIT)) {
+                    //共享次数为0时
                     if (sharedCount(c) == 0) {
+                        //首个读线程设为当前线程 并且相应计数加一
                         firstReader = current;
                         firstReaderHoldCount = 1;
                     } else if (firstReader == current) {
+                        //如果当前线程即为首个读线程 则计数加一
                         firstReaderHoldCount++;
-                    } else {
+                    } else {//保存 缓存计数器
                         if (rh == null)
                             rh = cachedHoldCounter;
+                        //如果缓存计数器也为null 或者缓存计数器的tid不等于当前线程tid
                         if (rh == null || rh.tid != getThreadId(current))
-                            rh = readHolds.get();
-                        else if (rh.count == 0)
+                            rh = readHolds.get();//保存读锁计数
+                        else if (rh.count == 0)//计数为0时 读锁计数设置为缓存计数器
                             readHolds.set(rh);
-                        rh.count++;
+                        rh.count++;//计数加一
                         cachedHoldCounter = rh; // cache for release
                     }
                     return 1;
@@ -571,15 +585,19 @@ public class ReentrantReadWriteLock
         final boolean tryWriteLock() {
             Thread current = Thread.currentThread();
             int c = getState();
+            //当前锁的状态不为0
             if (c != 0) {
                 int w = exclusiveCount(c);
+                //如果写锁计数为0 当前线程不是独占线程
                 if (w == 0 || current != getExclusiveOwnerThread())
                     return false;
                 if (w == MAX_COUNT)
                     throw new Error("Maximum lock count exceeded");
             }
+            //锁的状态加一
             if (!compareAndSetState(c, c + 1))
                 return false;
+            //设置独占线程
             setExclusiveOwnerThread(current);
             return true;
         }
@@ -695,6 +713,7 @@ public class ReentrantReadWriteLock
              * block if there is a waiting writer behind other enabled
              * readers that have not yet drained from the queue.
              */
+            //判断队列首部的后续节点 是否独占
             return apparentlyFirstQueuedIsExclusive();
         }
     }
@@ -708,6 +727,7 @@ public class ReentrantReadWriteLock
             return hasQueuedPredecessors();
         }
         final boolean readerShouldBlock() {
+            //是否有前序节点
             return hasQueuedPredecessors();
         }
     }
