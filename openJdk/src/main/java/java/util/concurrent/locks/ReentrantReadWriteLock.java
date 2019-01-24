@@ -476,10 +476,13 @@ public class ReentrantReadWriteLock
              */
             Thread current = Thread.currentThread();
             int c = getState();
+            //锁计数不为0(已经被其他线程获取) 并且没有被当前线程独占 返回失败
             if (exclusiveCount(c) != 0 &&
                 getExclusiveOwnerThread() != current)
                 return -1;
+            //获取共享锁次数
             int r = sharedCount(c);
+            //
             if (!readerShouldBlock() &&
                 r < MAX_COUNT &&
                 compareAndSetState(c, c + SHARED_UNIT)) {

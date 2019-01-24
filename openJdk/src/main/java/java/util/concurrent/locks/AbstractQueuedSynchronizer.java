@@ -1487,6 +1487,7 @@ public abstract class AbstractQueuedSynchronizer
      */
     final boolean apparentlyFirstQueuedIsExclusive() {
         Node h, s;
+        //头节点不为空 头节点有后续节点 后续节点不是共享的
         return (h = head) != null &&
             (s = h.next)  != null &&
             !s.isShared()         &&
