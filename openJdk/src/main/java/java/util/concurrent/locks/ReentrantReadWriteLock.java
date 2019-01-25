@@ -610,24 +610,31 @@ public class ReentrantReadWriteLock
         final boolean tryReadLock() {
             Thread current = Thread.currentThread();
             for (;;) {
+                //获取锁的状态
                 int c = getState();
+                //如果被其他线程独占直接返回
                 if (exclusiveCount(c) != 0 &&
                     getExclusiveOwnerThread() != current)
                     return false;
+                //获取当前共享次数
                 int r = sharedCount(c);
                 if (r == MAX_COUNT)
                     throw new Error("Maximum lock count exceeded");
+                //更新共享
                 if (compareAndSetState(c, c + SHARED_UNIT)) {
+                    //如果共享次数为0  设置当前首个读线程 初始化读计数为1
                     if (r == 0) {
                         firstReader = current;
                         firstReaderHoldCount = 1;
                     } else if (firstReader == current) {
+                        //如果当前线程 为首个读线程 读计数加一
                         firstReaderHoldCount++;
                     } else {
                         HoldCounter rh = cachedHoldCounter;
+                        //如果缓存计数为null或者 其tid不是当前线程tid
                         if (rh == null || rh.tid != getThreadId(current))
                             cachedHoldCounter = rh = readHolds.get();
-                        else if (rh.count == 0)
+                        else if (rh.count == 0)//读锁计数为0  将读锁计数设为缓存计数
                             readHolds.set(rh);
                         rh.count++;
                     }
@@ -668,10 +675,12 @@ public class ReentrantReadWriteLock
         }
 
         final int getReadHoldCount() {
+            //获取共享锁计数 为0  直接返回0
             if (getReadLockCount() == 0)
                 return 0;
 
             Thread current = Thread.currentThread();
+            //如果当前线程为首个读线程 返回 该线程计数
             if (firstReader == current)
                 return firstReaderHoldCount;
 
