@@ -269,42 +269,52 @@ public class StampedLock implements java.io.Serializable {
     private static final long serialVersionUID = -6001602636862214147L;
 
     /** Number of processors, for spin control */
+    /** 获取服务器CPU核数 */
     private static final int NCPU = Runtime.getRuntime().availableProcessors();
 
     /** Maximum number of retries before enqueuing on acquisition */
+    /** 线程入队列前自旋次数 */
     private static final int SPINS = (NCPU > 1) ? 1 << 6 : 0;
 
     /** Maximum number of retries before blocking at head on acquisition */
+    /** 队列头结点自旋获取锁最大失败次数后再次进入队列 */
     private static final int HEAD_SPINS = (NCPU > 1) ? 1 << 10 : 0;
 
     /** Maximum number of retries before re-blocking */
+    /** 重新阻塞前的最大重试次数 */
     private static final int MAX_HEAD_SPINS = (NCPU > 1) ? 1 << 16 : 0;
 
     /** The period for yielding when waiting for overflow spinlock */
     private static final int OVERFLOW_YIELD_RATE = 7; // must be power 2 - 1
 
     /** The number of bits to use for reader count before overflowing */
+    /** 溢出之前用于阅读器计数的位数 */
     private static final int LG_READERS = 7;
 
     // Values for lock state and stamp operations
+    // 锁定状态和stamp操作的值
     private static final long RUNIT = 1L;
     private static final long WBIT  = 1L << LG_READERS;
     private static final long RBITS = WBIT - 1L;
     private static final long RFULL = RBITS - 1L;
-    private static final long ABITS = RBITS | WBIT;
-    private static final long SBITS = ~RBITS; // note overlap with ABITS
+    private static final long ABITS = RBITS | WBIT;//前8位都为1
+    private static final long SBITS = ~RBITS; // note overlap with ABITS 1 1000 0000
 
     // Initial value for lock state; avoid failure value zero
+    //锁state初始值，第9位为1，避免算术时和0冲突
     private static final long ORIGIN = WBIT << 1;
 
     // Special value from cancelled acquire methods so caller can throw IE
+    // 来自取消获取方法的特殊值，因此调用者可以抛出IE
     private static final long INTERRUPTED = 1L;
 
     // Values for node status; order matters
+    // 来自取消获取方法的特殊值，因此调用者可以抛出IE
     private static final int WAITING   = -1;
     private static final int CANCELLED =  1;
 
     // Modes for nodes (int not boolean to allow arithmetic)
+    // WNode节点的status值
     private static final int RMODE = 0;
     private static final int WMODE = 1;
 
@@ -312,7 +322,7 @@ public class StampedLock implements java.io.Serializable {
     static final class WNode {
         volatile WNode prev;
         volatile WNode next;
-        volatile WNode cowait;    // list of linked readers
+        volatile WNode cowait;    // list of linked readers 读模式使用该节点形成栈
         volatile Thread thread;   // non-null while possibly parked
         volatile int status;      // 0, WAITING, or CANCELLED
         final int mode;           // RMODE or WMODE
