@@ -293,11 +293,11 @@ public class StampedLock implements java.io.Serializable {
 
     // Values for lock state and stamp operations
     // 锁定状态和stamp操作的值
-    private static final long RUNIT = 1L;
-    private static final long WBIT  = 1L << LG_READERS;
-    private static final long RBITS = WBIT - 1L;
-    private static final long RFULL = RBITS - 1L;
-    private static final long ABITS = RBITS | WBIT;//前8位都为1
+    private static final long RUNIT = 1L;  // 一单位读锁 0000 0001
+    private static final long WBIT  = 1L << LG_READERS;  // 写锁标识位  1000 0000
+    private static final long RBITS = WBIT - 1L;  // 读状态标识 0111 1111
+    private static final long RFULL = RBITS - 1L; //  读锁最大数量  0111 1110
+    private static final long ABITS = RBITS | WBIT;// 用于获取读写状态 前8位都为1  1111 1111
     private static final long SBITS = ~RBITS; // note overlap with ABITS 1 1000 0000
 
     // Initial value for lock state; avoid failure value zero
@@ -340,8 +340,10 @@ public class StampedLock implements java.io.Serializable {
     transient ReadWriteLockView readWriteLockView;
 
     /** Lock sequence/state */
+    /** 锁队列状态， 当处于写模式时第8位为1，读模式时前7为为1-126（附加的readerOverflow用于当读者超过126时） */
     private transient volatile long state;
     /** extra reader count when state read count saturated */
+    /** 将state超过 RFULL=126的值放到readerOverflow字段中 */
     private transient int readerOverflow;
 
     /**
@@ -356,6 +358,8 @@ public class StampedLock implements java.io.Serializable {
      * until available.
      *
      * @return a stamp that can be used to unlock or convert mode
+     *      *获取写锁，获取失败会一直阻塞，直到获得锁成功
+     * @return 可以用来解锁或转换模式的戳记(128的整数)
      */
     public long writeLock() {
         long s, next;  // bypass acquireWrite in fully unlocked case only
