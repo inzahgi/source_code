@@ -373,6 +373,8 @@ public class StampedLock implements java.io.Serializable {
      *
      * @return a stamp that can be used to unlock or convert mode,
      * or zero if the lock is not available
+     *
+     * 没有锁的时候 直接尝试获取写锁， 否则直接返回0
      */
     public long tryWriteLock() {
         long s, next;
@@ -393,18 +395,23 @@ public class StampedLock implements java.io.Serializable {
      * or zero if the lock is not available
      * @throws InterruptedException if the current thread is interrupted
      * before acquiring the lock
+     *
+     * 在时间范围内获取尝试获取锁，成功返回状态值 否则返回0 或中断异常
      */
     public long tryWriteLock(long time, TimeUnit unit)
         throws InterruptedException {
         long nanos = unit.toNanos(time);
         if (!Thread.interrupted()) {
             long next, deadline;
+            //立刻获得锁成功
             if ((next = tryWriteLock()) != 0L)
                 return next;
+            //超时 返回
             if (nanos <= 0L)
                 return 0L;
             if ((deadline = System.nanoTime() + nanos) == 0L)
                 deadline = 1L;
+            //在规定时间内获得锁
             if ((next = acquireWrite(true, deadline)) != INTERRUPTED)
                 return next;
         }
@@ -420,9 +427,11 @@ public class StampedLock implements java.io.Serializable {
      * @return a stamp that can be used to unlock or convert mode
      * @throws InterruptedException if the current thread is interrupted
      * before acquiring the lock
+     *
      */
     public long writeLockInterruptibly() throws InterruptedException {
         long next;
+        //线程的状态不是中断状态  并且 尝试可中断的获取写锁 被打断则报中断异常
         if (!Thread.interrupted() &&
             (next = acquireWrite(true, 0L)) != INTERRUPTED)
             return next;
