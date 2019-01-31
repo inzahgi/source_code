@@ -443,9 +443,12 @@ public class StampedLock implements java.io.Serializable {
      * until available.
      *
      * @return a stamp that can be used to unlock or convert mode
+     *
+     * 悲观读锁，非独占锁，为获得锁一直处于阻塞状态，直到获得锁为止
      */
     public long readLock() {
         long s = state, next;  // bypass acquireRead on common uncontended case
+        // 队列为空   && 没有写锁同时读锁数小于126  && CAS修改状态成功      则状态加1并返回，否则自旋获取读锁
         return ((whead == wtail && (s & ABITS) < RFULL &&
                  U.compareAndSwapLong(this, STATE, s, next = s + RUNIT)) ?
                 next : acquireRead(false, 0L));
@@ -560,14 +563,18 @@ public class StampedLock implements java.io.Serializable {
      * @param stamp a stamp returned by a write-lock operation
      * @throws IllegalMonitorStateException if the stamp does
      * not match the current state of this lock
+     *
+     * state匹配stamp 释放锁
      */
     public void unlockWrite(long stamp) {
         WNode h;
+        //不匹配或者没有锁 报异常
         if (state != stamp || (stamp & WBIT) == 0L)
             throw new IllegalMonitorStateException();
+        //state += WBIT， 第8位置为0，但state & SBITS 会循环，一共有4个值
         state = (stamp += WBIT) == 0L ? ORIGIN : stamp;
         if ((h = whead) != null && h.status != 0)
-            release(h);
+            release(h);//唤醒继承者的线程
     }
 
     /**
