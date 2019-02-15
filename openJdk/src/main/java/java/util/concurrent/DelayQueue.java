@@ -157,6 +157,7 @@ public class DelayQueue<E extends Delayed> extends AbstractQueue<E>
      * @param e the element to add
      * @throws NullPointerException {@inheritDoc}
      */
+    //添加至队列
     public void put(E e) {
         offer(e);
     }
@@ -182,6 +183,7 @@ public class DelayQueue<E extends Delayed> extends AbstractQueue<E>
      * @return the head of this queue, or {@code null} if this
      *         queue has no elements with an expired delay
      */
+    //出队列首元素
     public E poll() {
         final ReentrantLock lock = this.lock;
         lock.lock();
@@ -203,6 +205,7 @@ public class DelayQueue<E extends Delayed> extends AbstractQueue<E>
      * @return the head of this queue
      * @throws InterruptedException {@inheritDoc}
      */
+    //出队列的首元素 没有的话 循环
     public E take() throws InterruptedException {
         final ReentrantLock lock = this.lock;
         lock.lockInterruptibly();
