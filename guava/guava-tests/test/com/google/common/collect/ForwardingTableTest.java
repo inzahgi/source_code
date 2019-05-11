@@ -41,6 +41,7 @@ public class ForwardingTableTest extends TestCase {
             });
   }
 
+  // 测试包装 table 与原始table是否相等
   public void testEquals() {
     Table<Integer, Integer, String> table1 = ImmutableTable.of(1, 1, "one");
     Table<Integer, Integer, String> table2 = ImmutableTable.of(2, 2, "two");

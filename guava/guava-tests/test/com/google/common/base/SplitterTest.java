@@ -42,6 +42,7 @@ public class SplitterTest extends TestCase {
     }
   }
 
+  //逗号拆分字符串
   public void testCharacterSimpleSplit() {
     String simple = "a,b,c";
     Iterable<String> letters = COMMA_SPLITTER.split(simple);
@@ -55,6 +56,7 @@ public class SplitterTest extends TestCase {
    * <p>TODO(user): It would be good to make all the relevant tests run on both split and
    * splitToString automatically.
    */
+  //逗号拆分字符串 输出list
   public void testCharacterSimpleSplitToList() {
     String simple = "a,b,c";
     List<String> letters = COMMA_SPLITTER.splitToList(simple);
@@ -67,18 +69,21 @@ public class SplitterTest extends TestCase {
     assertEquals("[yam, bam, jam, ham]", Splitter.on(", ").split("yam, bam, jam, ham").toString());
   }
 
+  //没有找到限定符 原样输出
   public void testCharacterSimpleSplitWithNoDelimiter() {
     String simple = "a,b,c";
     Iterable<String> letters = Splitter.on('.').split(simple);
     assertThat(letters).containsExactly("a,b,c").inOrder();
   }
 
+  //连续限定符 会出现空字符
   public void testCharacterSplitWithDoubleDelimiter() {
     String doubled = "a,,b,c";
     Iterable<String> letters = COMMA_SPLITTER.split(doubled);
     assertThat(letters).containsExactly("a", "", "b", "c").inOrder();
   }
 
+  // 包含空格
   public void testCharacterSplitWithDoubleDelimiterAndSpace() {
     String doubled = "a,, b,c";
     Iterable<String> letters = COMMA_SPLITTER.split(doubled);

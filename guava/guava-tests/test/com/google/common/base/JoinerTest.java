@@ -85,6 +85,7 @@ public class JoinerTest extends TestCase {
     }
   }
 
+  // list元素 连接输出
   public void testOnCharOverride() {
     Joiner onChar = Joiner.on('-');
     checkNoOutput(onChar, ITERABLE_);
@@ -93,6 +94,7 @@ public class JoinerTest extends TestCase {
     checkResult(onChar, ITERABLE_123, "1-2-3");
   }
 
+  //跳过null 连接
   public void testSkipNulls() {
     Joiner skipNulls = J.skipNulls();
     checkNoOutput(skipNulls, ITERABLE_);
