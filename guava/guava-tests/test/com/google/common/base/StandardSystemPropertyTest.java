@@ -29,6 +29,7 @@ import junit.framework.TestCase;
  */
 public class StandardSystemPropertyTest extends TestCase {
 
+  //按key name获取 value
   public void testGetKeyMatchesString() {
     for (StandardSystemProperty property : StandardSystemProperty.values()) {
       String fieldName = property.name();
@@ -37,12 +38,14 @@ public class StandardSystemPropertyTest extends TestCase {
     }
   }
 
+  // get value
   public void testGetValue() {
     for (StandardSystemProperty property : StandardSystemProperty.values()) {
       assertEquals(System.getProperty(property.key()), property.value());
     }
   }
 
+  //
   public void testToString() {
     for (StandardSystemProperty property : StandardSystemProperty.values()) {
       assertEquals(property.key() + "=" + property.value(), property.toString());

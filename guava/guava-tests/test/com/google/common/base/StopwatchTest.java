@@ -37,27 +37,30 @@ public class StopwatchTest extends TestCase {
   private final FakeTicker ticker = new FakeTicker();
   private final Stopwatch stopwatch = new Stopwatch(ticker);
 
+  //创建自动开始的秒表
   public void testCreateStarted() {
     Stopwatch startedStopwatch = Stopwatch.createStarted();
     assertTrue(startedStopwatch.isRunning());
   }
-
+  //传教秒表  手动开始
   public void testCreateUnstarted() {
     Stopwatch unstartedStopwatch = Stopwatch.createUnstarted();
     assertFalse(unstartedStopwatch.isRunning());
     assertEquals(0, unstartedStopwatch.elapsed(NANOSECONDS));
   }
 
+  //创建后初始状态为0
   public void testInitialState() {
     assertFalse(stopwatch.isRunning());
     assertEquals(0, stopwatch.elapsed(NANOSECONDS));
   }
 
+  //手动开始
   public void testStart() {
     assertSame(stopwatch, stopwatch.start());
     assertTrue(stopwatch.isRunning());
   }
-
+  //开始后 不能再次手动开始
   public void testStart_whileRunning() {
     stopwatch.start();
     try {
@@ -68,12 +71,13 @@ public class StopwatchTest extends TestCase {
     assertTrue(stopwatch.isRunning());
   }
 
+  // 手动结束
   public void testStop() {
     stopwatch.start();
     assertSame(stopwatch, stopwatch.stop());
     assertFalse(stopwatch.isRunning());
   }
-
+  //  没有开始时 不能手动stop
   public void testStop_new() {
     try {
       stopwatch.stop();
@@ -83,6 +87,7 @@ public class StopwatchTest extends TestCase {
     assertFalse(stopwatch.isRunning());
   }
 
+  // 结束后的状态
   public void testStop_alreadyStopped() {
     stopwatch.start();
     stopwatch.stop();
@@ -94,6 +99,7 @@ public class StopwatchTest extends TestCase {
     assertFalse(stopwatch.isRunning());
   }
 
+  //没有开始时 不受计时影响  开始后会被影响
   public void testReset_new() {
     ticker.advance(1);
     stopwatch.reset();
@@ -105,6 +111,7 @@ public class StopwatchTest extends TestCase {
     assertEquals(3, stopwatch.elapsed(NANOSECONDS));
   }
 
+  // reset 后不在运行
   public void testReset_whileRunning() {
     ticker.advance(1);
     stopwatch.start();
@@ -117,6 +124,7 @@ public class StopwatchTest extends TestCase {
     assertEquals(0, stopwatch.elapsed(NANOSECONDS));
   }
 
+  //  开始后才会被 计时时间影响
   public void testElapsed_whileRunning() {
     ticker.advance(78);
     stopwatch.start();
@@ -125,7 +133,7 @@ public class StopwatchTest extends TestCase {
     ticker.advance(345);
     assertEquals(345, stopwatch.elapsed(NANOSECONDS));
   }
-
+  // 只有运行期间 才会改变计时状态
   public void testElapsed_notRunning() {
     ticker.advance(1);
     stopwatch.start();
@@ -135,6 +143,7 @@ public class StopwatchTest extends TestCase {
     assertEquals(4, stopwatch.elapsed(NANOSECONDS));
   }
 
+  // 计时状态会累加
   public void testElapsed_multipleSegments() {
     stopwatch.start();
     ticker.advance(9);
@@ -151,7 +160,7 @@ public class StopwatchTest extends TestCase {
     ticker.advance(36);
     assertEquals(34, stopwatch.elapsed(NANOSECONDS));
   }
-
+  // 时间单位 影响输出状态
   public void testElapsed_micros() {
     stopwatch.start();
     ticker.advance(999);
@@ -160,6 +169,7 @@ public class StopwatchTest extends TestCase {
     assertEquals(1, stopwatch.elapsed(MICROSECONDS));
   }
 
+  // 时间单位 影响输出状态
   public void testElapsed_millis() {
     stopwatch.start();
     ticker.advance(999999);

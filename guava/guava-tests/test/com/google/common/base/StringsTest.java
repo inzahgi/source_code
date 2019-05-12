@@ -30,24 +30,31 @@ import junit.framework.TestCase;
  */
 @GwtCompatible(emulated = true)
 public class StringsTest extends TestCase {
+  //将 null转换为 ""
   public void testNullToEmpty() {
+    //  null 输出 ""
     assertEquals("", Strings.nullToEmpty(null));
+    //  ""  输出 ""
     assertEquals("", Strings.nullToEmpty(""));
+    //  a  输出 a
     assertEquals("a", Strings.nullToEmpty("a"));
   }
 
+  //将 "" 转换为 null
   public void testEmptyToNull() {
     assertNull(Strings.emptyToNull(null));
     assertNull(Strings.emptyToNull(""));
     assertEquals("a", Strings.emptyToNull("a"));
   }
 
+  //  测试 null or ""
   public void testIsNullOrEmpty() {
     assertTrue(Strings.isNullOrEmpty(null));
     assertTrue(Strings.isNullOrEmpty(""));
     assertFalse(Strings.isNullOrEmpty("a"));
   }
 
+  // 前缀 不加 字符串
   public void testPadStart_noPadding() {
     assertSame("", Strings.padStart("", 0, '-'));
     assertSame("x", Strings.padStart("x", 0, '-'));
@@ -56,6 +63,7 @@ public class StringsTest extends TestCase {
     assertSame("xx", Strings.padStart("xx", 2, '-'));
   }
 
+  //前缀加 字符串
   public void testPadStart_somePadding() {
     assertEquals("-", Strings.padStart("", 1, '-'));
     assertEquals("--", Strings.padStart("", 2, '-'));
@@ -64,6 +72,7 @@ public class StringsTest extends TestCase {
     assertEquals("-xx", Strings.padStart("xx", 3, '-'));
   }
 
+  // minLength 为负时
   public void testPadStart_negativeMinLength() {
     assertSame("x", Strings.padStart("x", -1, '-'));
   }
@@ -77,6 +86,7 @@ public class StringsTest extends TestCase {
     }
   }
 
+  // 后缀  不加
   public void testPadEnd_noPadding() {
     assertSame("", Strings.padEnd("", 0, '-'));
     assertSame("x", Strings.padEnd("x", 0, '-'));
@@ -85,6 +95,7 @@ public class StringsTest extends TestCase {
     assertSame("xx", Strings.padEnd("xx", 2, '-'));
   }
 
+  // 后缀加 字符串
   public void testPadEnd_somePadding() {
     assertEquals("-", Strings.padEnd("", 1, '-'));
     assertEquals("--", Strings.padEnd("", 2, '-'));
@@ -106,6 +117,7 @@ public class StringsTest extends TestCase {
     }
   }
 
+  //重复 字符串
   public void testRepeat() {
     String input = "20";
     assertEquals("", Strings.repeat(input, 0));
