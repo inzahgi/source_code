@@ -32,6 +32,7 @@ import junit.framework.TestCase;
  */
 public class AbstractCacheTest extends TestCase {
 
+  // 获取缓存 返回原始对象实例
   public void testGetIfPresent() {
     final AtomicReference<Object> valueRef = new AtomicReference<>();
     Cache<Object, Object> cache =
@@ -49,6 +50,7 @@ public class AbstractCacheTest extends TestCase {
     assertSame(newValue, cache.getIfPresent(new Object()));
   }
 
+  // 空缓存  返回空map
   public void testGetAllPresent_empty() {
     Cache<Object, Object> cache =
         new AbstractCache<Object, Object>() {
@@ -61,6 +63,7 @@ public class AbstractCacheTest extends TestCase {
     assertEquals(ImmutableMap.of(), cache.getAllPresent(ImmutableList.of(new Object())));
   }
 
+  //获取缓存
   public void testGetAllPresent_cached() {
     final Object cachedKey = new Object();
     final Object cachedValue = new Object();
@@ -77,6 +80,7 @@ public class AbstractCacheTest extends TestCase {
         cache.getAllPresent(ImmutableList.of(cachedKey, new Object())));
   }
 
+  //key  不合格
   public void testInvalidateAll() {
     final List<Object> invalidated = Lists.newArrayList();
     Cache<Integer, Integer> cache =
@@ -97,6 +101,7 @@ public class AbstractCacheTest extends TestCase {
     assertEquals(toInvalidate, invalidated);
   }
 
+  //统计次数
   public void testEmptySimpleStats() {
     StatsCounter counter = new SimpleStatsCounter();
     CacheStats stats = counter.snapshot();

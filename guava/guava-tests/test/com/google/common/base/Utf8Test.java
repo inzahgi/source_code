@@ -59,6 +59,7 @@ public class Utf8Test extends TestCase {
     ILL_FORMED_STRINGS = builder.build();
   }
 
+  //测试utf编码长度
   public void testEncodedLength_validStrings() {
     assertEquals(0, Utf8.encodedLength(""));
     assertEquals(11, Utf8.encodedLength("Hello world"));
@@ -76,6 +77,7 @@ public class Utf8Test extends TestCase {
     assertEquals(4, Utf8.encodedLength(newString(MIN_HIGH_SURROGATE, MIN_LOW_SURROGATE)));
   }
 
+  //
   public void testEncodedLength_validStrings2() {
     HashMap<Integer, Integer> utf8Lengths = new HashMap<>();
     utf8Lengths.put(0x00, 1);
