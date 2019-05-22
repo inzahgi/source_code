@@ -118,6 +118,7 @@ public class AbstractCacheTest extends TestCase {
     assertEquals(0, stats.evictionCount());
   }
 
+  //分类统计
   public void testSingleSimpleStats() {
     StatsCounter counter = new SimpleStatsCounter();
     for (int i = 0; i < 11; i++) {
@@ -151,6 +152,7 @@ public class AbstractCacheTest extends TestCase {
     assertEquals(27, stats.evictionCount());
   }
 
+  //两个统计叠加
   public void testSimpleStatsIncrementBy() {
     long totalLoadTime = 0;
 

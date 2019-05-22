@@ -29,6 +29,7 @@ import junit.framework.TestCase;
  */
 public class AbstractLoadingCacheTest extends TestCase {
 
+    //定义loadingCache 加载方法
   public void testGetUnchecked_checked() {
     final Exception cause = new Exception();
     final AtomicReference<Object> valueRef = new AtomicReference<>();
@@ -61,6 +62,7 @@ public class AbstractLoadingCacheTest extends TestCase {
     assertSame(newValue, cache.getUnchecked(new Object()));
   }
 
+  //uncheck方法
   public void testGetUnchecked_unchecked() {
     final RuntimeException cause = new RuntimeException();
     final AtomicReference<Object> valueRef = new AtomicReference<>();
@@ -93,6 +95,7 @@ public class AbstractLoadingCacheTest extends TestCase {
     assertSame(newValue, cache.getUnchecked(new Object()));
   }
 
+  //报指定异常
   public void testGetUnchecked_error() {
     final Error cause = new Error();
     final AtomicReference<Object> valueRef = new AtomicReference<>();
@@ -125,6 +128,7 @@ public class AbstractLoadingCacheTest extends TestCase {
     assertSame(newValue, cache.getUnchecked(new Object()));
   }
 
+  // 报throwable
   public void testGetUnchecked_otherThrowable() {
     final Throwable cause = new Throwable();
     final AtomicReference<Object> valueRef = new AtomicReference<>();
