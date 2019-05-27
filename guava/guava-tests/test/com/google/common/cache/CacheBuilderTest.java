@@ -82,7 +82,7 @@ public class CacheBuilderTest extends TestCase {
     }
   }
 
-
+//空cache的结构
   @GwtIncompatible // CacheTesting
   public void testInitialCapacity_small() {
     LoadingCache<?, ?> cache = CacheBuilder.newBuilder().initialCapacity(5).build(identityLoader());
@@ -114,6 +114,7 @@ public class CacheBuilderTest extends TestCase {
     // don't actually create this monster!
   }
 
+  // concurrencyLevel 不能为0
   public void testConcurrencyLevel_zero() {
     CacheBuilder<Object, Object> builder = CacheBuilder.newBuilder();
     try {
@@ -123,6 +124,7 @@ public class CacheBuilderTest extends TestCase {
     }
   }
 
+  // concurrencyLevel不能设置两次
   public void testConcurrencyLevel_setTwice() {
     CacheBuilder<Object, Object> builder = CacheBuilder.newBuilder().concurrencyLevel(16);
     try {
@@ -133,6 +135,7 @@ public class CacheBuilderTest extends TestCase {
     }
   }
 
+  //concurrencyLevel 最小设置为1
   @GwtIncompatible // CacheTesting
   public void testConcurrencyLevel_small() {
     LoadingCache<?, ?> cache =
@@ -141,11 +144,13 @@ public class CacheBuilderTest extends TestCase {
     assertThat(map.segments).hasLength(1);
   }
 
+  //不能设置最大值
   public void testConcurrencyLevel_large() {
     CacheBuilder.newBuilder().concurrencyLevel(Integer.MAX_VALUE);
     // don't actually build this beast
   }
 
+  // maximumSize 不能为-1
   public void testMaximumSize_negative() {
     CacheBuilder<Object, Object> builder = CacheBuilder.newBuilder();
     try {
@@ -155,6 +160,7 @@ public class CacheBuilderTest extends TestCase {
     }
   }
 
+  //maximumSize 不能设置两次
   public void testMaximumSize_setTwice() {
     CacheBuilder<Object, Object> builder = CacheBuilder.newBuilder().maximumSize(16);
     try {
@@ -165,6 +171,7 @@ public class CacheBuilderTest extends TestCase {
     }
   }
 
+  //maximumSize 和maximumWeight 不能同时设置
   @GwtIncompatible // maximumWeight
   public void testMaximumSize_andWeight() {
     CacheBuilder<Object, Object> builder = CacheBuilder.newBuilder().maximumSize(16);
@@ -175,6 +182,7 @@ public class CacheBuilderTest extends TestCase {
     }
   }
 
+  //初始化后的分片大小为  initialCapactity
   @GwtIncompatible // digs into internals of the non-GWT implementation
   public void testMaximumSize_largerThanInt() {
     CacheBuilder<Object, Object> builder =
@@ -183,6 +191,7 @@ public class CacheBuilderTest extends TestCase {
     assertThat(cache.segments.length * cache.segments[0].table.length()).isEqualTo(512);
   }
 
+  //maximumWeight 不能为负
   @GwtIncompatible // maximumWeight
   public void testMaximumWeight_negative() {
     CacheBuilder<Object, Object> builder = CacheBuilder.newBuilder();
@@ -193,6 +202,7 @@ public class CacheBuilderTest extends TestCase {
     }
   }
 
+  //maximumWeight 和maximimSize 不能同时设置两次
   @GwtIncompatible // maximumWeight
   public void testMaximumWeight_setTwice() {
     CacheBuilder<Object, Object> builder = CacheBuilder.newBuilder().maximumWeight(16);
