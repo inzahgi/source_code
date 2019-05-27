@@ -50,6 +50,7 @@ import junit.framework.TestCase;
 @GwtCompatible(emulated = true)
 public class CacheBuilderTest extends TestCase {
 
+  //常量缓存
   public void testNewBuilder() {
     CacheLoader<Object, Integer> loader = constantLoader(1);
 
@@ -60,6 +61,7 @@ public class CacheBuilderTest extends TestCase {
     assertEquals(1, cache.size());
   }
 
+  //初始化容量不能为负数
   public void testInitialCapacity_negative() {
     CacheBuilder<Object, Object> builder = CacheBuilder.newBuilder();
     try {
@@ -69,6 +71,7 @@ public class CacheBuilderTest extends TestCase {
     }
   }
 
+  //cache 不能初始化两次
   public void testInitialCapacity_setTwice() {
     CacheBuilder<Object, Object> builder = CacheBuilder.newBuilder().initialCapacity(16);
     try {
@@ -78,6 +81,7 @@ public class CacheBuilderTest extends TestCase {
     } catch (IllegalStateException expected) {
     }
   }
+
 
   @GwtIncompatible // CacheTesting
   public void testInitialCapacity_small() {
