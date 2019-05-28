@@ -154,6 +154,7 @@ import org.checkerframework.checker.nullness.qual.MonotonicNonNull;
  * @since 10.0
  *
  * 缓存静态工厂类
+ * 底层hashTable  保存单元为WeakReference或者 SoftReference
  */
 @GwtCompatible(emulated = true)
 public final class CacheBuilder<K, V> {
@@ -363,6 +364,7 @@ public final class CacheBuilder<K, V> {
     return this;
   }
 
+  //获取初始容量大小
   int getInitialCapacity() {
     return (initialCapacity == UNSET_INT) ? DEFAULT_INITIAL_CAPACITY : initialCapacity;
   }
@@ -394,6 +396,7 @@ public final class CacheBuilder<K, V> {
    * <p>Note that future implementations may abandon segment locking in favor of more advanced
    * concurrency controls.
    *
+   * 并发级别 对hashTable 的分段个数  读和loadingCache不受限制  写受限制
    * @return this {@code CacheBuilder} instance (for chaining)
    * @throws IllegalArgumentException if {@code concurrencyLevel} is nonpositive
    * @throws IllegalStateException if a concurrency level was already set
@@ -428,6 +431,7 @@ public final class CacheBuilder<K, V> {
    *
    * <p>This feature cannot be used in conjunction with {@link #maximumWeight}.
    *
+   * 设置最大entry数  不能和maximumWeight 连用
    * @param maximumSize the maximum size of the cache
    * @return this {@code CacheBuilder} instance (for chaining)
    * @throws IllegalArgumentException if {@code maximumSize} is negative
@@ -466,6 +470,8 @@ public final class CacheBuilder<K, V> {
    * effect on selecting which entry should be evicted next.
    *
    * <p>This feature cannot be used in conjunction with {@link #maximumSize}.
+   *
+   * 设置最大权重
    *
    * @param maximumWeight the maximum total weight of entries the cache may contain
    * @return this {@code CacheBuilder} instance (for chaining)
@@ -509,6 +515,7 @@ public final class CacheBuilder<K, V> {
    * cache whose key or value type is incompatible with the weigher, you will likely experience a
    * {@link ClassCastException} at some <i>undefined</i> point in the future.
    *
+   * 设置单个权重
    * @param weigher the weigher to use in calculating the weight of cache entries
    * @return this {@code CacheBuilder} instance (for chaining)
    * @throws IllegalArgumentException if {@code size} is negative
@@ -559,6 +566,7 @@ public final class CacheBuilder<K, V> {
    * will never be visible to read or write operations; such entries are cleaned up as part of the
    * routine maintenance described in the class javadoc.
    *
+   * 设置所有key为弱引用
    * @return this {@code CacheBuilder} instance (for chaining)
    * @throws IllegalStateException if the key strength was already set
    */
@@ -591,6 +599,8 @@ public final class CacheBuilder<K, V> {
    * but will never be visible to read or write operations; such entries are cleaned up as part of
    * the routine maintenance described in the class javadoc.
    *
+   *
+   * 设置value为弱引用
    * @return this {@code CacheBuilder} instance (for chaining)
    * @throws IllegalStateException if the value strength was already set
    */
