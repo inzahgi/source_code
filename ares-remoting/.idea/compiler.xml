@@ -9,8 +9,5 @@
         <module name="remoting" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel>
-      <module name="remoting" target="1.6" />
-    </bytecodeTargetLevel>
   </component>
 </project>

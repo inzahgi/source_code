@@ -516,6 +516,7 @@ public final class CacheBuilder<K, V> {
    * {@link ClassCastException} at some <i>undefined</i> point in the future.
    *
    * 设置单个权重
+   * 当cache中所有的“weight”总和达到maxKeyWeight时，将会触发“剔除策略”。
    * @param weigher the weigher to use in calculating the weight of cache entries
    * @return this {@code CacheBuilder} instance (for chaining)
    * @throws IllegalArgumentException if {@code size} is negative
@@ -626,6 +627,7 @@ public final class CacheBuilder<K, V> {
    * but will never be visible to read or write operations; such entries are cleaned up as part of
    * the routine maintenance described in the class javadoc.
    *
+   * 设置value 为软引用
    * @return this {@code CacheBuilder} instance (for chaining)
    * @throws IllegalStateException if the value strength was already set
    */
@@ -656,6 +658,7 @@ public final class CacheBuilder<K, V> {
    * write operations. Expired entries are cleaned up as part of the routine maintenance described
    * in the class javadoc.
    *
+   * 设置固定的清除时间  首次生成
    * @param duration the length of time after an entry is created that it should be automatically
    *     removed
    * @return this {@code CacheBuilder} instance (for chaining)
@@ -684,7 +687,7 @@ public final class CacheBuilder<K, V> {
    *
    * <p>If you can represent the duration as a {@link java.time.Duration} (which should be preferred
    * when feasible), use {@link #expireAfterWrite(Duration)} instead.
-   *
+   * 设置固定的清除时间  首次生成
    * @param duration the length of time after an entry is created that it should be automatically
    *     removed
    * @param unit the unit that {@code duration} is expressed in
@@ -721,6 +724,7 @@ public final class CacheBuilder<K, V> {
    * write operations. Expired entries are cleaned up as part of the routine maintenance described
    * in the class javadoc.
    *
+   * 设置固定的清除时间  首次访问后
    * @param duration the length of time after an entry is last accessed that it should be
    *     automatically removed
    * @return this {@code CacheBuilder} instance (for chaining)
@@ -752,7 +756,7 @@ public final class CacheBuilder<K, V> {
    *
    * <p>If you can represent the duration as a {@link java.time.Duration} (which should be preferred
    * when feasible), use {@link #expireAfterAccess(Duration)} instead.
-   *
+   * 设置固定的清除时间  首次访问后
    * @param duration the length of time after an entry is last accessed that it should be
    *     automatically removed
    * @param unit the unit that {@code duration} is expressed in
@@ -794,6 +798,8 @@ public final class CacheBuilder<K, V> {
    *
    * <p><b>Note:</b> <i>all exceptions thrown during refresh will be logged and then swallowed</i>.
    *
+   *
+   * 设置更新时间
    * @param duration the length of time after an entry is created that it should be considered
    *     stale, and thus eligible for refresh
    * @return this {@code CacheBuilder} instance (for chaining)
@@ -829,6 +835,7 @@ public final class CacheBuilder<K, V> {
    * <p>If you can represent the duration as a {@link java.time.Duration} (which should be preferred
    * when feasible), use {@link #refreshAfterWrite(Duration)} instead.
    *
+   * 设置更新时间
    * @param duration the length of time after an entry is created that it should be considered
    *     stale, and thus eligible for refresh
    * @param unit the unit that {@code duration} is expressed in
@@ -857,6 +864,7 @@ public final class CacheBuilder<K, V> {
    * <p>The primary intent of this method is to facilitate testing of caches with a fake or mock
    * time source.
    *
+   * 设置时间源
    * @return this {@code CacheBuilder} instance (for chaining)
    * @throws IllegalStateException if a ticker was already set
    */
@@ -888,7 +896,7 @@ public final class CacheBuilder<K, V> {
    *
    * <p><b>Warning:</b> any exception thrown by {@code listener} will <i>not</i> be propagated to
    * the {@code Cache} user, only logged via a {@link Logger}.
-   *
+   * 设置移除监听器  设置后 原cacheBuilder的引用不能在使用 只能用其返回的引用
    * @return the cache builder reference that should be used instead of {@code this} for any
    *     remaining configuration and cache building
    * @return this {@code CacheBuilder} instance (for chaining)
@@ -918,7 +926,7 @@ public final class CacheBuilder<K, V> {
    * {@link Cache#stats} will return zero for all statistics. Note that recording stats requires
    * bookkeeping to be performed with each operation, and thus imposes a performance penalty on
    * cache operation.
-   *
+   * 开启访问统计
    * @return this {@code CacheBuilder} instance (for chaining)
    * @since 12.0 (previously, stats collection was automatic)
    */
@@ -943,7 +951,7 @@ public final class CacheBuilder<K, V> {
    *
    * <p>This method does not alter the state of this {@code CacheBuilder} instance, so it can be
    * invoked again to create multiple independent caches.
-   *
+   * 返回cache实体类
    * @param loader the cache loader used to obtain new values
    * @return a cache having the requested features
    */
@@ -961,7 +969,7 @@ public final class CacheBuilder<K, V> {
    *
    * <p>This method does not alter the state of this {@code CacheBuilder} instance, so it can be
    * invoked again to create multiple independent caches.
-   *
+   * 返回cache实体类
    * @return a cache having the requested features
    * @since 11.0
    */

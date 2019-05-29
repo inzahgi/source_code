@@ -219,6 +219,7 @@ public class CacheBuilderTest extends TestCase {
     }
   }
 
+  // maximumWeight和weight 需要一起设置
   @GwtIncompatible // maximumWeight
   public void testMaximumWeight_withoutWeigher() {
     CacheBuilder<Object, Object> builder = CacheBuilder.newBuilder().maximumWeight(1);
@@ -229,6 +230,7 @@ public class CacheBuilderTest extends TestCase {
     }
   }
 
+  // maximumWeight和weight 需要一起设置
   @GwtIncompatible // weigher
   public void testWeigher_withoutMaximumWeight() {
     CacheBuilder<Object, Object> builder = CacheBuilder.newBuilder().weigher(constantWeigher(42));
@@ -239,6 +241,7 @@ public class CacheBuilderTest extends TestCase {
     }
   }
 
+  //  weigher 不能超过 maximumSize
   @GwtIncompatible // weigher
   public void testWeigher_withMaximumSize() {
     try {
@@ -253,6 +256,7 @@ public class CacheBuilderTest extends TestCase {
     }
   }
 
+  // weakKeys 不能设置两次
   @GwtIncompatible // weakKeys
   public void testKeyStrengthSetTwice() {
     CacheBuilder<Object, Object> builder1 = CacheBuilder.newBuilder().weakKeys();
@@ -263,6 +267,7 @@ public class CacheBuilderTest extends TestCase {
     }
   }
 
+  // values  设置后 不能再设置 value属性
   @GwtIncompatible // weakValues
   public void testValueStrengthSetTwice() {
     CacheBuilder<Object, Object> builder1 = CacheBuilder.newBuilder().weakValues();
@@ -290,6 +295,7 @@ public class CacheBuilderTest extends TestCase {
     }
   }
 
+  //设置 过期时间 最小单位为nanos  不能超过long的大小
   @GwtIncompatible // java.time.Duration
   public void testLargeDurations() {
     java.time.Duration threeHundredYears = java.time.Duration.ofDays(365 * 300);
@@ -298,6 +304,7 @@ public class CacheBuilderTest extends TestCase {
       builder.expireAfterWrite(threeHundredYears);
       fail();
     } catch (ArithmeticException expected) {
+      //expected.printStackTrace();
     }
     try {
       builder.expireAfterAccess(threeHundredYears);
@@ -311,6 +318,7 @@ public class CacheBuilderTest extends TestCase {
     }
   }
 
+  //过期时间不能设置为负数
   public void testTimeToLive_negative() {
     CacheBuilder<Object, Object> builder = CacheBuilder.newBuilder();
     try {
@@ -320,6 +328,7 @@ public class CacheBuilderTest extends TestCase {
     }
   }
 
+  //
   @GwtIncompatible // java.time.Duration
   public void testTimeToLive_negative_duration() {
     CacheBuilder<Object, Object> builder = CacheBuilder.newBuilder();
@@ -330,11 +339,13 @@ public class CacheBuilderTest extends TestCase {
     }
   }
 
+  //最小过期时间
   public void testTimeToLive_small() {
     CacheBuilder.newBuilder().expireAfterWrite(1, NANOSECONDS).build(identityLoader());
     // well, it didn't blow up.
   }
 
+  // 过期时间不能设置两次
   public void testTimeToLive_setTwice() {
     CacheBuilder<Object, Object> builder =
         CacheBuilder.newBuilder().expireAfterWrite(3600, SECONDS);
@@ -346,6 +357,7 @@ public class CacheBuilderTest extends TestCase {
     }
   }
 
+  //expireAfterWrite 不能设置两次
   @GwtIncompatible // java.time.Duration
   public void testTimeToLive_setTwice_duration() {
     CacheBuilder<Object, Object> builder =
@@ -358,6 +370,7 @@ public class CacheBuilderTest extends TestCase {
     }
   }
 
+  // expireAfterAccess 不能设置过期时间
   public void testTimeToIdle_negative() {
     CacheBuilder<Object, Object> builder = CacheBuilder.newBuilder();
     try {
@@ -367,6 +380,7 @@ public class CacheBuilderTest extends TestCase {
     }
   }
 
+  //expireAfterAccess 不能设置为负数
   @GwtIncompatible // java.time.Duration
   public void testTimeToIdle_negative_duration() {
     CacheBuilder<Object, Object> builder = CacheBuilder.newBuilder();
@@ -377,11 +391,13 @@ public class CacheBuilderTest extends TestCase {
     }
   }
 
+  // expireAfterAccess 最小时间为 1纳秒
   public void testTimeToIdle_small() {
     CacheBuilder.newBuilder().expireAfterAccess(1, NANOSECONDS).build(identityLoader());
     // well, it didn't blow up.
   }
 
+  //expireAfterAccess 不能设置两次
   public void testTimeToIdle_setTwice() {
     CacheBuilder<Object, Object> builder =
         CacheBuilder.newBuilder().expireAfterAccess(3600, SECONDS);
@@ -393,6 +409,7 @@ public class CacheBuilderTest extends TestCase {
     }
   }
 
+  //expireAfterAccess 不能设置两次
   @GwtIncompatible // java.time.Duration
   public void testTimeToIdle_setTwice_duration() {
     CacheBuilder<Object, Object> builder =
