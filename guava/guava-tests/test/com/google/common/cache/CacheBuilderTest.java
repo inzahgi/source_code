@@ -525,12 +525,14 @@ public class CacheBuilderTest extends TestCase {
         new CacheLoader<String, String>() {
           @Override
           public String load(String key) throws InterruptedException {
+            //设置进入等待的标志位
             if (shouldWait.get()) {
               computingLatch.await();
             }
             return key;
           }
         };
+    //移除的通知队列
     QueuingRemovalListener<String, String> listener = queuingRemovalListener();
 
     final LoadingCache<String, String> cache =
@@ -568,6 +570,7 @@ public class CacheBuilderTest extends TestCase {
     // contain the computed value (b -> b), since the clear() happened before the computation
     // completed.
     assertEquals(1, listener.size());
+    //获取移除队列通知 通知单元为缓存的key和value
     RemovalNotification<String, String> notification = listener.remove();
     assertEquals("a", notification.getKey());
     assertEquals("a", notification.getValue());
@@ -585,7 +588,6 @@ public class CacheBuilderTest extends TestCase {
    * cache afterward).
    */
   @GwtIncompatible // QueuingRemovalListener
-
   public void testRemovalNotification_clear_basher() throws InterruptedException {
     // If a clear() happens close to the end of computation, one of two things should happen:
     // - computation ends first: the removal listener is called, and the cache does not contain the
@@ -594,6 +596,7 @@ public class CacheBuilderTest extends TestCase {
     AtomicBoolean computationShouldWait = new AtomicBoolean();
     CountDownLatch computationLatch = new CountDownLatch(1);
     QueuingRemovalListener<String, String> listener = queuingRemovalListener();
+    //设置并发为20的写缓存
     final LoadingCache<String, String> cache =
         CacheBuilder.newBuilder()
             .removalListener(listener)
@@ -603,19 +606,23 @@ public class CacheBuilderTest extends TestCase {
     int nThreads = 100;
     int nTasks = 1000;
     int nSeededEntries = 100;
+    //设置缓存集合
     Set<String> expectedKeys = Sets.newHashSetWithExpectedSize(nTasks + nSeededEntries);
     // seed the map, so its segments have a count>0; otherwise, clear() won't visit the in-progress
     // entries
+    //设置缓存key
     for (int i = 0; i < nSeededEntries; i++) {
       String s = "b" + i;
       cache.getUnchecked(s);
       expectedKeys.add(s);
     }
+    //开启 栅栏 等待
     computationShouldWait.set(true);
 
     final AtomicInteger computedCount = new AtomicInteger();
     ExecutorService threadPool = Executors.newFixedThreadPool(nThreads);
     final CountDownLatch tasksFinished = new CountDownLatch(nTasks);
+    //
     for (int i = 0; i < nTasks; i++) {
       final String s = "a" + i;
       @SuppressWarnings("unused") // go/futurereturn-lsc
@@ -624,8 +631,11 @@ public class CacheBuilderTest extends TestCase {
               new Runnable() {
                 @Override
                 public void run() {
+                  //获取缓存
                   cache.getUnchecked(s);
+                  //计数加一
                   computedCount.incrementAndGet();
+                  //栅栏减一
                   tasksFinished.countDown();
                 }
               });
