@@ -644,6 +644,7 @@ public class CacheBuilderTest extends TestCase {
 
     computationLatch.countDown();
     // let some computations complete
+    //等待所有线程完成读取缓存
     while (computedCount.get() < nThreads) {
       Thread.yield();
     }
@@ -653,6 +654,7 @@ public class CacheBuilderTest extends TestCase {
     // Check all of the removal notifications we received: they should have had correctly-associated
     // keys and values. (An earlier bug saw removal notifications for in-progress computations,
     // which had real keys with null values.)
+    //变量移除队列的内容
     Map<String, String> removalNotifications = Maps.newHashMap();
     for (RemovalNotification<String, String> notification : listener) {
       removalNotifications.put(notification.getKey(), notification.getValue());
