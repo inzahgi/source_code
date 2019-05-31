@@ -41,6 +41,7 @@ public class CacheEvictionTest extends TestCase {
   public void testEviction_setMaxSegmentSize() {
     IdentityLoader<Object> loader = identityLoader();
     for (int i = 1; i < 1000; i++) {
+      //设置segmentSize的大小
       LoadingCache<Object, Object> cache = CacheBuilder.newBuilder().maximumSize(i).build(loader);
       assertEquals(i, CacheTesting.getTotalSegmentSize(cache));
     }

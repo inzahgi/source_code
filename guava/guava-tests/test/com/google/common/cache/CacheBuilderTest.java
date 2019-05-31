@@ -666,6 +666,7 @@ public class CacheBuilderTest extends TestCase {
 
     // All of the seed values should have been visible, so we should have gotten removal
     // notifications for all of them.
+    //检测缓存数量是否正常
     for (int i = 0; i < nSeededEntries; i++) {
       assertEquals("b" + i, removalNotifications.get("b" + i));
     }
@@ -693,6 +694,7 @@ public class CacheBuilderTest extends TestCase {
     final AtomicInteger computeCount = new AtomicInteger();
     final AtomicInteger exceptionCount = new AtomicInteger();
     final AtomicInteger computeNullCount = new AtomicInteger();
+    //定义缓存加载过程
     CacheLoader<String, String> countingIdentityLoader =
         new CacheLoader<String, String>() {
           @Override
@@ -714,6 +716,7 @@ public class CacheBuilderTest extends TestCase {
             }
           }
         };
+    //构造缓存
     final LoadingCache<String, String> cache =
         CacheBuilder.newBuilder()
             .recordStats()
@@ -748,10 +751,11 @@ public class CacheBuilderTest extends TestCase {
     // other operations, the cache and the removal queue won't change from this point on.
 
     // Verify that each received removal notification was valid
+    //验证移除队列
     for (RemovalNotification<String, String> notification : removalListener) {
       assertEquals("Invalid removal notification", notification.getKey(), notification.getValue());
     }
-
+    //打印统计结果
     CacheStats stats = cache.stats();
     assertEquals(removalListener.size(), stats.evictionCount());
     assertEquals(computeCount.get(), stats.loadSuccessCount());
