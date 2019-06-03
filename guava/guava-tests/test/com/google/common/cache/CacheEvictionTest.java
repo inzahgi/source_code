@@ -38,6 +38,7 @@ import junit.framework.TestCase;
 public class CacheEvictionTest extends TestCase {
   static final int MAX_SIZE = 100;
 
+  // maximumSize 设置分段大小
   public void testEviction_setMaxSegmentSize() {
     IdentityLoader<Object> loader = identityLoader();
     for (int i = 1; i < 1000; i++) {
@@ -47,6 +48,7 @@ public class CacheEvictionTest extends TestCase {
     }
   }
 
+  //设置权重
   public void testEviction_setMaxSegmentWeight() {
     IdentityLoader<Object> loader = identityLoader();
     for (int i = 1; i < 1000; i++) {
