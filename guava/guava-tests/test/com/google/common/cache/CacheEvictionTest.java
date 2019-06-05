@@ -58,6 +58,7 @@ public class CacheEvictionTest extends TestCase {
     }
   }
 
+  //缓存分段最大大小
   public void testEviction_maxSizeOneSegment() {
     IdentityLoader<Integer> loader = identityLoader();
     LoadingCache<Integer, Integer> cache =
@@ -71,6 +72,7 @@ public class CacheEvictionTest extends TestCase {
     CacheTesting.checkValidState(cache);
   }
 
+  //设置最大权重
   public void testEviction_maxWeightOneSegment() {
     IdentityLoader<Integer> loader = identityLoader();
     LoadingCache<Integer, Integer> cache =
@@ -88,6 +90,7 @@ public class CacheEvictionTest extends TestCase {
     CacheTesting.checkValidState(cache);
   }
 
+  //设置缓存最大容量  maxWeight/2
   public void testEviction_maxSize() {
     CountingRemovalListener<Integer, Integer> removalListener = countingRemovalListener();
     IdentityLoader<Integer> loader = identityLoader();
@@ -108,6 +111,7 @@ public class CacheEvictionTest extends TestCase {
     CacheTesting.checkValidState(cache);
   }
 
+  //设置最大权重值 maxWeight/2
   public void testEviction_maxWeight() {
     CountingRemovalListener<Integer, Integer> removalListener = countingRemovalListener();
     IdentityLoader<Integer> loader = identityLoader();
