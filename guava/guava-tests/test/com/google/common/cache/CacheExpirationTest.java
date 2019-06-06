@@ -46,6 +46,7 @@ public class CacheExpirationTest extends TestCase {
   private static final int VALUE_PREFIX = 12345;
   private static final String KEY_PREFIX = "key prefix:";
 
+  //设置首次写后过期
   public void testExpiration_expireAfterWrite() {
     FakeTicker ticker = new FakeTicker();
     CountingRemovalListener<String, Integer> removalListener = countingRemovalListener();
@@ -59,6 +60,7 @@ public class CacheExpirationTest extends TestCase {
     checkExpiration(cache, loader, ticker, removalListener);
   }
 
+  //设置首次访问后过期时间
   public void testExpiration_expireAfterAccess() {
     FakeTicker ticker = new FakeTicker();
     CountingRemovalListener<String, Integer> removalListener = countingRemovalListener();
@@ -98,6 +100,7 @@ public class CacheExpirationTest extends TestCase {
     assertEquals("Eviction notifications must be received", 10, removalListener.getCount());
   }
 
+  //设置
   public void testExpiringGet_expireAfterWrite() {
     FakeTicker ticker = new FakeTicker();
     CountingRemovalListener<String, Integer> removalListener = countingRemovalListener();
