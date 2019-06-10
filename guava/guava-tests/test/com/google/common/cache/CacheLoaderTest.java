@@ -48,6 +48,7 @@ public class CacheLoaderTest extends TestCase {
     }
   }
 
+  //异步加载
   public void testAsyncReload() throws Exception {
     final AtomicInteger loadCount = new AtomicInteger();
     final AtomicInteger reloadCount = new AtomicInteger();
