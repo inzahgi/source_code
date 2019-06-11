@@ -75,10 +75,11 @@ public class CacheLoaderTest extends TestCase {
           }
         };
 
+    //初始为0
     assertEquals(0, loadCount.get());
     assertEquals(0, reloadCount.get());
     assertEquals(0, loadAllCount.get());
-
+    //load reload loadAll 分别调用一次
     baseLoader.load(new Object());
     @SuppressWarnings("unused") // go/futurereturn-lsc
     Future<?> possiblyIgnoredError = baseLoader.reload(new Object(), new Object());
@@ -87,6 +88,7 @@ public class CacheLoaderTest extends TestCase {
     assertEquals(1, reloadCount.get());
     assertEquals(1, loadAllCount.get());
 
+    //构造另外一个队列时 对原来的缓存有影响
     QueuingExecutor executor = new QueuingExecutor();
     CacheLoader<Object, Object> asyncReloader = CacheLoader.asyncReloading(baseLoader, executor);
 

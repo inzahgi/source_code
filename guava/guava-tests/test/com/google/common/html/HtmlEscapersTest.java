@@ -27,6 +27,7 @@ import junit.framework.TestCase;
 @GwtCompatible
 public class HtmlEscapersTest extends TestCase {
 
+  //html转义字符串
   public void testHtmlEscaper() throws Exception {
     assertEquals("xxx", htmlEscaper().escape("xxx"));
     assertEquals("&quot;test&quot;", htmlEscaper().escape("\"test\""));

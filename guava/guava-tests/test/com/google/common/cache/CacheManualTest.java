@@ -23,6 +23,7 @@ import junit.framework.TestCase;
 /** @author Charles Fry */
 public class CacheManualTest extends TestCase {
 
+  //测试getIfPresent 方法对统计的影响
   public void testGetIfPresent() {
     Cache<Object, Object> cache = CacheBuilder.newBuilder().recordStats().build();
     CacheStats stats = cache.stats();
@@ -33,7 +34,7 @@ public class CacheManualTest extends TestCase {
 
     Object one = new Object();
     Object two = new Object();
-
+    //第一次getIfPresent
     assertNull(cache.getIfPresent(one));
     stats = cache.stats();
     assertEquals(1, stats.missCount());
@@ -43,7 +44,7 @@ public class CacheManualTest extends TestCase {
     assertNull(cache.asMap().get(one));
     assertFalse(cache.asMap().containsKey(one));
     assertFalse(cache.asMap().containsValue(two));
-
+    //第二次getIfPresent
     assertNull(cache.getIfPresent(two));
     stats = cache.stats();
     assertEquals(2, stats.missCount());
@@ -55,7 +56,7 @@ public class CacheManualTest extends TestCase {
     assertFalse(cache.asMap().containsValue(one));
 
     cache.put(one, two);
-
+    //加载缓存后 第三次getIfPresent
     assertSame(two, cache.getIfPresent(one));
     stats = cache.stats();
     assertEquals(2, stats.missCount());
@@ -65,7 +66,7 @@ public class CacheManualTest extends TestCase {
     assertSame(two, cache.asMap().get(one));
     assertTrue(cache.asMap().containsKey(one));
     assertTrue(cache.asMap().containsValue(two));
-
+    //第四次getIfPresent  two没有缓存
     assertNull(cache.getIfPresent(two));
     stats = cache.stats();
     assertEquals(3, stats.missCount());
@@ -99,6 +100,7 @@ public class CacheManualTest extends TestCase {
     assertTrue(cache.asMap().containsValue(one));
   }
 
+  //测试个体AllPresent对缓存的影响
   public void testGetAllPresent() {
     Cache<Integer, Integer> cache = CacheBuilder.newBuilder().recordStats().build();
     CacheStats stats = cache.stats();

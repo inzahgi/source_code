@@ -98,10 +98,12 @@ public class CacheLoadingTest extends TestCase {
     assertThat(popLoggedThrowable()).isInstanceOf(InvalidCacheLoadException.class);
   }
 
+  //测试get方法对统计的影响
   public void testLoad() throws ExecutionException {
     LoadingCache<Object, Object> cache =
         CacheBuilder.newBuilder().recordStats().build(identityLoader());
     CacheStats stats = cache.stats();
+    //初始化后全部为0
     assertEquals(0, stats.missCount());
     assertEquals(0, stats.loadSuccessCount());
     assertEquals(0, stats.loadExceptionCount());
@@ -110,6 +112,7 @@ public class CacheLoadingTest extends TestCase {
     Object key = new Object();
     assertSame(key, cache.get(key));
     stats = cache.stats();
+    //首次get 后 missCount loadSuccessCount 各自加一
     assertEquals(1, stats.missCount());
     assertEquals(1, stats.loadSuccessCount());
     assertEquals(0, stats.loadExceptionCount());
@@ -118,6 +121,7 @@ public class CacheLoadingTest extends TestCase {
     key = new Object();
     assertSame(key, cache.getUnchecked(key));
     stats = cache.stats();
+    // getUnchecked 后missCount loadSuccessCount 各自加一
     assertEquals(2, stats.missCount());
     assertEquals(2, stats.loadSuccessCount());
     assertEquals(0, stats.loadExceptionCount());
@@ -127,6 +131,7 @@ public class CacheLoadingTest extends TestCase {
     cache.refresh(key);
     checkNothingLogged();
     stats = cache.stats();
+    //刷新后 loadSuccessCount 加一
     assertEquals(2, stats.missCount());
     assertEquals(3, stats.loadSuccessCount());
     assertEquals(0, stats.loadExceptionCount());
@@ -134,6 +139,7 @@ public class CacheLoadingTest extends TestCase {
 
     assertSame(key, cache.get(key));
     stats = cache.stats();
+    //get 读取缓存  hitCount 加一
     assertEquals(2, stats.missCount());
     assertEquals(3, stats.loadSuccessCount());
     assertEquals(0, stats.loadExceptionCount());
@@ -157,6 +163,7 @@ public class CacheLoadingTest extends TestCase {
     assertEquals(2, stats.hitCount());
   }
 
+  //测试reload对统计的影响
   public void testReload() throws ExecutionException {
     final Object one = new Object();
     final Object two = new Object();

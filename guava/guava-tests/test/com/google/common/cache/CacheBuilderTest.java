@@ -681,6 +681,7 @@ public class CacheBuilderTest extends TestCase {
    * Calls get() repeatedly from many different threads, and tests that all of the removed entries
    * (removed because of size limits or expiration) trigger appropriate removal notifications.
    */
+  //测试多线程下移除队列
   @GwtIncompatible // QueuingRemovalListener
 
   public void testRemovalNotification_get_basher() throws InterruptedException {
