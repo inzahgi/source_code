@@ -60,6 +60,7 @@ public class CacheReferencesTest extends TestCase {
         });
   }
 
+  //检测获取缓存的相等
   public void testContainsKeyAndValue() {
     for (LoadingCache<Key, String> cache : caches()) {
       // maintain strong refs so these won't be collected, regardless of cache's key/value strength
@@ -72,6 +73,7 @@ public class CacheReferencesTest extends TestCase {
     }
   }
 
+  //测试invalidateAll
   public void testClear() {
     for (LoadingCache<Key, String> cache : caches()) {
       Key key = new Key(1);
