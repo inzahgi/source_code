@@ -27,6 +27,7 @@ import junit.framework.TestCase;
  * @author Charles Fry
  */
 public class CacheRefreshTest extends TestCase {
+  //自动刷新缓存  设置写后刷新
   public void testAutoRefresh() {
     FakeTicker ticker = new FakeTicker();
     IncrementingLoader loader = incrementingLoader();
@@ -39,6 +40,7 @@ public class CacheRefreshTest extends TestCase {
             .build(loader);
     int expectedLoads = 0;
     int expectedReloads = 0;
+    //初始化缓存
     for (int i = 0; i < 3; i++) {
       assertEquals(Integer.valueOf(i), cache.getUnchecked(i));
       expectedLoads++;
@@ -46,13 +48,13 @@ public class CacheRefreshTest extends TestCase {
       assertEquals(expectedReloads, loader.getReloadCount());
       ticker.advance(1, MILLISECONDS);
     }
-
     assertEquals(Integer.valueOf(0), cache.getUnchecked(0));
     assertEquals(Integer.valueOf(1), cache.getUnchecked(1));
     assertEquals(Integer.valueOf(2), cache.getUnchecked(2));
     assertEquals(expectedLoads, loader.getLoadCount());
     assertEquals(expectedReloads, loader.getReloadCount());
 
+    //   第四个滴答时间 刷新key=0缓存
     // refresh 0
     ticker.advance(1, MILLISECONDS);
     assertEquals(Integer.valueOf(1), cache.getUnchecked(0));
@@ -61,7 +63,7 @@ public class CacheRefreshTest extends TestCase {
     assertEquals(Integer.valueOf(2), cache.getUnchecked(2));
     assertEquals(expectedLoads, loader.getLoadCount());
     assertEquals(expectedReloads, loader.getReloadCount());
-
+    //开始写入缓存 延迟刷新该key
     // write to 1 to delay its refresh
     cache.asMap().put(1, -1);
     ticker.advance(1, MILLISECONDS);
@@ -71,6 +73,7 @@ public class CacheRefreshTest extends TestCase {
     assertEquals(expectedLoads, loader.getLoadCount());
     assertEquals(expectedReloads, loader.getReloadCount());
 
+    //
     // refresh 2
     ticker.advance(1, MILLISECONDS);
     assertEquals(Integer.valueOf(1), cache.getUnchecked(0));

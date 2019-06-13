@@ -87,7 +87,7 @@ public class CacheReferencesTest extends TestCase {
       assertFalse(cache.asMap().containsValue(value));
     }
   }
-
+  //测试缓存的keyset entrySet是的正确
   public void testKeySetEntrySetValues() {
     for (LoadingCache<Key, String> cache : caches()) {
       Key key1 = new Key(1);
@@ -104,6 +104,7 @@ public class CacheReferencesTest extends TestCase {
     }
   }
 
+  // invalidate方法移除缓存
   public void testInvalidate() {
     for (LoadingCache<Key, String> cache : caches()) {
       Key key1 = new Key(1);

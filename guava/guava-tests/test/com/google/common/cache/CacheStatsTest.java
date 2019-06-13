@@ -25,6 +25,7 @@ import junit.framework.TestCase;
  */
 public class CacheStatsTest extends TestCase {
 
+  //测试统计类 CacheStats 初始值
   public void testEmpty() {
     CacheStats stats = new CacheStats(0, 0, 0, 0, 0, 0);
     assertEquals(0, stats.requestCount());
@@ -41,6 +42,7 @@ public class CacheStatsTest extends TestCase {
     assertEquals(0, stats.evictionCount());
   }
 
+  //测试 统计值
   public void testSingle() {
     CacheStats stats = new CacheStats(11, 13, 17, 19, 23, 27);
     assertEquals(24, stats.requestCount());
@@ -57,6 +59,7 @@ public class CacheStatsTest extends TestCase {
     assertEquals(27, stats.evictionCount());
   }
 
+  //两个 CacheStats 相减
   public void testMinus() {
     CacheStats one = new CacheStats(11, 13, 17, 19, 23, 27);
     CacheStats two = new CacheStats(53, 47, 43, 41, 37, 31);
@@ -78,6 +81,7 @@ public class CacheStatsTest extends TestCase {
     assertEquals(new CacheStats(0, 0, 0, 0, 0, 0), one.minus(two));
   }
 
+  //两个 CacheStats相加
   public void testPlus() {
     CacheStats one = new CacheStats(11, 13, 15, 13, 11, 9);
     CacheStats two = new CacheStats(53, 47, 41, 39, 37, 35);

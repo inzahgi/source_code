@@ -41,12 +41,14 @@ import junit.framework.TestCase;
 
 public class EmptyCachesTest extends TestCase {
 
+  //初始化空缓存
   public void testEmpty() {
     for (LoadingCache<Object, Object> cache : caches()) {
       checkEmpty(cache);
     }
   }
 
+  // invalidate删除缓存 可以删除不存在的key
   public void testInvalidate_empty() {
     for (LoadingCache<Object, Object> cache : caches()) {
       cache.getUnchecked("a");
@@ -58,6 +60,7 @@ public class EmptyCachesTest extends TestCase {
     }
   }
 
+  // invalidateAll 删除所有
   public void testInvalidateAll_empty() {
     for (LoadingCache<Object, Object> cache : caches()) {
       cache.getUnchecked("a");
@@ -68,12 +71,14 @@ public class EmptyCachesTest extends TestCase {
     }
   }
 
+  // cache初始化后不存在 null 的key
   public void testEquals_null() {
     for (LoadingCache<Object, Object> cache : caches()) {
       assertFalse(cache.equals(null));
     }
   }
 
+  //
   public void testEqualsAndHashCode_different() {
     for (CacheBuilder<Object, Object> builder : cacheFactory().buildAllPermutations()) {
       // all caches should be different: instance equality
@@ -85,6 +90,7 @@ public class EmptyCachesTest extends TestCase {
     }
   }
 
+  // cache 不能get null
   public void testGet_null() throws ExecutionException {
     for (LoadingCache<Object, Object> cache : caches()) {
       try {
@@ -96,6 +102,7 @@ public class EmptyCachesTest extends TestCase {
     }
   }
 
+  // cache不能get null
   public void testGetUnchecked_null() {
     for (LoadingCache<Object, Object> cache : caches()) {
       try {
@@ -121,6 +128,7 @@ public class EmptyCachesTest extends TestCase {
     }
   }
 
+  // cache 的缓存 视图不能修改
   public void testKeySet_addNotSupported() {
     for (LoadingCache<Object, Object> cache : caches()) {
       try {
@@ -136,7 +144,7 @@ public class EmptyCachesTest extends TestCase {
       }
     }
   }
-
+  //  cache的keyset 可以清空 对缓存有影响
   public void testKeySet_clear() {
     for (LoadingCache<Object, Object> cache : caches()) {
       warmUp(cache, 0, 100);
@@ -148,6 +156,7 @@ public class EmptyCachesTest extends TestCase {
     }
   }
 
+  //cache 的缓存 key 空视图 可以删除元素对 缓存有影响
   public void testKeySet_empty_remove() {
     for (LoadingCache<Object, Object> cache : caches()) {
       Set<Object> keys = cache.asMap().keySet();
@@ -161,6 +170,7 @@ public class EmptyCachesTest extends TestCase {
     }
   }
 
+  //cache 的缓存 key 视图 可以删除元素对 缓存有影响
   public void testKeySet_remove() {
     for (LoadingCache<Object, Object> cache : caches()) {
       cache.getUnchecked(1);
