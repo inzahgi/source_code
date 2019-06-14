@@ -28,6 +28,7 @@ import junit.framework.TestCase;
 /**
  * Unit test for {@link ForwardingLoadingCache}.
  *
+ *  缓存的代理封装类
  * @author Charles Fry
  */
 public class ForwardingLoadingCacheTest extends TestCase {

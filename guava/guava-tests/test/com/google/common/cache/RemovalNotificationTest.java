@@ -22,6 +22,7 @@ import junit.framework.TestCase;
 /**
  * Unit tests of {@link RemovalNotification}.
  *
+ * 测试移除通知封装类
  * @author Ben Yu
  */
 public class RemovalNotificationTest extends TestCase {

@@ -22,6 +22,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 /**
  * Utility {@link RemovalListener} implementations intended for use in testing.
  *
+ *  测试 移除监听器
  * @author mike nonemacher
  */
 @GwtCompatible(emulated = true)
