@@ -42,21 +42,24 @@ public class AsyncEventBusTest extends TestCase {
   }
 
   public void testBasicDistribution() {
+    //生成订阅者
     StringCatcher catcher = new StringCatcher();
+    //订阅事件
     bus.register(catcher);
 
     // We post the event, but our Executor will not deliver it until instructed.
     bus.post(EVENT);
-
+    //虽然投递到事件总线 但是 实际上还没处理
     List<String> events = catcher.getEvents();
     assertTrue("No events should be delivered synchronously.", events.isEmpty());
 
     // Now we find the task in our Executor and explicitly activate it.
+    //事件总线收到事件
     List<Runnable> tasks = executor.getTasks();
     assertEquals("One event dispatch task should be queued.", 1, tasks.size());
-
+    //事件总线开始投递事件
     tasks.get(0).run();
-
+    //收到事件
     assertEquals("One event should be delivered.", 1, events.size());
     assertEquals("Correct string should be delivered.", EVENT, events.get(0));
   }

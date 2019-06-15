@@ -29,6 +29,7 @@ import java.util.concurrent.ConcurrentLinkedQueue;
  * controls the order in which events are dispatched, while the executor controls how (i.e. on which
  * thread) the subscriber is actually called when an event is dispatched to it.
  *
+ * 事件分配器
  * @author Colin Decker
  */
 abstract class Dispatcher {
@@ -43,6 +44,7 @@ abstract class Dispatcher {
    * thread. That is, all subscribers to a single event A will be called before any subscribers to
    * any events B and C that are posted to the event bus by the subscribers to A.
    */
+  //当线程调度
   static Dispatcher perThreadDispatchQueue() {
     return new PerThreadQueuedDispatcher();
   }
@@ -53,6 +55,7 @@ abstract class Dispatcher {
    * For async dispatch, an {@linkplain #immediate() immediate} dispatcher should generally be
    * preferable.
    */
+  //异步分配器
   static Dispatcher legacyAsync() {
     return new LegacyAsyncDispatcher();
   }
@@ -62,6 +65,7 @@ abstract class Dispatcher {
    * without using an intermediate queue to change the dispatch order. This is effectively a
    * depth-first dispatch order, vs. breadth-first when using a queue.
    */
+  //同步分配器
   static Dispatcher immediate() {
     return ImmediateDispatcher.INSTANCE;
   }
@@ -96,20 +100,26 @@ abstract class Dispatcher {
     void dispatch(Object event, Iterator<Subscriber> subscribers) {
       checkNotNull(event);
       checkNotNull(subscribers);
+      //获取事件队列
       Queue<Event> queueForThread = queue.get();
+      //添加事件
       queueForThread.offer(new Event(event, subscribers));
-
+      //如果分配器没有分配过  初始值为false  防止重入
       if (!dispatching.get()) {
+        //设置当前正在分配
         dispatching.set(true);
         try {
           Event nextEvent;
+          //获取事件 分配给指定的订阅者
           while ((nextEvent = queueForThread.poll()) != null) {
             while (nextEvent.subscribers.hasNext()) {
               nextEvent.subscribers.next().dispatchEvent(nextEvent.event);
             }
           }
         } finally {
+          //移除分配器状态
           dispatching.remove();
+          //将事件从threadLocal队列中移除
           queue.remove();
         }
       }
@@ -126,6 +136,7 @@ abstract class Dispatcher {
     }
   }
 
+  // 异步分配器 静态类实现
   /** Implementation of a {@link #legacyAsync()} dispatcher. */
   private static final class LegacyAsyncDispatcher extends Dispatcher {
 
@@ -148,16 +159,19 @@ abstract class Dispatcher {
     // in some cases.
 
     /** Global event queue. */
+    //queue为 线程安全
     private final ConcurrentLinkedQueue<EventWithSubscriber> queue =
         Queues.newConcurrentLinkedQueue();
 
     @Override
     void dispatch(Object event, Iterator<Subscriber> subscribers) {
       checkNotNull(event);
+      //将每一个事件和订阅者封装起来 保存到队列中
       while (subscribers.hasNext()) {
         queue.add(new EventWithSubscriber(event, subscribers.next()));
       }
 
+      //遍历队列分配给订阅者
       EventWithSubscriber e;
       while ((e = queue.poll()) != null) {
         e.subscriber.dispatchEvent(e.event);
@@ -175,6 +189,7 @@ abstract class Dispatcher {
     }
   }
 
+  //同步分配器
   /** Implementation of {@link #immediate()}. */
   private static final class ImmediateDispatcher extends Dispatcher {
     private static final ImmediateDispatcher INSTANCE = new ImmediateDispatcher();

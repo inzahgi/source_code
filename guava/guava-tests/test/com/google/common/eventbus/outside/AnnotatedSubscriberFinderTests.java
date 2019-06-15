@@ -29,12 +29,14 @@ import junit.framework.TestCase;
  *
  * <p>This test must be outside the c.g.c.eventbus package to test correctly.
  *
+ * 测试事件总线 是否被正确订阅
  * @author Louis Wasserman
  */
 public class AnnotatedSubscriberFinderTests {
 
   private static final Object EVENT = new Object();
 
+  // 事件总线 测试类
   abstract static class AbstractEventBusTest<H> extends TestCase {
     abstract H createSubscriber();
 
@@ -46,12 +48,17 @@ public class AnnotatedSubscriberFinderTests {
 
     @Override
     protected void setUp() throws Exception {
+      //生成订阅者
       subscriber = createSubscriber();
+      //生成事件总线
       EventBus bus = new EventBus();
+      //订阅事件
       bus.register(subscriber);
+      //发送事件
       bus.post(EVENT);
     }
 
+    //清楚订阅者
     @Override
     protected void tearDown() throws Exception {
       subscriber = null;
@@ -61,6 +68,7 @@ public class AnnotatedSubscriberFinderTests {
   /*
    * We break the tests up based on whether they are annotated or abstract in the superclass.
    */
+  //订阅者 静态测试类
   public static class BaseSubscriberFinderTest
       extends AbstractEventBusTest<BaseSubscriberFinderTest.Subscriber> {
     static class Subscriber {
@@ -71,20 +79,23 @@ public class AnnotatedSubscriberFinderTests {
         nonSubscriberEvents.add(o);
       }
 
+      //添加订阅者
       @Subscribe
       public void subscriber(Object o) {
         subscriberEvents.add(o);
       }
     }
 
+    //空订阅
     public void testNonSubscriber() {
       assertThat(getSubscriber().nonSubscriberEvents).isEmpty();
     }
-
+    // 包含事件
     public void testSubscriber() {
       assertThat(getSubscriber().subscriberEvents).contains(EVENT);
     }
 
+    //生成新的订阅者
     @Override
     Subscriber createSubscriber() {
       return new Subscriber();

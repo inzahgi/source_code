@@ -29,6 +29,7 @@ import junit.framework.TestCase;
 /**
  * Tests for {@link Dispatcher} implementations.
  *
+ * 测试事件总线分配任务
  * @author Colin Decker
  */
 
@@ -57,8 +58,11 @@ public class DispatcherTest extends TestCase {
 
   private Dispatcher dispatcher;
 
+  //测试 单线程分配器
   public void testPerThreadQueuedDispatcher() {
+    //生成事件分配器
     dispatcher = Dispatcher.perThreadDispatchQueue();
+    //分配事件
     dispatcher.dispatch(1, integerSubscribers.iterator());
 
     assertThat(dispatchedSubscribers)

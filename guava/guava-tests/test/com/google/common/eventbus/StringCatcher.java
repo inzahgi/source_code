@@ -27,6 +27,7 @@ import org.checkerframework.checker.nullness.qual.Nullable;
  * <p>For testing fun, also includes a landmine method that EventBus tests are required <em>not</em>
  * to call ({@link #methodWithoutAnnotation(String)}).
  *
+ * 事件总线订阅者mock类
  * @author Cliff Biffle
  */
 public class StringCatcher {

@@ -34,6 +34,7 @@ public class OutsideEventBusTest extends TestCase {
    * That is, even if exactly the same method works from inside the common.eventbus package tests,
    * it can fail here.
    */
+  //测试匿名订阅
   public void testAnonymous() {
     final AtomicReference<String> holder = new AtomicReference<>();
     final AtomicInteger deliveries = new AtomicInteger();
