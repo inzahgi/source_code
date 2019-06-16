@@ -65,6 +65,7 @@ public class DispatcherTest extends TestCase {
     //分配事件
     dispatcher.dispatch(1, integerSubscribers.iterator());
 
+    //分配者队列
     assertThat(dispatchedSubscribers)
         .containsExactly(
             i1,
@@ -80,10 +81,12 @@ public class DispatcherTest extends TestCase {
         .inOrder();
   }
 
+  //异步分配
   public void testLegacyAsyncDispatcher() {
     dispatcher = Dispatcher.legacyAsync();
-
+    //设置栅栏
     final CyclicBarrier barrier = new CyclicBarrier(2);
+    //设置门栓
     final CountDownLatch latch = new CountDownLatch(2);
 
     new Thread(
