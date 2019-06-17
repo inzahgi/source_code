@@ -94,11 +94,12 @@ public class DispatcherTest extends TestCase {
               @Override
               public void run() {
                 try {
+                  //在栅栏处等待
                   barrier.await();
                 } catch (Exception e) {
                   throw new AssertionError(e);
                 }
-
+                //分配事件2
                 dispatcher.dispatch(2, integerSubscribers.iterator());
                 latch.countDown();
               }
@@ -110,11 +111,12 @@ public class DispatcherTest extends TestCase {
               @Override
               public void run() {
                 try {
+                  //在栅栏处等待
                   barrier.await();
                 } catch (Exception e) {
                   throw new AssertionError(e);
                 }
-
+                //分配事件 "foo"
                 dispatcher.dispatch("foo", stringSubscribers.iterator());
                 latch.countDown();
               }
