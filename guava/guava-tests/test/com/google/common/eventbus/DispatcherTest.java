@@ -131,10 +131,11 @@ public class DispatcherTest extends TestCase {
     assertThat(dispatchedSubscribers).containsExactly(i1, i2, i3, s1, s1, s1, s1, s2, s2, s2, s2);
   }
 
+  //同步分配器
   public void testImmediateDispatcher() {
     dispatcher = Dispatcher.immediate();
     dispatcher.dispatch(1, integerSubscribers.iterator());
-
+    //每一个interSubScriber 接收到事件都会在发送给String event
     assertThat(dispatchedSubscribers)
         .containsExactly(
             i1, s1, s2, // Each integer subscriber immediately dispatches to 2 string subscribers.
