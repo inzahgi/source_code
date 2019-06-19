@@ -39,9 +39,11 @@ public class EventBusTest extends TestCase {
   @Override
   protected void setUp() throws Exception {
     super.setUp();
+    //初始化事件总线
     bus = new EventBus(BUS_IDENTIFIER);
   }
 
+  //订阅
   public void testBasicCatcherDistribution() {
     StringCatcher catcher = new StringCatcher();
     bus.register(catcher);
@@ -58,6 +60,7 @@ public class EventBusTest extends TestCase {
    *
    * <p>Also checks delivery ordering in such cases.
    */
+  //事件总线的多态情况下分配事件
   public void testPolymorphicDistribution() {
     // Three catchers for related types String, Object, and Comparable<?>.
     // String isa Object

@@ -143,6 +143,7 @@ public class DispatcherTest extends TestCase {
         .inOrder();
   }
 
+  //订阅者构造静态方法
   private static Subscriber subscriber(
       EventBus bus, Object target, String methodName, Class<?> eventType) {
     try {
@@ -152,6 +153,7 @@ public class DispatcherTest extends TestCase {
     }
   }
 
+  //整数构造者
   public final class IntegerSubscriber {
     private final String name;
 
@@ -159,6 +161,7 @@ public class DispatcherTest extends TestCase {
       this.name = name;
     }
 
+    //收到事件后在发送给 字符串订阅者
     @Subscribe
     public void handleInteger(Integer integer) {
       dispatchedSubscribers.add(this);
@@ -171,6 +174,7 @@ public class DispatcherTest extends TestCase {
     }
   }
 
+  //字符串订阅者
   public final class StringSubscriber {
     private final String name;
 
