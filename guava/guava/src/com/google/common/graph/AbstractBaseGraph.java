@@ -37,6 +37,7 @@ import org.checkerframework.checker.nullness.qual.Nullable;
  * <p>The methods implemented in this class should not be overridden unless the subclass admits a
  * more efficient implementation.
  *
+ * baseGraph 的抽象实现类
  * @author James Sexton
  * @param <N> Node parameter type
  */
@@ -47,6 +48,7 @@ abstract class AbstractBaseGraph<N> implements BaseGraph<N> {
    * implementation requires O(|N|) time. Classes extending this one may manually keep track of the
    * number of edges as the graph is updated, and override this method for better performance.
    */
+  //统计所有的无向边数
   protected long edgeCount() {
     long degreeSum = 0L;
     for (N node : nodes()) {
@@ -54,6 +56,7 @@ abstract class AbstractBaseGraph<N> implements BaseGraph<N> {
     }
     // According to the degree sum formula, this is equal to twice the number of edges.
     checkState((degreeSum & 1) == 0);
+    //边数除2
     return degreeSum >>> 1;
   }
 

@@ -99,5 +99,6 @@ public interface PredecessorsFunction<N> {
    *
    * @throws IllegalArgumentException if {@code node} is not an element of this graph
    */
+  //访问所有前置节点
   Iterable<? extends N> predecessors(N node);
 }

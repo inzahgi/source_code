@@ -44,6 +44,7 @@ public class ReentrantEventsTest extends TestCase {
         hater.eventsReceived);
   }
 
+  //自己重复投递
   public class ReentrantEventsHater {
     boolean ready = true;
     List<Object> eventsReceived = Lists.newArrayList();

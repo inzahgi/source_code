@@ -102,5 +102,6 @@ public interface SuccessorsFunction<N> {
    *
    * @throws IllegalArgumentException if {@code node} is not an element of this graph
    */
+  //返回所有后续节点
   Iterable<? extends N> successors(N node);
 }

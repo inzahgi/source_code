@@ -208,9 +208,11 @@ public class EventBusTest extends TestCase {
     bus.register(new Object());
   }
 
+  //unregister 不订阅事件
   public void testUnregister() {
     StringCatcher catcher1 = new StringCatcher();
     StringCatcher catcher2 = new StringCatcher();
+    // 没有订阅的时候 使用 unregister 报错
     try {
       bus.unregister(catcher1);
       fail("Attempting to unregister an unregistered object succeeded");
@@ -218,11 +220,13 @@ public class EventBusTest extends TestCase {
       // OK.
     }
 
+    //注册事件总线 并投递事件
     bus.register(catcher1);
     bus.post(EVENT);
     bus.register(catcher2);
     bus.post(EVENT);
 
+    //保存事件
     List<String> expectedEvents = Lists.newArrayList();
     expectedEvents.add(EVENT);
     expectedEvents.add(EVENT);
@@ -231,7 +235,7 @@ public class EventBusTest extends TestCase {
 
     assertEquals(
         "One correct event should be delivered.", Lists.newArrayList(EVENT), catcher2.getEvents());
-
+    // catcher1 解除订阅
     bus.unregister(catcher1);
     bus.post(EVENT);
 
@@ -257,14 +261,18 @@ public class EventBusTest extends TestCase {
   // NOTE: This test will always pass if register() is thread-safe but may also
   // pass if it isn't, though this is unlikely.
 
+  // 订阅者线程安全测试
   public void testRegisterThreadSafety() throws Exception {
     List<StringCatcher> catchers = Lists.newCopyOnWriteArrayList();
+    //结果队列
     List<Future<?>> futures = Lists.newArrayList();
     ExecutorService executor = Executors.newFixedThreadPool(10);
     int numberOfCatchers = 10000;
+    //生成 10000个 订阅者并订阅事件
     for (int i = 0; i < numberOfCatchers; i++) {
       futures.add(executor.submit(new Registrator(bus, catchers)));
     }
+    //获取处理结果
     for (int i = 0; i < numberOfCatchers; i++) {
       futures.get(i).get();
     }
