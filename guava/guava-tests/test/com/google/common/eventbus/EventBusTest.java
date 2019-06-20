@@ -66,8 +66,10 @@ public class EventBusTest extends TestCase {
     // String isa Object
     // String isa Comparable<?>
     // Comparable<?> isa Object
+    // string 事件mock类
     StringCatcher stringCatcher = new StringCatcher();
 
+    // objCatcher 定义为 基类事件 mock类
     final List<Object> objectEvents = Lists.newArrayList();
     Object objCatcher =
         new Object() {
@@ -78,6 +80,7 @@ public class EventBusTest extends TestCase {
           }
         };
 
+    //  compCatcher 定义为可比较事件 mock类
     final List<Comparable<?>> compEvents = Lists.newArrayList();
     Object compCatcher =
         new Object() {
@@ -87,24 +90,32 @@ public class EventBusTest extends TestCase {
             compEvents.add(food);
           }
         };
+    //订阅总线事件
     bus.register(stringCatcher);
     bus.register(objCatcher);
     bus.register(compCatcher);
 
     // Two additional event types: Object and Comparable<?> (played by Integer)
+    //基本事件
     Object objEvent = new Object();
+    //可比较事件
     Object compEvent = new Integer(6);
 
+    //投递string 事件
     bus.post(EVENT);
+    //投递基类事件
     bus.post(objEvent);
+    //投递可比较事件
     bus.post(compEvent);
 
     // Check the StringCatcher...
+    // string的订阅mock类 获得一个string 事件
     List<String> stringEvents = stringCatcher.getEvents();
     assertEquals("Only one String should be delivered.", 1, stringEvents.size());
     assertEquals("Correct string should be delivered.", EVENT, stringEvents.get(0));
 
     // Check the Catcher<Object>...
+    // 基类订阅mock类 获取三个事件
     assertEquals("Three Objects should be delivered.", 3, objectEvents.size());
     assertEquals("String fixture must be first object delivered.", EVENT, objectEvents.get(0));
     assertEquals("Object fixture must be second object delivered.", objEvent, objectEvents.get(1));
@@ -112,13 +123,16 @@ public class EventBusTest extends TestCase {
         "Comparable fixture must be thirdobject delivered.", compEvent, objectEvents.get(2));
 
     // Check the Catcher<Comparable<?>>...
+    //可比较订阅 mock类 获取到2个事件
     assertEquals("Two Comparable<?>s should be delivered.", 2, compEvents.size());
     assertEquals("String fixture must be first comparable delivered.", EVENT, compEvents.get(0));
     assertEquals(
         "Comparable fixture must be second comparable delivered.", compEvent, compEvents.get(1));
   }
 
+  //订阅者抛异常
   public void testSubscriberThrowsException() throws Exception {
+    //定义异常handler
     final RecordingSubscriberExceptionHandler handler = new RecordingSubscriberExceptionHandler();
     final EventBus eventBus = new EventBus(handler);
     final RuntimeException exception =
