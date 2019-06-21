@@ -38,6 +38,7 @@ import org.checkerframework.checker.nullness.qual.Nullable;
  * @author James Sexton
  * @param <N> Node parameter type
  * @param <E> Edge parameter type
+ *  直连网络抽象类
  */
 abstract class AbstractDirectedNetworkConnections<N, E> implements NetworkConnections<N, E> {
   /** Keys are edges incoming to the origin node, values are the source node. */
@@ -56,11 +57,13 @@ abstract class AbstractDirectedNetworkConnections<N, E> implements NetworkConnec
     checkState(selfLoopCount <= inEdgeMap.size() && selfLoopCount <= outEdgeMap.size());
   }
 
+  //节点集合
   @Override
   public Set<N> adjacentNodes() {
     return Sets.union(predecessors(), successors());
   }
 
+  //获取直连边
   @Override
   public Set<E> incidentEdges() {
     return new AbstractSet<E>() {

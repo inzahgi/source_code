@@ -64,6 +64,7 @@ abstract class AbstractBaseGraph<N> implements BaseGraph<N> {
    * An implementation of {@link BaseGraph#edges()} defined in terms of {@link #nodes()} and {@link
    * #successors(Object)}.
    */
+  //获取所有的边集合
   @Override
   public Set<EndpointPair<N>> edges() {
     return new AbstractSet<EndpointPair<N>>() {
@@ -99,6 +100,7 @@ abstract class AbstractBaseGraph<N> implements BaseGraph<N> {
     };
   }
 
+  //获取与节点想接触的边
   @Override
   public Set<EndpointPair<N>> incidentEdges(N node) {
     checkNotNull(node);
@@ -106,6 +108,7 @@ abstract class AbstractBaseGraph<N> implements BaseGraph<N> {
     return IncidentEdgeSet.of(this, node);
   }
 
+  //图中的节点深度
   @Override
   public int degree(N node) {
     if (isDirected()) {
@@ -117,16 +120,19 @@ abstract class AbstractBaseGraph<N> implements BaseGraph<N> {
     }
   }
 
+  //入度
   @Override
   public int inDegree(N node) {
     return isDirected() ? predecessors(node).size() : degree(node);
   }
 
+  //出度
   @Override
   public int outDegree(N node) {
     return isDirected() ? successors(node).size() : degree(node);
   }
 
+  //是否you边连接
   @Override
   public boolean hasEdgeConnecting(N nodeU, N nodeV) {
     checkNotNull(nodeU);
@@ -134,6 +140,7 @@ abstract class AbstractBaseGraph<N> implements BaseGraph<N> {
     return nodes().contains(nodeU) && successors(nodeU).contains(nodeV);
   }
 
+  //想接触的边的集合
   private abstract static class IncidentEdgeSet<N> extends AbstractSet<EndpointPair<N>> {
     protected final N node;
     protected final BaseGraph<N> graph;
