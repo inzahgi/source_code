@@ -88,16 +88,19 @@ abstract class AbstractDirectedNetworkConnections<N, E> implements NetworkConnec
     };
   }
 
+  //入边
   @Override
   public Set<E> inEdges() {
     return Collections.unmodifiableSet(inEdgeMap.keySet());
   }
 
+  //出边
   @Override
   public Set<E> outEdges() {
     return Collections.unmodifiableSet(outEdgeMap.keySet());
   }
 
+  //相邻的边
   @Override
   public N adjacentNode(E edge) {
     // Since the reference node is defined to be 'source' for directed graphs,
@@ -105,6 +108,7 @@ abstract class AbstractDirectedNetworkConnections<N, E> implements NetworkConnec
     return checkNotNull(outEdgeMap.get(edge));
   }
 
+  //删除入边
   @Override
   public N removeInEdge(E edge, boolean isSelfLoop) {
     if (isSelfLoop) {
@@ -114,6 +118,7 @@ abstract class AbstractDirectedNetworkConnections<N, E> implements NetworkConnec
     return checkNotNull(previousNode);
   }
 
+  //删除出边
   @Override
   public N removeOutEdge(E edge) {
     N previousNode = outEdgeMap.remove(edge);
