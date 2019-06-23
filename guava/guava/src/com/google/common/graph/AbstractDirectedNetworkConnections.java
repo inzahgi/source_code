@@ -125,6 +125,7 @@ abstract class AbstractDirectedNetworkConnections<N, E> implements NetworkConnec
     return checkNotNull(previousNode);
   }
 
+  //添加入边
   @Override
   public void addInEdge(E edge, N node, boolean isSelfLoop) {
     if (isSelfLoop) {
@@ -134,6 +135,7 @@ abstract class AbstractDirectedNetworkConnections<N, E> implements NetworkConnec
     checkState(previousNode == null);
   }
 
+  //添加出边
   @Override
   public void addOutEdge(E edge, N node) {
     N previousNode = outEdgeMap.put(edge, node);
