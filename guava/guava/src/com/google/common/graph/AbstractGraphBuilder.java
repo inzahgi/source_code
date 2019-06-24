@@ -21,6 +21,7 @@ import com.google.common.base.Optional;
 /**
  * A base class for builders that construct graphs with user-defined properties.
  *
+ * 抽象graph工厂类
  * @author James Sexton
  */
 abstract class AbstractGraphBuilder<N> {

@@ -23,6 +23,7 @@ import org.checkerframework.checker.nullness.qual.Nullable;
  * This class provides a skeletal implementation of {@link Graph}. It is recommended to extend this
  * class rather than implement {@link Graph} directly.
  *
+ * graph 抽象类实现
  * @author James Sexton
  * @param <N> Node parameter type
  * @since 20.0
