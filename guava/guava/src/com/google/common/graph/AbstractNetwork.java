@@ -41,6 +41,7 @@ import org.checkerframework.checker.nullness.qual.Nullable;
  * <p>The methods implemented in this class should not be overridden unless the subclass admits a
  * more efficient implementation.
  *
+ * 抽象网络基类
  * @author James Sexton
  * @param <N> Node parameter type
  * @param <E> Edge parameter type
@@ -49,6 +50,7 @@ import org.checkerframework.checker.nullness.qual.Nullable;
 @Beta
 public abstract class AbstractNetwork<N, E> implements Network<N, E> {
 
+  //生成图 视图
   @Override
   public Graph<N> asGraph() {
     return new AbstractGraph<N>() {
@@ -133,6 +135,7 @@ public abstract class AbstractNetwork<N, E> implements Network<N, E> {
     };
   }
 
+  //获取图的深度
   @Override
   public int degree(N node) {
     if (isDirected()) {

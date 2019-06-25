@@ -25,7 +25,7 @@ import java.util.Set;
 
 /**
  * A base implementation of {@link NetworkConnections} for undirected networks.
- *
+ * 非直连网络抽象基类
  * @author James Sexton
  * @param <N> Node parameter type
  * @param <E> Edge parameter type

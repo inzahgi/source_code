@@ -31,6 +31,7 @@ import org.checkerframework.checker.nullness.qual.Nullable;
  * <p>The methods implemented in this class should not be overridden unless the subclass admits a
  * more efficient implementation.
  *
+ * 带权值的抽象基类
  * @author James Sexton
  * @param <N> Node parameter type
  * @param <V> Value parameter type
