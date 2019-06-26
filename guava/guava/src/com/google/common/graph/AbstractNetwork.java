@@ -145,16 +145,19 @@ public abstract class AbstractNetwork<N, E> implements Network<N, E> {
     }
   }
 
+  //入度
   @Override
   public int inDegree(N node) {
     return isDirected() ? inEdges(node).size() : degree(node);
   }
 
+  //出度
   @Override
   public int outDegree(N node) {
     return isDirected() ? outEdges(node).size() : degree(node);
   }
 
+  //相邻边
   @Override
   public Set<E> adjacentEdges(E edge) {
     EndpointPair<N> endpointPair = incidentNodes(edge); // Verifies that edge is in this network.
