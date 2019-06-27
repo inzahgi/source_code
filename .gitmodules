@@ -7,3 +7,6 @@
 [submodule "hyperloglog"]
 	path = hyperloglog
 	url = https://github.com/prasanthj/hyperloglog.git
+[submodule "Dragonfly"]
+	path = Dragonfly
+	url = https://github.com/dragonflyoss/Dragonfly.git

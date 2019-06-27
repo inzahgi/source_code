@@ -166,6 +166,7 @@ public abstract class AbstractNetwork<N, E> implements Network<N, E> {
     return Sets.difference(endpointPairIncidentEdges, ImmutableSet.of(edge));
   }
 
+  //两个节点是否相连
   @Override
   public Set<E> edgesConnecting(N nodeU, N nodeV) {
     Set<E> outEdgesU = outEdges(nodeU);

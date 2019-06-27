@@ -25,6 +25,7 @@ import com.google.common.graph.GraphConstants.Presence;
  * <p>Time complexities for mutation methods are all O(1) except for {@code removeNode(N node)},
  * which is in O(d_node) where d_node is the degree of {@code node}.
  *
+ *  可配置的mutableGraph实现图基类
  * @author James Sexton
  * @param <N> Node parameter type
  */
