@@ -10,6 +10,6 @@
 [submodule "Dragonfly"]
 	path = Dragonfly
 	url = https://github.com/dragonflyoss/Dragonfly.git
-[submodule "kafka"]
-	path = kafka
-	url = https://github.com/apache/kafka.git
+##[submodule "kafka"]
+##	path = kafka
+##	url = https://github.com/apache/kafka.git
