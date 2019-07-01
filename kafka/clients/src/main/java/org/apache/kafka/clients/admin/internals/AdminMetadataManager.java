@@ -44,12 +44,14 @@ public class AdminMetadataManager {
      * The minimum amount of time that we should wait between subsequent
      * retries, when fetching metadata.
      */
+    //拉取更新 最小过期时间
     private final long refreshBackoffMs;
 
     /**
      * The minimum amount of time that we should wait before triggering an
      * automatic metadata refresh.
      */
+    //元数据最大保留时间
     private final long metadataExpireMs;
 
     /**
@@ -65,25 +67,30 @@ public class AdminMetadataManager {
     /**
      * The time in wall-clock milliseconds when we last updated the metadata.
      */
+    //最新更新元数据时间
     private long lastMetadataUpdateMs = 0;
 
     /**
      * The time in wall-clock milliseconds when we last attempted to fetch new
      * metadata.
      */
+    //最新获取元数据时间
     private long lastMetadataFetchAttemptMs = 0;
 
     /**
      * The current cluster information.
      */
+    //集群信息
     private Cluster cluster = Cluster.empty();
 
     /**
      * If we got an authorization exception when we last attempted to fetch
      * metadata, this is it; null, otherwise.
      */
+    //权限认证异常
     private AuthenticationException authException = null;
 
+    //元数据更新内部类
     public class AdminMetadataUpdater implements MetadataUpdater {
         @Override
         public List<Node> fetchNodes() {
@@ -129,9 +136,9 @@ public class AdminMetadataManager {
      * The current AdminMetadataManager state.
      */
     enum State {
-        QUIESCENT,
-        UPDATE_REQUESTED,
-        UPDATE_PENDING
+        QUIESCENT, //保持静态
+        UPDATE_REQUESTED,  //请求
+        UPDATE_PENDING   //获取
     }
 
     public AdminMetadataManager(LogContext logContext, long refreshBackoffMs, long metadataExpireMs) {
@@ -163,15 +170,15 @@ public class AdminMetadataManager {
         log.trace("Metadata is ready to use.");
         return true;
     }
-
+    //获取管理节点
     public Node controller() {
         return cluster.controller();
     }
-
+    //根据nodeId获取节点
     public Node nodeById(int nodeId) {
         return cluster.nodeById(nodeId);
     }
-
+    //请求更新 更改state状态
     public void requestUpdate() {
         if (state == State.QUIESCENT) {
             state = State.UPDATE_REQUESTED;
@@ -179,6 +186,7 @@ public class AdminMetadataManager {
         }
     }
 
+    //生成新的controller类
     public void clearController() {
         if (cluster.controller() != null) {
             log.trace("Clearing cached controller node {}.", cluster.controller());
