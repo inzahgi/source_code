@@ -51,6 +51,7 @@ public abstract class AdminClient implements AutoCloseable {
      * @param props The configuration.
      * @return The new KafkaAdminClient.
      */
+    //根据配置文件 初始化 adminClient
     public static AdminClient create(Properties props) {
         return KafkaAdminClient.createInternal(new AdminClientConfig(props, true), null);
     }
@@ -61,6 +62,7 @@ public abstract class AdminClient implements AutoCloseable {
      * @param conf The configuration.
      * @return The new KafkaAdminClient.
      */
+    //根据配置项初始化
     public static AdminClient create(Map<String, Object> conf) {
         return KafkaAdminClient.createInternal(new AdminClientConfig(conf, true), null);
     }
@@ -70,6 +72,7 @@ public abstract class AdminClient implements AutoCloseable {
      *
      * See {@link AdminClient#close(long, TimeUnit)}
      */
+    // 关闭adminClient 释放所有的资源
     @Override
     public void close() {
         close(Long.MAX_VALUE, TimeUnit.MILLISECONDS);
@@ -115,6 +118,7 @@ public abstract class AdminClient implements AutoCloseable {
      * @param newTopics         The new topics to create.
      * @return                  The CreateTopicsResult.
      */
+    //生成主题
     public CreateTopicsResult createTopics(Collection<NewTopic> newTopics) {
         return createTopics(newTopics, new CreateTopicsOptions());
     }
@@ -136,6 +140,7 @@ public abstract class AdminClient implements AutoCloseable {
      * @param options           The options to use when creating the new topics.
      * @return                  The CreateTopicsResult.
      */
+    //生成主题 抽象方法
     public abstract CreateTopicsResult createTopics(Collection<NewTopic> newTopics,
                                                     CreateTopicsOptions options);
 
@@ -148,6 +153,7 @@ public abstract class AdminClient implements AutoCloseable {
      * @param topics            The topic names to delete.
      * @return                  The DeleteTopicsResult.
      */
+    //删除主题
     public DeleteTopicsResult deleteTopics(Collection<String> topics) {
         return deleteTopics(topics, new DeleteTopicsOptions());
     }
@@ -182,6 +188,7 @@ public abstract class AdminClient implements AutoCloseable {
      *
      * @return                  The ListTopicsResult.
      */
+    //列出所有主题
     public ListTopicsResult listTopics() {
         return listTopics(new ListTopicsOptions());
     }

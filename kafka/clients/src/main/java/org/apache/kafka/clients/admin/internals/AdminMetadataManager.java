@@ -202,6 +202,7 @@ public class AdminMetadataManager {
     /**
      * Determine if the AdminClient should fetch new metadata.
      */
+    //拉取元数据时间
     public long metadataFetchDelayMs(long now) {
         switch (state) {
             case QUIESCENT:
@@ -217,12 +218,12 @@ public class AdminMetadataManager {
                 return Long.MAX_VALUE;
         }
     }
-
+    //下次更新时间时隔
     private long delayBeforeNextExpireMs(long now) {
         long timeSinceUpdate = now - lastMetadataUpdateMs;
         return Math.max(0, metadataExpireMs - timeSinceUpdate);
     }
-
+    //下次拉取时间间隔
     private long delayBeforeNextAttemptMs(long now) {
         long timeSinceAttempt = now - lastMetadataFetchAttemptMs;
         return Math.max(0, refreshBackoffMs - timeSinceAttempt);
@@ -231,11 +232,13 @@ public class AdminMetadataManager {
     /**
      * Transition into the UPDATE_PENDING state.  Updates lastMetadataFetchAttemptMs.
      */
+    //转换为拉取更新模式
     public void transitionToUpdatePending(long now) {
         this.state = State.UPDATE_PENDING;
         this.lastMetadataFetchAttemptMs = now;
     }
 
+    //更新失败 设置为安静模式
     public void updateFailed(Throwable exception) {
         // We depend on pending calls to request another metadata update
         this.state = State.QUIESCENT;
@@ -252,6 +255,7 @@ public class AdminMetadataManager {
      * Receive new metadata, and transition into the QUIESCENT state.
      * Updates lastMetadataUpdateMs, cluster, and authException.
      */
+    //更新元数据
     public void update(Cluster cluster, long now) {
         if (cluster.isBootstrapConfigured()) {
             log.debug("Setting bootstrap cluster metadata {}.", cluster);
