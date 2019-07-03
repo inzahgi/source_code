@@ -199,6 +199,7 @@ public abstract class AdminClient implements AutoCloseable {
      * @param options           The options to use when listing the topics.
      * @return                  The ListTopicsResult.
      */
+    //展示所有可用主题的抽象方法
     public abstract ListTopicsResult listTopics(ListTopicsOptions options);
 
     /**
@@ -211,6 +212,7 @@ public abstract class AdminClient implements AutoCloseable {
      *
      * @return                  The DescribeTopicsResult.
      */
+    //获取主题详细信息
     public DescribeTopicsResult describeTopics(Collection<String> topicNames) {
         return describeTopics(topicNames, new DescribeTopicsOptions());
     }
@@ -223,6 +225,7 @@ public abstract class AdminClient implements AutoCloseable {
      *
      * @return                  The DescribeTopicsResult.
      */
+    //获取主题详细信息
     public abstract DescribeTopicsResult describeTopics(Collection<String> topicNames,
                                                          DescribeTopicsOptions options);
 
@@ -234,6 +237,7 @@ public abstract class AdminClient implements AutoCloseable {
      *
      * @return                  The DescribeClusterResult.
      */
+    //获取集群描述
     public DescribeClusterResult describeCluster() {
         return describeCluster(new DescribeClusterOptions());
     }
@@ -244,6 +248,7 @@ public abstract class AdminClient implements AutoCloseable {
      * @param options           The options to use when getting information about the cluster.
      * @return                  The DescribeClusterResult.
      */
+    //获取集群描述抽象类
     public abstract DescribeClusterResult describeCluster(DescribeClusterOptions options);
 
     /**
@@ -255,6 +260,7 @@ public abstract class AdminClient implements AutoCloseable {
      * @param filter            The filter to use.
      * @return                  The DeleteAclsResult.
      */
+    //获取acl权限秒速
     public DescribeAclsResult describeAcls(AclBindingFilter filter) {
         return describeAcls(filter, new DescribeAclsOptions());
     }
@@ -271,6 +277,7 @@ public abstract class AdminClient implements AutoCloseable {
      * @param options           The options to use when listing the ACLs.
      * @return                  The DeleteAclsResult.
      */
+    //获取acl权限秒速
     public abstract DescribeAclsResult describeAcls(AclBindingFilter filter, DescribeAclsOptions options);
 
     /**
@@ -282,6 +289,7 @@ public abstract class AdminClient implements AutoCloseable {
      * @param acls              The ACLs to create
      * @return                  The CreateAclsResult.
      */
+    //创建acl权限
     public CreateAclsResult createAcls(Collection<AclBinding> acls) {
         return createAcls(acls, new CreateAclsOptions());
     }
@@ -300,6 +308,7 @@ public abstract class AdminClient implements AutoCloseable {
      * @param options           The options to use when creating the ACLs.
      * @return                  The CreateAclsResult.
      */
+    //创建acl权限
     public abstract CreateAclsResult createAcls(Collection<AclBinding> acls, CreateAclsOptions options);
 
     /**
@@ -340,6 +349,7 @@ public abstract class AdminClient implements AutoCloseable {
      * @param resources         The resources (topic and broker resource types are currently supported)
      * @return                  The DescribeConfigsResult
      */
+    //获取配置项
     public DescribeConfigsResult describeConfigs(Collection<ConfigResource> resources) {
         return describeConfigs(resources, new DescribeConfigsOptions());
     }
@@ -410,6 +420,7 @@ public abstract class AdminClient implements AutoCloseable {
      * @param configs         The resources with their configs
      * @return                The IncrementalAlterConfigsResult
      */
+    //修改配置项
     public AlterConfigsResult incrementalAlterConfigs(Map<ConfigResource, Collection<AlterConfigOp>> configs) {
         return incrementalAlterConfigs(configs, new AlterConfigsOptions());
     }

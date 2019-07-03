@@ -462,6 +462,7 @@ public class KafkaAdminClient extends AdminClient {
         return time;
     }
 
+    //关闭管理器
     @Override
     public void close(Duration timeout) {
         long waitTimeMs = timeout.toMillis();
@@ -512,6 +513,7 @@ public class KafkaAdminClient extends AdminClient {
         Node provide();
     }
 
+    // 元数据更新 node 生产者 实现类
     private class MetadataUpdateNodeIdProvider implements NodeProvider {
         @Override
         public Node provide() {
@@ -544,6 +546,7 @@ public class KafkaAdminClient extends AdminClient {
     /**
      * Provides the controller node.
      */
+    //管理节点 生产者 实现类
     private class ControllerNodeProvider implements NodeProvider {
         @Override
         public Node provide() {
@@ -559,6 +562,7 @@ public class KafkaAdminClient extends AdminClient {
     /**
      * Provides the least loaded node.
      */
+    //叶子节点生产者 提供者
     private class LeastLoadedNodeProvider implements NodeProvider {
         @Override
         public Node provide() {
