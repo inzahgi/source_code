@@ -10,9 +10,10 @@ import java.io.InputStream;
 public class MybatisTester {
 
     public static void main(String[] args) {
-
+        //加载mybatis配置
         String resource = "/mybatis.xml";
         InputStream inputStream = MybatisTester.class.getResourceAsStream(resource);
+        //构造sqlSess
         SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
         SqlSession session = sqlSessionFactory.openSession();
         try {
