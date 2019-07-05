@@ -41,7 +41,7 @@ public class J2CacheConfig {
     private Properties broadcastProperties = new Properties();
     private Properties l1CacheProperties = new Properties();
     private Properties l2CacheProperties = new Properties();
-
+    //由配置文件初始化配置类
     public final static J2CacheConfig initFromConfig(String configResource) throws IOException {
         J2CacheConfig config = new J2CacheConfig();
         try (InputStream stream = getConfigStream(configResource)){
@@ -82,6 +82,7 @@ public class J2CacheConfig {
     private static InputStream getConfigStream(String resource) {
         log.info("Load J2Cache Config File : [{}].", resource);
         InputStream configStream = J2Cache.class.getResourceAsStream(resource);
+        //由JCache的父类加载器加载
         if(configStream == null) {
             configStream = J2Cache.class.getClassLoader().getParent().getResourceAsStream(resource);
         }

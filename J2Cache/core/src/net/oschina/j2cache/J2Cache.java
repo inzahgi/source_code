@@ -28,6 +28,7 @@ public class J2Cache {
 
 	static {
 		try {
+			//加载配置文件
             J2CacheConfig config = J2CacheConfig.initFromConfig(CONFIG_FILE);
             builder = J2CacheBuilder.init(config);
 		} catch (IOException e) {
