@@ -61,12 +61,12 @@ public class J2CacheBuilder {
                         @Override
                         public void sendClearCmd(String region) {
                             policy.sendClearCmd(region);
-                        }
+                        }//按区域清楚缓存
 
                         @Override
                         public void sendEvictCmd(String region, String... keys) {
                             policy.sendEvictCmd(region, keys);
-                        }
+                        } //删除指定键的缓存
 
                         @Override
                         public void close() {
