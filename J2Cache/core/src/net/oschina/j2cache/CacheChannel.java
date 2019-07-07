@@ -130,13 +130,13 @@ public abstract class CacheChannel implements Closeable , AutoCloseable {
 		String lock_key = key + '@' + region;
 		//设置全局锁
 		synchronized (_g_keyLocks.computeIfAbsent(lock_key, v -> new Object())) {
-			//其他线程设置缓存则返回
+			// 尝试获取其他线程设置缓存则返回
 			cache = get(region, key, false);
 
 			if (cache.rawValue() != null) {
 				return cache;
 			}
-
+			//从数据库获取数据 更新缓存
 			try {
 				//加载缓存值
 				Object obj = loader.apply(key);

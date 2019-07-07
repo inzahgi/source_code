@@ -31,7 +31,7 @@ public class J2CacheCmd {
 	public static void main(String[] args) throws IOException {
 
 		CacheChannel cache = J2Cache.getChannel(); //获取 J2Cache 操作接口
-		ConsoleReader reader = new ConsoleReader();
+		ConsoleReader reader = new ConsoleReader(); //获取控制台输入
 
 		String line;
 
@@ -44,10 +44,11 @@ public class J2CacheCmd {
 				}
 
 				String[] cmds = line.split(" ");
+				//get 命令开头  按照分区和key查找
 				if("get".equalsIgnoreCase(cmds[0])){
 					CacheObject obj = cache.get(cmds[1], cmds[2]); //从缓存读取数据
 					System.out.printf("[%s,%s,L%d]=>%s(TTL:%d)%n", obj.getRegion(), obj.getKey(), obj.getLevel(), obj.getValue(), TTL);
-				} else if("mget".equalsIgnoreCase(cmds[0])){
+				} else if("mget".equalsIgnoreCase(cmds[0])){// mget 命令开头 批量读取缓存
 					List<String> keys = Arrays.stream(cmds).skip(2).collect(Collectors.toList());
 					Map<String, CacheObject> values = cache.get(cmds[1], keys); //批量获取缓存数据
 					if(values != null && values.size() > 0) {
