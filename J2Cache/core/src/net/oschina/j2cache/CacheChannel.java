@@ -342,9 +342,9 @@ public abstract class CacheChannel implements Closeable , AutoCloseable {
 				// 获取二级缓存操作类
 				Level2Cache level2 = CacheProviderHolder.getLevel2Cache(region);
 				// 同步二级缓存到redis
-				if(config.isSyncTtlToRedis()) {
+				if(config.isSyncTtlToRedis()) {//带过期时间的缓存同步
 					level2.put(key, (value == null && cacheNullObject) ? newNullObject() : value, timeToLiveInSeconds);
-				}else {
+				}else {//不带过期时间的redis缓存同步
 					level2.put(key, (value == null && cacheNullObject) ? newNullObject() : value);
 				}
 			} finally {

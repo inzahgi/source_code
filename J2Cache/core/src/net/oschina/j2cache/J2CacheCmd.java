@@ -56,13 +56,13 @@ public class J2CacheCmd {
 					}else {
 						System.out.println("none!");
 					}
-				} else if("set".equalsIgnoreCase(cmds[0])){
-					if("null".equalsIgnoreCase(cmds[3])) {
+				} else if("set".equalsIgnoreCase(cmds[0])){ // set 命令开头 设置缓存
+					if("null".equalsIgnoreCase(cmds[3])) {  // 第四个参数为null字符串则设置为null
 						cmds[3] = null;
 					}
 					cache.set(cmds[1], cmds[2], cmds[3], TTL, true); //数据写入缓存
 					System.out.printf("[%s,%s]<=%s(TTL:%d)%n",cmds[1], cmds[2], cmds[3], TTL);
-				} else if("mset".equalsIgnoreCase(cmds[0])){
+				} else if("mset".equalsIgnoreCase(cmds[0])){ //批量设置
 					String region = cmds[1];
 					Map<String, Object> objs = new HashMap<>();
 					for(int i=2;i<cmds.length;i++) {
@@ -74,19 +74,19 @@ public class J2CacheCmd {
 					}
 					cache.set(cmds[1], objs, TTL, true); //批量写入数据到缓存
 					objs.forEach((k,v)->System.out.printf("[%s,%s]<=%s(TTL:%d)%n",region, k, v, TTL));
-				} else if("evict".equalsIgnoreCase(cmds[0])){
+				} else if("evict".equalsIgnoreCase(cmds[0])){ //按key删除缓存
 					String[] keys = Arrays.stream(cmds).skip(2).toArray(String[]::new);
 					cache.evict(cmds[1], keys); //清除某个缓存数据
 					for(String key : keys) {
 						System.out.printf("[%s,%s]=>null%n", cmds[1], key);
 					}
-				} else if("clear".equalsIgnoreCase(cmds[0])){
+				} else if("clear".equalsIgnoreCase(cmds[0])){ //按regions 删除缓存
 					cache.clear(cmds[1]);	//清除某个缓存区域的数据
 					System.out.printf("Cache [%s] clear.%n" , cmds[1]);
-				} else if("regions".equalsIgnoreCase(cmds[0])){
+				} else if("regions".equalsIgnoreCase(cmds[0])){  //打印所有分区
 					System.out.println("Regions:");
 					cache.regions().forEach( r -> System.out.println(r));
-				} else if("keys".equalsIgnoreCase(cmds[0])){
+				} else if("keys".equalsIgnoreCase(cmds[0])){ // 打印所有key
 					Collection<String> keys = cache.keys(cmds[1]); //获得某个缓存区域的所有 key
 					if(keys != null) {
 						System.out.printf("[%s:keys] => (%s)(TTL:%d)%n", cmds[1], String.join(",", keys), TTL);
