@@ -46,6 +46,7 @@ public class EhCache3 implements Level1Cache, CacheEventListener {
         this.listener = listener;
     }
 
+    //获取过期时间
     @Override
     public long ttl() {
         Duration dur = this.cache.getRuntimeConfiguration().getExpiry().getExpiryForCreation(null,null);
@@ -54,31 +55,36 @@ public class EhCache3 implements Level1Cache, CacheEventListener {
         return dur.getTimeUnit().toSeconds(dur.getLength());
     }
 
+    //获取缓存大小
     @Override
     public long size() {
         return this.cache.getRuntimeConfiguration().getResourcePools().getPoolForResource(ResourceType.Core.HEAP).getSize();
     }
 
+    //获取缓存
     @Override
     public Object get(String key) {
         return this.cache.get(key);
     }
 
+    //添加缓存
     @Override
     public void put(String key, Object value) {
         this.cache.put(key, value);
     }
 
+    //批量获取缓存
     @Override
     public Map<String, Object> get(Collection<String> keys) {
         return cache.getAll(keys.stream().collect(Collectors.toSet()));
     }
 
+    //是否存在这个key的缓存
     @Override
     public boolean exists(String key) {
         return cache.containsKey(key);
     }
-
+    //设置缓存
     @Override
     public void put(Map<String, Object> elements) {
         cache.putAll(elements);

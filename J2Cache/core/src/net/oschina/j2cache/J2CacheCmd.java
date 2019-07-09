@@ -93,7 +93,7 @@ public class J2CacheCmd {
 					} else {
 						System.out.println("none!");
 					}
-				} else if("ttl".equalsIgnoreCase(cmds[0])){
+				} else if("ttl".equalsIgnoreCase(cmds[0])){ // 打印过期使时间
 					if(cmds.length == 1){
 						System.out.printf("TTL => %d%n", TTL);
 					}
