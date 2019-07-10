@@ -20,7 +20,7 @@ import com.alipay.sofa.common.log.LoggerSpaceManager;
 
 /**
  * LoggerFactory for SOFAArk
- *
+ * 日志工厂类
  * @author ruoshan
  * @since 0.1.0
  */

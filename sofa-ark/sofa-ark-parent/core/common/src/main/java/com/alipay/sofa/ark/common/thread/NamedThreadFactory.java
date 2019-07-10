@@ -21,7 +21,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * Common NamedThreadFactory
- *
+ * 线程命名工厂类
  * @author qilong.zql
  * @since 0.4.0
  */

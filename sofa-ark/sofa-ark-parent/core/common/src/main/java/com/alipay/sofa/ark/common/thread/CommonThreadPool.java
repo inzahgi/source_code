@@ -23,7 +23,7 @@ import java.util.concurrent.TimeUnit;
 
 /**
  * Execute tasks triggered by ark container and ark plugin.
- *
+ * 常用线程池
  * @author qilong.zql
  * @since 0.4.0
  */

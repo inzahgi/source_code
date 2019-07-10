@@ -21,7 +21,7 @@ import org.slf4j.Marker;
 
 /**
  * Logger Implementation for SOFAArk
- *
+ *  日志类
  * @author ruoshan
  * @since 0.1.0
  */
